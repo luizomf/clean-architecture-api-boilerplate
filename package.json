@@ -10,7 +10,7 @@
     "dev": "ts-node-dev -r 'dotenv/config' -r 'tsconfig-paths/register' src/infrastructure/express/server.ts",
     "start": "node -r 'dotenv/config' dist/infrastructure/express/server.js",
     "build": "rm -R dist ; babel src --extensions \".ts,.js\" --out-dir dist --copy-files --no-copy-ignored",
-    "test": "jest --bail",
+    "test": "jest --bail --runInBand",
     "test:lintStaged": "npm test -- --findRelatedTests",
     "test:coverage": "npm test -- --coverage",
     "test:watch": "npm test -- --watch",
