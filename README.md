@@ -1,4 +1,4 @@
-**Disclaimer:** this API may change a lot since it's still under development. Feel free to help me create the best boilerplate possible.
+**Disclaimer:** this API may change a lot since it's still under development. Feel free to help me to create the best boilerplate possible.
 
 # Clean Architecture API with TypeScript
 
