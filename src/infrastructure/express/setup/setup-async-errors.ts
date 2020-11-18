@@ -3,6 +3,7 @@ import { DefaultApplicationError } from '~/application/errors/default-applicatio
 
 export const setupAsyncErrors = (app: Express): void => {
   app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
+    /* istanbul ignore next */
     if (!error) {
       return next();
     }
