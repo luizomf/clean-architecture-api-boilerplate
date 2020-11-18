@@ -1,6 +1,6 @@
 import { createUserControllerFactory } from '../factories/user/create-user-controller-factory';
 
-const createUserController = createUserControllerFactory();
+const { createUserController } = createUserControllerFactory();
 
 createUserController
   .handleRequest({

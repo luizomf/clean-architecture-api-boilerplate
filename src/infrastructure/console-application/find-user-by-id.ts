@@ -1,7 +1,7 @@
 // This is just for simulation (eliminating express)
 import { findUserByIdControllerFactory } from '../factories/user/find-user-by-id-controller-factory';
 
-const findUserByIdController = findUserByIdControllerFactory();
+const { findUserByIdController } = findUserByIdControllerFactory();
 
 findUserByIdController
   .handleRequest({
