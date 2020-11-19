@@ -1,6 +1,7 @@
 __my_files
 __docs
 dist
+*.sqlite3
 
 
 # Created by https://www.toptal.com/developers/gitignore/api/node,python

@@ -1,6 +1,6 @@
 import { FindUserByIdController } from '~/adapters/controllers/user/find-by-id-controller';
 import { FindUserByIdUseCase } from '~/application/use-cases/user/find-user-by-id';
-import { inMemoryUserRepositoryFactory } from '~/infrastructure/repositories/testing-repository/in-memory-user-repository-factory';
+import { inMemoryUserRepositoryFactory } from '~/infrastructure/repositories/user/testing-repository/in-memory-user-repository-factory';
 import { SuccessUserPresenter } from '~/adapters/presenters/responses/user/success-user-presenter';
 import { FindUserByIdValidationComposite } from '~/adapters/validation/user/composites/find-user-by-id-validation-composite';
 
