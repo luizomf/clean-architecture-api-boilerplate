@@ -13,9 +13,11 @@ jobs:
       - run: npm run prePush
         env:
           CI: true
-  test: # make sure the action works on a clean machine without building
+  start: # make sure the action works on a clean machine without building
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
+      - run: npm install
+      - run: npm run build
       - run: npm start
