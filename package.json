@@ -18,7 +18,8 @@
     "test:watchUnit": "npm run test:watch -- --testMatch \"**/?*.spec.ts?(x)\"",
     "test:watchIntegration": "npm run test:watch -- --testMatch \"**/?*.test.ts?(x)\"",
     "lint:log": "eslint 'src/**/*.ts'",
-    "lint": "eslint 'src/**/*.ts' --fix --max-warnings 0"
+    "lint": "eslint 'src/**/*.ts' --fix --max-warnings 0",
+    "prePush": "npm run test:coverage && npm run lint && npm run build"
   },
   "keywords": [],
   "author": "",
