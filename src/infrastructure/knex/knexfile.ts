@@ -1,6 +1,11 @@
 import { resolve } from 'path';
 
 export default {
+  test: {
+    client: 'sqlite3',
+    connection: ':memory:',
+    useNullAsDefault: true,
+  },
   development: {
     client: 'sqlite3',
     connection: {
