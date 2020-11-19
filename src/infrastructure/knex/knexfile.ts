@@ -1,4 +1,8 @@
+import dotenv from 'dotenv';
 import { resolve } from 'path';
+
+const dotenvFilePath = resolve(__dirname, '..', '..', '..', '.env');
+dotenv.config({ path: dotenvFilePath });
 
 export default {
   test: {
@@ -14,11 +18,12 @@ export default {
     useNullAsDefault: true,
   },
   production: {
-    client: 'postgresql',
+    client: process.env.DATABASE_CLIENT,
     connection: {
-      database: 'my_db',
-      user: 'username',
-      password: 'password',
+      database: process.env.DATABASE_NAME,
+      user: process.env.DATABASE_USER,
+      password: process.env.DATABASE_PASSWORD,
+      port: process.env.DATABASE_PORT,
     },
     pool: {
       min: 2,

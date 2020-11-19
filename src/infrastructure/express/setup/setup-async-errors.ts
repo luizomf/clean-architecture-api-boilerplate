@@ -8,6 +8,10 @@ export const setupAsyncErrors = (app: Express): void => {
       return next();
     }
 
+    if (process.env.DEBUG === '1') {
+      console.error(error);
+    }
+
     if (!(error instanceof DefaultApplicationError)) {
       return res.status(500).json({
         error: error.name,

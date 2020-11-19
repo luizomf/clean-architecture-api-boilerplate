@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "ts-node-dev -r 'dotenv/config' -r 'tsconfig-paths/register' src/infrastructure/express/server.ts",
-    "start": "node -r 'dotenv/config' dist/infrastructure/express/server.js",
+    "start": "NODE_ENV=production node -r 'dotenv/config' dist/infrastructure/express/server.js",
     "build": "rm -R dist ; babel src --extensions \".ts,.js\" --out-dir dist --copy-files --no-copy-ignored",
     "test": "jest --bail --runInBand --setupFiles dotenv/config",
     "test:lintStaged": "npm test -- --findRelatedTests",
@@ -23,7 +23,10 @@
     "migrate:dev": "knex --knexfile ./src/infrastructure/knex/knexfile.ts migrate:latest --env development",
     "migrate:prod": "knex --knexfile ./src/infrastructure/knex/knexfile.ts migrate:latest --env production",
     "rollback:dev": "knex --knexfile ./src/infrastructure/knex/knexfile.ts migrate:rollback --env development",
-    "rollback:prod": "knex --knexfile ./src/infrastructure/knex/knexfile.ts migrate:rollback --env production"
+    "rollback:prod": "knex --knexfile ./src/infrastructure/knex/knexfile.ts migrate:rollback --env production",
+    "database:up": "docker-compose up -d",
+    "database:down": "docker-compose down",
+    "docker:dropAll": "docker stop $(docker ps -a -q) && docker system prune -f"
   },
   "keywords": [],
   "author": "",
