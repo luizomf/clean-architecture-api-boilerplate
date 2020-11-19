@@ -10,6 +10,7 @@
     "dev": "ts-node-dev -r 'dotenv/config' -r 'tsconfig-paths/register' src/infrastructure/express/server.ts",
     "start": "NODE_ENV=production node -r 'dotenv/config' dist/infrastructure/express/server.js",
     "build": "rm -R dist ; babel src --extensions \".ts,.js\" --out-dir dist --copy-files --no-copy-ignored",
+    "buildAndStart": "npm run build && NODE_ENV=production npm start",
     "test": "jest --bail --runInBand --setupFiles dotenv/config",
     "test:lintStaged": "npm test -- --findRelatedTests",
     "test:coverage": "npm test -- --coverage",
