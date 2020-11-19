@@ -10,7 +10,7 @@
     "dev": "ts-node-dev -r 'dotenv/config' -r 'tsconfig-paths/register' src/infrastructure/express/server.ts",
     "start": "node -r 'dotenv/config' dist/infrastructure/express/server.js",
     "build": "rm -R dist ; babel src --extensions \".ts,.js\" --out-dir dist --copy-files --no-copy-ignored",
-    "test": "jest --bail --runInBand",
+    "test": "jest --bail --runInBand --setupFiles dotenv/config",
     "test:lintStaged": "npm test -- --findRelatedTests",
     "test:coverage": "npm test -- --coverage",
     "test:watch": "npm test -- --watch",
@@ -19,7 +19,11 @@
     "test:watchIntegration": "npm run test:watch -- --testMatch \"**/?*.test.ts?(x)\"",
     "lint:log": "eslint 'src/**/*.ts'",
     "lint": "eslint 'src/**/*.ts' --fix --max-warnings 0",
-    "prePush": "npm run test:coverage && npm run lint && npm run build"
+    "prePush": "npm run test:coverage && npm run lint && npm run build",
+    "migrate:dev": "knex --knexfile ./src/infrastructure/knex/knexfile.ts migrate:latest --env development",
+    "migrate:prod": "knex --knexfile ./src/infrastructure/knex/knexfile.ts migrate:latest --env production",
+    "rollback:dev": "knex --knexfile ./src/infrastructure/knex/knexfile.ts migrate:rollback --env development",
+    "rollback:prod": "knex --knexfile ./src/infrastructure/knex/knexfile.ts migrate:rollback --env production"
   },
   "keywords": [],
   "author": "",
