@@ -8,6 +8,7 @@ export const setupAsyncErrors = (app: Express): void => {
       return next();
     }
 
+    /* istanbul ignore next */
     if (process.env.DEBUG === '1') {
       console.error(error);
     }

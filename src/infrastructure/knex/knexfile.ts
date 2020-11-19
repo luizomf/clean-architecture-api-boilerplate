@@ -4,7 +4,7 @@ import { resolve } from 'path';
 const dotenvFilePath = resolve(__dirname, '..', '..', '..', '.env');
 dotenv.config({ path: dotenvFilePath });
 
-export default {
+export const knexConnection = {
   test: {
     client: 'sqlite3',
     connection: ':memory:',
@@ -18,12 +18,12 @@ export default {
     useNullAsDefault: true,
   },
   production: {
-    client: process.env.DATABASE_CLIENT,
+    client: process.env.DATABASE_CLIENT || 'postgresql',
     connection: {
-      database: process.env.DATABASE_NAME,
-      user: process.env.DATABASE_USER,
-      password: process.env.DATABASE_PASSWORD,
-      port: process.env.DATABASE_PORT,
+      database: process.env.DATABASE_NAME || 'database_name',
+      user: process.env.DATABASE_USER || 'postgres',
+      password: process.env.DATABASE_PASSWORD || 'postgres',
+      port: parseInt(process.env.DATABASE_PORT || '5432'),
     },
     pool: {
       min: 2,
