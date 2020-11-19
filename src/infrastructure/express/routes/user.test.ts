@@ -1,7 +1,16 @@
 import request from 'supertest';
+import { db } from '~/infrastructure/knex/connection';
 import { app } from '../server';
 
 describe('User Routes', () => {
+  beforeAll(async () => {
+    await db.migrate.latest({ directory: process.env.MIGRATIONS });
+  });
+
+  afterAll(async () => {
+    await db.destroy();
+  });
+
   it('should create users with no errors if everything is OK', async () => {
     await request(app)
       .post('/users')
@@ -113,7 +122,7 @@ describe('User Routes', () => {
   });
 
   it('should return 404 if user not found', async () => {
-    const response = await request(app).get('/users/1');
+    const response = await request(app).get('/users/abc');
     expect(response.status).toBe(404);
     expect(response.body.error).toBe('NotFoundError');
   });
