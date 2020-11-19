@@ -1,8 +1,8 @@
 __my_files
 __docs
 dist
-*.sqlite3
-
+*.sqlite*
+.VSCodeCounter
 
 # Created by https://www.toptal.com/developers/gitignore/api/node,python
 # Edit at https://www.toptal.com/developers/gitignore?templates=node,python
