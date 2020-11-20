@@ -125,3 +125,6 @@ src - root directory
             ├── sql - repositories related to SQL (I'm using PostgreSQL)
             └── testing-repository - an in memory repository made just for fun
 ```
+## The "User" entity
+
+You may notice that I've created an entity called "User". This is just as an example for creating new entities. If you really want to use this entity, you should remove routes like "delete" (delete method), "update" (put method) or even "finds" (get methods). I'm creating all CRUD operations open, so anyone will be able to access this routes. To do that, just remove or comment routes in `src/infrastructure/express/routes/user.ts` so that no one can use those. You might change those routes as you need as well.
