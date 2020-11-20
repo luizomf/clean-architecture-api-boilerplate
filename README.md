@@ -10,7 +10,7 @@ There's also another layer called "common" that you can use as a [cross-cutting 
 
 Read more about clean architecture in [this article](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html).
 
-## Folder structure (layers)
+## Clean Architecture Layers
 
 The folder structure may change in the future, but currently we have that:
 
@@ -73,3 +73,53 @@ Notice the "Dependency rule" (the arrows pointing inwards to the Entities). Here
 >By the same token, data formats used in an outer circle should not be used by an inner circle, especially if those formats are generate by a framework in an outer circle. We don’t want anything in an outer circle to impact the inner circles. ([Read the source](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html))
 
 In our case, data enter the system via "express routes" (infrastructure layer) to the "controllers" (adapters layer), to the "use cases" (application layer), to the "domain" (domain/entities layer).
+
+## Folder Structure in detail
+
+```
+src - root directory
+├── adapters - Interface Adapters (described in clean architecture layers)
+│   ├── controllers - all controller implementations (interface is in application layer)
+│   │   └── user - controllers for "User" entity
+│   ├── presenters - all presenters implementations
+│   │   └── responses - all response models
+│   │       ├── generic - generic response models
+│   │       └── user - "User" entity response models
+│   └── validation - validations for this layer
+│       ├── common - common validation that may be used by other entities
+│       └── user - "User" entity validations
+│           ├── composites - validations that may be composed by other validations
+│           └── single-validations - validations that are specific for some cases
+├── application - Use Cases (described in clean architecture layers)
+│   ├── errors - all application related errors
+│   ├── ports - the name is from "Hexagonal Architecture". Just interfaces here.
+│   │   ├── controllers - interfaces for controllers
+│   │   ├── presenters - interfaces for presenters
+│   │   ├── repositories - interfaces for repositories
+│   │   ├── request - interfaces for request models
+│   │   ├── response - interfaces for response models
+│   │   ├── security - interfaces for any security concern
+│   │   ├── user - data model for users (interfaces)
+│   │   └── validators - validator interfaces
+│   └── use-cases - all application use cases
+│       └── user - all use cases for user entity
+├── common - Cross-cutting concerns (add things that can be used in all layers)
+│   └── validators - mostly adapters (by Gof) for any validator
+├── domain - Domain/Entities (described in clean architecture layers)
+│   └── user - the entity "User"
+└── infrastructure - Frameworks and Drivers (described in clean architecture layers)
+    ├── console-application - this is nothing really, just me testing the controllers
+    ├── express - all express configs
+    │   ├── middlewares - express middlewares
+    │   ├── routes - express routes
+    │   ├── setup - express setups
+    │   └── utils - express helper functions
+    ├── factories - factories to put all classes together (generally controllers)
+    │   └── user - factories for user controllers
+    ├── knex - knex configurations
+    │   └── migrations - knex migrations
+    └── repositories - add your repositories here
+        └── user - repositories for "User" entity
+            ├── sql - repositories related to SQL (I'm using PostgreSQL)
+            └── testing-repository - an in memory repository made just for fun
+```
