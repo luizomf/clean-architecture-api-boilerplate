@@ -1,7 +1,7 @@
 import { NotFoundError } from '~/application/errors/not-found-error';
 import { FindUserByIdRepository } from '~/application/ports/repositories/find-user-by-id-repository';
 import { User } from '~/domain/user/user';
-import { FindUserByIdUseCase } from './find-user-by-id';
+import { FindUserById } from './find-user-by-id';
 
 const findUserRepositoryMockFactory = () => {
   class FindUserByIdRepositoryMock implements FindUserByIdRepository {
@@ -27,7 +27,7 @@ const userMockFactory = (): User[] => {
 
 const sutFactory = () => {
   const repository = findUserRepositoryMockFactory();
-  const sut = new FindUserByIdUseCase(repository);
+  const sut = new FindUserById(repository);
 
   return {
     sut,

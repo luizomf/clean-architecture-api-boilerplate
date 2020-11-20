@@ -3,19 +3,19 @@ import { findUserByIdControllerFactory } from './find-user-by-id-controller-fact
 const sutFactory = () => {
   const {
     findUserByIdController: sut,
-    findUserByIdUseCase,
+    findUserById,
   } = findUserByIdControllerFactory();
 
   return {
     sut,
-    findUserByIdUseCase,
+    findUserById,
   };
 };
 
 describe('findUserByIdControllerFactory', () => {
   it('should find a user with no errors', async () => {
-    const { sut, findUserByIdUseCase } = sutFactory();
-    jest.spyOn(findUserByIdUseCase, 'findById').mockResolvedValueOnce({
+    const { sut, findUserById } = sutFactory();
+    jest.spyOn(findUserById, 'findById').mockResolvedValueOnce({
       id: '1',
       first_name: 'first_name',
       last_name: 'last_name',

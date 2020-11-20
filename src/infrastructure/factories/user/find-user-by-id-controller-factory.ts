@@ -1,5 +1,5 @@
 import { FindUserByIdController } from '~/adapters/controllers/user/find-by-id-controller';
-import { FindUserByIdUseCase } from '~/application/use-cases/user/find-user-by-id';
+import { FindUserById } from '~/application/use-cases/user/find-user-by-id';
 import { SuccessUserPresenter } from '~/adapters/presenters/responses/user/success-user-presenter';
 import { FindUserByIdValidationComposite } from '~/adapters/validation/user/composites/find-user-by-id-validation-composite';
 import { findUserByIdRepository } from '~/infrastructure/repositories/user/user-default-repository';
@@ -7,9 +7,9 @@ import { findUserByIdRepository } from '~/infrastructure/repositories/user/user-
 export const findUserByIdControllerFactory = () => {
   const findUserByIdValidationComposite = new FindUserByIdValidationComposite();
   const successUserPresenter = new SuccessUserPresenter();
-  const findUserByIdUseCase = new FindUserByIdUseCase(findUserByIdRepository);
+  const findUserById = new FindUserById(findUserByIdRepository);
   const findUserByIdController = new FindUserByIdController(
-    findUserByIdUseCase,
+    findUserById,
     findUserByIdValidationComposite,
     successUserPresenter,
   );
@@ -17,7 +17,7 @@ export const findUserByIdControllerFactory = () => {
   return {
     findUserByIdValidationComposite,
     successUserPresenter,
-    findUserByIdUseCase,
+    findUserById,
     findUserByIdController,
   };
 };
