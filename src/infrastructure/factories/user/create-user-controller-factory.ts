@@ -2,7 +2,6 @@ import { CreateUserController } from '~/adapters/controllers/user/create-user-co
 import { CreatedUserPresenter } from '~/adapters/presenters/responses/user/created-user-presenter';
 import { CreateUserRequestValidationComposite } from '~/adapters/validation/user/composites/create-user-request-validation-composite';
 import { CreateUser } from '~/application/use-cases/user/create-user';
-import { FindUserByEmail } from '~/application/use-cases/user/find-user-by-email';
 import { BCryptAdapter } from '~/common/validators/bcrypt-adapter';
 import { EmailValidatorAdapter } from '~/common/validators/email-validator-adapter';
 import {
@@ -12,10 +11,9 @@ import {
 
 export const createUserControllerFactory = () => {
   const bcryptAdapter = new BCryptAdapter();
-  const findUserByEmailUseCase = new FindUserByEmail(findUserByEmailRepository);
   const createUserUseCase = new CreateUser(
     createUserRepository,
-    findUserByEmailUseCase,
+    findUserByEmailRepository,
     bcryptAdapter,
   );
   const emailValidatorAdapter = new EmailValidatorAdapter();
