@@ -29,7 +29,9 @@ export class UserSqlRepository
     requestModel: CreateUserRequestWithPasswordHash,
   ): Promise<User | never> {
     try {
-      const user = await db<User>(this.table).insert(requestModel);
+      const user = await db<User>(this.table)
+        .insert(requestModel)
+        .returning('id');
       return {
         id: user[0].toString(),
         email: requestModel.email,
@@ -38,8 +40,27 @@ export class UserSqlRepository
         password_hash: requestModel.password_hash,
       };
     } catch (error) {
+      console.log(error);
       const repositoryError = new RepositoryError('Could not create User');
       throw repositoryError;
     }
   }
 }
+
+// const user = new UserSqlRepository();
+// user
+//   .create({
+//     first_name: 'first_name',
+//     last_name: 'last_name',
+//     email: 'email1@email.com',
+//     password_hash: 'password_hash',
+//   })
+//   .then((r) => {
+//     console.log(r);
+//   })
+//   .catch((e) => {
+//     console.log(e);
+//   })
+//   .finally(() => {
+//     db.destroy();
+//   });
