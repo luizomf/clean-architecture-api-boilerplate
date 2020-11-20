@@ -76,6 +76,8 @@ In our case, data enter the system via "express routes" (infrastructure layer) t
 
 ## Folder Structure in detail
 
+**Disclaimer** - I'm currently developing this software and I may not keep changing this README. But it's good for you to see how the application is evolving.
+
 ```
 src - root directory
 ├── adapters - Interface Adapters (described in clean architecture layers)
