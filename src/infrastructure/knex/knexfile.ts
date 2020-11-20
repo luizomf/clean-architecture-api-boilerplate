@@ -20,6 +20,7 @@ export const knexConnection = {
   production: {
     client: process.env.DATABASE_CLIENT || 'postgresql',
     connection: {
+      host: process.env.DATABASE_HOST || '127.0.0.1',
       database: process.env.DATABASE_NAME || 'database_name',
       user: process.env.DATABASE_USER || 'postgres',
       password: process.env.DATABASE_PASSWORD || 'postgres',
