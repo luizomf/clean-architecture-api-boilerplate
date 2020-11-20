@@ -34,7 +34,7 @@ const userResponseFactory = () => {
 describe('FindUserByEmail', () => {
   it('should return a user if found', async () => {
     const { sut } = sutFactory();
-    return sut.findByEmail('an_email@email.com').then((user) => {
+    return sut.find('an_email@email.com').then((user) => {
       return expect(user).toEqual(userResponseFactory());
     });
   });
@@ -44,7 +44,7 @@ describe('FindUserByEmail', () => {
     jest
       .spyOn(findUserByEmailRepositoryMock, 'findByEmail')
       .mockResolvedValue(null);
-    return sut.findByEmail('an_email@email.com').then((user) => {
+    return sut.find('an_email@email.com').then((user) => {
       return expect(user).toBeNull();
     });
   });

@@ -1,19 +1,19 @@
 import { UserExistsError } from '~/application/errors/user-exists-error';
 import { CreateUserRepository } from '~/application/ports/repositories/create-user-repository';
-import { FindUserByEmailRepository } from '~/application/ports/repositories/find-user-by-email-repository';
 import { PasswordHashing } from '~/application/ports/security/password-hashing';
 import { CreateUserRequestWithPasswordHash } from '~/application/ports/user/create-user-request-model';
+import { FindUserByEmailUseCase } from '~/application/ports/user/find-user-by-email-use-case';
 import { User } from '~/domain/user/user';
 import { CreateUser } from './create-user';
 
 const sutFactory = () => {
   const userRequestMock = userRequestFactoryWithPassword();
   const createUserRepositoryMock = createUserRepositoryMockFactory();
-  const findUserByEmailRepositoryMock = createFindUserByEmailRepositoryMock();
+  const findUserByEmailUseCaseMock = createFindUserByEmailUseCaseMock();
   const passwordHashingMock = passwordHashingMockFactory();
   const sut = new CreateUser(
     createUserRepositoryMock,
-    findUserByEmailRepositoryMock,
+    findUserByEmailUseCaseMock,
     passwordHashingMock,
   );
 
@@ -21,7 +21,7 @@ const sutFactory = () => {
     sut,
     userRequestMock,
     createUserRepositoryMock,
-    findUserByEmailRepositoryMock,
+    findUserByEmailUseCaseMock,
   };
 };
 
@@ -56,14 +56,14 @@ const createUserRepositoryMockFactory = (): CreateUserRepository => {
   return new CreateUserRepositoryMock();
 };
 
-const createFindUserByEmailRepositoryMock = () => {
-  class FindUserByEmailRepositoryMock implements FindUserByEmailRepository {
-    async findByEmail(_email: string): Promise<User | null> {
+const createFindUserByEmailUseCaseMock = () => {
+  class FindUserByEmailUseCaseMock implements FindUserByEmailUseCase {
+    async find(_email: string): Promise<User | null> {
       return null;
     }
   }
 
-  return new FindUserByEmailRepositoryMock();
+  return new FindUserByEmailUseCaseMock();
 };
 
 const userRequestFactoryWithPassword = () => {
@@ -114,13 +114,9 @@ describe('Create User', () => {
   });
 
   it('should throw if user already exist', async () => {
-    const {
-      sut,
-      userRequestMock,
-      findUserByEmailRepositoryMock,
-    } = sutFactory();
+    const { sut, userRequestMock, findUserByEmailUseCaseMock } = sutFactory();
     jest
-      .spyOn(findUserByEmailRepositoryMock, 'findByEmail')
+      .spyOn(findUserByEmailUseCaseMock, 'find')
       .mockResolvedValue(userResponseFactory());
     return sut.create(userRequestMock.body).catch((error) => {
       return expect(error).toEqual(new UserExistsError('User already created'));
