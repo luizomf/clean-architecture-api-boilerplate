@@ -27,7 +27,7 @@ const presenterMockFactory = () => {
     async response(_user: any) {
       return {
         statusCode: 200,
-        body: 1,
+        body: undefined,
       };
     }
   }
@@ -119,6 +119,6 @@ describe('DeleteUserByIdController', () => {
 
     const response = await sut.handleRequest({ params: { id: '1000' } });
     expect(response.statusCode).toBe(200);
-    expect(response.body).toBe(1);
+    expect(response.body).toBeUndefined();
   });
 });

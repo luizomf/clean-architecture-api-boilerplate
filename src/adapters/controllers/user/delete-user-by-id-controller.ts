@@ -9,7 +9,7 @@ export class DeleteUserByIdController implements Controller<void> {
   constructor(
     private readonly deleteUserByIdUseCase: DeleteUserByIdUseCase,
     private readonly validation: ValidationComposite,
-    private readonly presenter: Presenter<void | never>,
+    private readonly presenter: Presenter<void>,
   ) {}
 
   async handleRequest(
