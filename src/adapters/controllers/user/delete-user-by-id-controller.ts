@@ -5,21 +5,18 @@ import { ResponseModel } from '~/application/ports/response/response-model';
 import { DeleteUserByIdUseCase } from '~/application/ports/user/delete-user-by-id-use-case';
 import { ValidationComposite } from '~/application/ports/validators/validation-composite';
 
-export class DeleteUserByIdController implements Controller<number> {
+export class DeleteUserByIdController implements Controller<void> {
   constructor(
     private readonly deleteUserByIdUseCase: DeleteUserByIdUseCase,
     private readonly validation: ValidationComposite,
-    private readonly presenter: Presenter<number>,
+    private readonly presenter: Presenter<void | never>,
   ) {}
 
   async handleRequest(
     requestModel: RequestModel,
-  ): Promise<ResponseModel<number>> {
+  ): Promise<ResponseModel<void>> {
     await this.validation.validate(requestModel);
-    const user = await this.deleteUserByIdUseCase.deleteById(
-      requestModel.params.id,
-    );
-
-    return this.presenter.response(user);
+    await this.deleteUserByIdUseCase.deleteById(requestModel.params.id);
+    return this.presenter.response();
   }
 }

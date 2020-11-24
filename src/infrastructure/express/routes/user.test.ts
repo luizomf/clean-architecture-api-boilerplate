@@ -132,9 +132,9 @@ describe('User Routes', () => {
 
         await request(app)
           .delete(`/users/${id}`)
-          .expect(200)
+          .expect(204)
           .then((response) => {
-            expect(response.body).toBe(1);
+            expect(response.body).toEqual({});
           })
           .catch((e) => {
             throw e;

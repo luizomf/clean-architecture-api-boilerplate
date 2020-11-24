@@ -33,7 +33,7 @@ export class UserSqlRepository
     try {
       const user = await db<User>(this.table)
         .insert(requestModel)
-        .returning('*');
+        .returning('id');
       return {
         id: user[0].toString(),
         email: requestModel.email,
@@ -42,7 +42,6 @@ export class UserSqlRepository
         password_hash: requestModel.password_hash,
       };
     } catch (error) {
-      console.log(error);
       const repositoryError = new RepositoryError('Could not create User');
       throw repositoryError;
     }

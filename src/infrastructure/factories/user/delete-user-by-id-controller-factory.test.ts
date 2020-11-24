@@ -61,8 +61,8 @@ describe('createUserControllerFactory', () => {
   it('should delete user if exists', async () => {
     const { sut } = sutFactory();
     const response = await sut.handleRequest({ params: { id: '1' } });
-    expect(response.statusCode).toBe(200);
-    expect(response.body).toBe(1);
+    expect(response.statusCode).toBe(204);
+    expect(response.body).toBeUndefined();
   });
 
   it('should throw if user does not exist', async () => {
