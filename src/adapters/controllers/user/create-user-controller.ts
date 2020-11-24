@@ -1,8 +1,8 @@
 import { Controller } from '~/application/ports/controllers/controller';
 import { Presenter } from '~/application/ports/presenters/presenter';
 import { RequestModel } from '~/application/ports/request/request-model';
-import { CreateUserRequestWithPasswordString } from '~/application/ports/user/create-user-request-model';
-import { CreateUserUseCase } from '~/application/ports/user/create-user-use-case';
+import { CreateUserRequestWithPasswordString } from '~/application/ports/user/models/create-user-request-model';
+import { CreateUserUseCase } from '~/application/ports/user/use-cases/create-user-use-case';
 import { ValidationComposite } from '~/application/ports/validators/validation-composite';
 import { User } from '~/domain/user/user';
 

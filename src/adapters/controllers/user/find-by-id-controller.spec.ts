@@ -4,7 +4,7 @@ import { ValidationComposite } from '~/application/ports/validators/validation-c
 import { FindUserByIdController } from './find-by-id-controller';
 import { Presenter } from '~/application/ports/presenters/presenter';
 import { ResponseModel } from '~/application/ports/response/response-model';
-import { FindUserByIdUseCase } from '~/application/ports/user/find-user-by-id-use-case';
+import { FindUserByIdUseCase } from '~/application/ports/user/use-cases/find-user-by-id-use-case';
 
 const sutFactory = () => {
   const findUserByIdUseCaseMock = findUserUseCaseMockFactory();

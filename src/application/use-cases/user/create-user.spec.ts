@@ -2,7 +2,7 @@ import { UserExistsError } from '~/application/errors/user-exists-error';
 import { CreateUserRepository } from '~/application/ports/repositories/create-user-repository';
 import { FindUserByEmailRepository } from '~/application/ports/repositories/find-user-by-email-repository';
 import { PasswordHashing } from '~/application/ports/security/password-hashing';
-import { CreateUserRequestWithPasswordHash } from '~/application/ports/user/create-user-request-model';
+import { CreateUserRequestWithPasswordHash } from '~/application/ports/user/models/create-user-request-model';
 import { User } from '~/domain/user/user';
 import { CreateUser } from './create-user';
 

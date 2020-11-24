@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { RequestValidationError } from '~/application/errors/request-validation-error';
 import { Presenter } from '~/application/ports/presenters/presenter';
-import { DeleteUserByIdUseCase } from '~/application/ports/user/delete-user-by-id-use-case';
+import { DeleteUserByIdUseCase } from '~/application/ports/user/use-cases/delete-user-by-id-use-case';
 import { ValidationComposite } from '~/application/ports/validators/validation-composite';
 import { DeleteUserByIdController } from './delete-user-by-id-controller';
 

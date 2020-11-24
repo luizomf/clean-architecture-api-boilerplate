@@ -1,4 +1,4 @@
-import { CreateUserRequestWithPasswordHash } from '~/application/ports/user/create-user-request-model';
+import { CreateUserRequestWithPasswordHash } from '~/application/ports/user/models/create-user-request-model';
 import { InMemoryUserRepository } from './in-memory-user-repository';
 
 const sut = new InMemoryUserRepository();

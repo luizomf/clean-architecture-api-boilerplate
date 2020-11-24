@@ -5,8 +5,8 @@ import { CreateUserRequestValidationComposite } from '~/adapters/validation/user
 import { EmailValidationError } from '~/application/errors/email-validation-error';
 import { RequestValidationError } from '~/application/errors/request-validation-error';
 import { ResponseModel } from '~/application/ports/response/response-model';
-import { CreateUserRequestWithPasswordString } from '~/application/ports/user/create-user-request-model';
-import { CreateUserUseCase } from '~/application/ports/user/create-user-use-case';
+import { CreateUserRequestWithPasswordString } from '~/application/ports/user/models/create-user-request-model';
+import { CreateUserUseCase } from '~/application/ports/user/use-cases/create-user-use-case';
 import { User } from '~/domain/user/user';
 import { CreateUserController } from './create-user-controller';
 import { EmailValidatorAdapter } from '~/common/validators/email-validator-adapter';

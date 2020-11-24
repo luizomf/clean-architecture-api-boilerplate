@@ -3,7 +3,7 @@ import { RequestModel } from '~/application/ports/request/request-model';
 import { ValidationComposite } from '~/application/ports/validators/validation-composite';
 import { Presenter } from '~/application/ports/presenters/presenter';
 import { Controller } from '~/application/ports/controllers/controller';
-import { FindUserByIdUseCase } from '~/application/ports/user/find-user-by-id-use-case';
+import { FindUserByIdUseCase } from '~/application/ports/user/use-cases/find-user-by-id-use-case';
 
 export class FindUserByIdController implements Controller<User> {
   constructor(

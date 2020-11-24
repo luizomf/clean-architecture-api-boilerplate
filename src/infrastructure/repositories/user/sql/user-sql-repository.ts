@@ -3,7 +3,7 @@ import { CreateUserRepository } from '~/application/ports/repositories/create-us
 import { DeleteUserByIdRepository } from '~/application/ports/repositories/delete-user-by-id-repository';
 import { FindUserByEmailRepository } from '~/application/ports/repositories/find-user-by-email-repository';
 import { FindUserByIdRepository } from '~/application/ports/repositories/find-user-by-id-repository';
-import { CreateUserRequestWithPasswordHash } from '~/application/ports/user/create-user-request-model';
+import { CreateUserRequestWithPasswordHash } from '~/application/ports/user/models/create-user-request-model';
 import { User } from '~/domain/user/user';
 import { db } from '~/infrastructure/knex/connection';
 

@@ -1,6 +1,6 @@
 import { User } from '~/domain/user/user';
 import { FindUserByIdRepository } from '~/application/ports/repositories/find-user-by-id-repository';
-import { CreateUserRequestWithPasswordHash } from '~/application/ports/user/create-user-request-model';
+import { CreateUserRequestWithPasswordHash } from '~/application/ports/user/models/create-user-request-model';
 import { FindUserByEmailRepository } from '~/application/ports/repositories/find-user-by-email-repository';
 import { CreateUserRepository } from '~/application/ports/repositories/create-user-repository';
 import { DeleteUserByIdRepository } from '~/application/ports/repositories/delete-user-by-id-repository';
