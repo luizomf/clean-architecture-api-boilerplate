@@ -84,12 +84,14 @@ describe('InMemoryRepository', () => {
   it('should delete by id', async () => {
     const user = await sut.create(sampleDataFactory()[0]);
 
-    sut.deleteById(user.id);
+    const deleted = await sut.deleteById(user.id);
+    expect(deleted).toBe(1);
+
     const existingUserDeleted = await sut.findById(user.id);
     expect(existingUserDeleted).toBeNull();
 
     const notExistingUserDeleted = await sut.deleteById('anyID');
-    expect(notExistingUserDeleted).toBeNull();
+    expect(notExistingUserDeleted).toBe(0);
   });
 
   it('should return a user by email if found', async () => {

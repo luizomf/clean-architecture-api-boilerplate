@@ -36,14 +36,8 @@ const findUserByIdRepositoryMockFactory = () => {
 
 const deleteUserByIdRepositoryMockFactory = () => {
   class DeleteUserByIdRepositoryMock implements DeleteUserByIdRepository {
-    async deleteById(_id: string): Promise<User | never> {
-      return {
-        id: '1',
-        first_name: 'first',
-        last_name: 'last',
-        email: 'email@email.com',
-        password_hash: 'any_hash',
-      };
+    async deleteById(_id: string): Promise<number | never> {
+      return 1;
     }
   }
 
@@ -75,8 +69,8 @@ describe('DeleteUserById', () => {
 
   it('should delete a user if exists', async () => {
     const { sut } = sutFactory();
-    const deletedUser = await sut.deleteById('1');
-    expect(deletedUser.id).toBe('1');
+    const numberOfRows = await sut.deleteById('1');
+    expect(numberOfRows).toBe(1);
   });
 
   it('should throw if user does not exist', async () => {

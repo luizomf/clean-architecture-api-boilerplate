@@ -3,6 +3,7 @@ import { FindUserByIdRepository } from '~/application/ports/repositories/find-us
 import { CreateUserRequestWithPasswordHash } from '~/application/ports/user/create-user-request-model';
 import { FindUserByEmailRepository } from '~/application/ports/repositories/find-user-by-email-repository';
 import { CreateUserRepository } from '~/application/ports/repositories/create-user-repository';
+import { DeleteUserByIdRepository } from '~/application/ports/repositories/delete-user-by-id-repository';
 
 export type DBUserMap = Map<string, User>;
 
@@ -10,7 +11,8 @@ export class InMemoryUserRepository
   implements
     FindUserByIdRepository,
     FindUserByEmailRepository,
-    CreateUserRepository {
+    CreateUserRepository,
+    DeleteUserByIdRepository {
   private users: DBUserMap = new Map();
 
   async find(order: 'asc' | 'desc' = 'asc'): Promise<Readonly<User[]>> {
@@ -38,11 +40,11 @@ export class InMemoryUserRepository
     users.forEach((user) => this.create(user));
   }
 
-  async deleteById(id: string): Promise<User | null> {
+  async deleteById(id: string): Promise<number | never> {
     const user = this.users.get(id);
-    if (!user) return null;
+    if (!user) return 0;
     this.users.delete(id);
-    return user;
+    return 1;
   }
 
   clear(): void {

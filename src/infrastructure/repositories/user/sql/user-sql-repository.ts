@@ -1,5 +1,6 @@
 import { RepositoryError } from '~/application/errors/repository-error';
 import { CreateUserRepository } from '~/application/ports/repositories/create-user-repository';
+import { DeleteUserByIdRepository } from '~/application/ports/repositories/delete-user-by-id-repository';
 import { FindUserByEmailRepository } from '~/application/ports/repositories/find-user-by-email-repository';
 import { FindUserByIdRepository } from '~/application/ports/repositories/find-user-by-id-repository';
 import { CreateUserRequestWithPasswordHash } from '~/application/ports/user/create-user-request-model';
@@ -10,7 +11,8 @@ export class UserSqlRepository
   implements
     FindUserByIdRepository,
     CreateUserRepository,
-    FindUserByEmailRepository {
+    FindUserByEmailRepository,
+    DeleteUserByIdRepository {
   private readonly table = 'users';
 
   async findById(id: string): Promise<User | null> {
@@ -31,7 +33,7 @@ export class UserSqlRepository
     try {
       const user = await db<User>(this.table)
         .insert(requestModel)
-        .returning('id');
+        .returning('*');
       return {
         id: user[0].toString(),
         email: requestModel.email,
@@ -45,22 +47,9 @@ export class UserSqlRepository
       throw repositoryError;
     }
   }
-}
 
-// const user = new UserSqlRepository();
-// user
-//   .create({
-//     first_name: 'first_name',
-//     last_name: 'last_name',
-//     email: 'email1@email.com',
-//     password_hash: 'password_hash',
-//   })
-//   .then((r) => {
-//     console.log(r);
-//   })
-//   .catch((e) => {
-//     console.log(e);
-//   })
-//   .finally(() => {
-//     db.destroy();
-//   });
+  async deleteById(id: string): Promise<number> {
+    const deleted = await db(this.table).delete().where({ id });
+    return deleted;
+  }
+}
