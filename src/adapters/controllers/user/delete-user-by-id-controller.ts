@@ -1,4 +1,5 @@
 import { Controller } from '~/application/ports/controllers/controller';
+import { Presenter } from '~/application/ports/presenters/presenter';
 import { RequestModel } from '~/application/ports/request/request-model';
 import { ResponseModel } from '~/application/ports/response/response-model';
 import { DeleteUserByIdUseCase } from '~/application/ports/user/delete-user-by-id-use-case';
@@ -9,6 +10,7 @@ export class DeleteUserByIdController implements Controller<User> {
   constructor(
     private readonly deleteUserByIdUseCase: DeleteUserByIdUseCase,
     private readonly validation: ValidationComposite,
+    private readonly presenter: Presenter<User>,
   ) {}
 
   async handleRequest(
@@ -19,9 +21,6 @@ export class DeleteUserByIdController implements Controller<User> {
       requestModel.params.id,
     );
 
-    return {
-      statusCode: 200,
-      body: user,
-    };
+    return this.presenter.response(user);
   }
 }

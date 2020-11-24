@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { RequestValidationError } from '~/application/errors/request-validation-error';
+import { Presenter } from '~/application/ports/presenters/presenter';
 import { DeleteUserByIdUseCase } from '~/application/ports/user/delete-user-by-id-use-case';
 import { ValidationComposite } from '~/application/ports/validators/validation-composite';
 import { User } from '~/domain/user/user';
@@ -8,9 +9,11 @@ import { DeleteUserByIdController } from './delete-user-by-id-controller';
 const sutFactory = () => {
   const deleteUserByIdUseCaseMock = deleteUserByIdUseCaseMockFactory();
   const validationMock = validationMockFactory();
+  const presenter = presenterMockFactory();
   const sut = new DeleteUserByIdController(
     deleteUserByIdUseCaseMock,
     validationMock,
+    presenter,
   );
 
   return {
@@ -18,6 +21,24 @@ const sutFactory = () => {
     validationMock,
     deleteUserByIdUseCaseMock,
   };
+};
+
+const presenterMockFactory = () => {
+  class PresenterMock implements Presenter {
+    async response(_user: any) {
+      return {
+        statusCode: 200,
+        body: {
+          id: '1000',
+          first_name: 'first',
+          last_name: 'last',
+          email: 'email@email.com',
+        },
+      };
+    }
+  }
+
+  return new PresenterMock();
 };
 
 const validationMockFactory = () => {
