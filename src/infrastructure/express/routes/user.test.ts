@@ -21,27 +21,15 @@ describe('User Routes', () => {
         password: 'password1',
         confirmPassword: 'password1',
       })
-      .expect({
-        id: '1',
-        first_name: 'first_name1',
-        last_name: 'last_name1',
-        email: 'email1@email.com',
-      });
-
-    await request(app)
-      .post('/users')
-      .send({
-        first_name: 'first_name2',
-        last_name: 'last_name2',
-        email: 'email2@email.com',
-        password: 'password2',
-        confirmPassword: 'password2',
+      .then((response) => {
+        expect(response.status).toBe(201);
+        expect(response.body.id).toBeTruthy();
+        expect(response.body.first_name).toBe('first_name1');
+        expect(response.body.last_name).toBe('last_name1');
+        expect(response.body.email).toBe('email1@email.com');
       })
-      .expect({
-        id: '2',
-        first_name: 'first_name2',
-        last_name: 'last_name2',
-        email: 'email2@email.com',
+      .catch((e) => {
+        throw e;
       });
   });
 
@@ -125,5 +113,44 @@ describe('User Routes', () => {
     const response = await request(app).get('/users/abc');
     expect(response.status).toBe(404);
     expect(response.body.error).toBe('NotFoundError');
+  });
+
+  it('should delete a user if exists', async () => {
+    await request(app)
+      .post('/users')
+      .send({
+        first_name: 'first_name2',
+        last_name: 'last_name2',
+        email: 'email2@email.com',
+        password: 'password2',
+        confirmPassword: 'password2',
+      })
+      .then(async (response) => {
+        const { id } = response.body;
+
+        expect(response.status).toBe(201);
+
+        await request(app)
+          .delete(`/users/${id}`)
+          .expect(200)
+          .then((response) => {
+            expect(response.body).toBe(1);
+          })
+          .catch((e) => {
+            throw e;
+          });
+      })
+      .catch((e) => {
+        throw e;
+      });
+  });
+
+  it('should throw if deleting a user that does not exist', async () => {
+    await request(app)
+      .delete('/users/abc')
+      .expect(404)
+      .then((response) => {
+        expect(response.body.error).toBe('NotFoundError');
+      });
   });
 });
