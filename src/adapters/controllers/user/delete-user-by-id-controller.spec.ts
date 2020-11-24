@@ -3,7 +3,6 @@ import { RequestValidationError } from '~/application/errors/request-validation-
 import { Presenter } from '~/application/ports/presenters/presenter';
 import { DeleteUserByIdUseCase } from '~/application/ports/user/delete-user-by-id-use-case';
 import { ValidationComposite } from '~/application/ports/validators/validation-composite';
-import { User } from '~/domain/user/user';
 import { DeleteUserByIdController } from './delete-user-by-id-controller';
 
 const sutFactory = () => {
@@ -28,12 +27,7 @@ const presenterMockFactory = () => {
     async response(_user: any) {
       return {
         statusCode: 200,
-        body: {
-          id: '1000',
-          first_name: 'first',
-          last_name: 'last',
-          email: 'email@email.com',
-        },
+        body: 1,
       };
     }
   }
@@ -53,13 +47,8 @@ const validationMockFactory = () => {
 
 const deleteUserByIdUseCaseMockFactory = () => {
   class DeleteUserByIdUseCaseMock implements DeleteUserByIdUseCase {
-    async deleteById(_id: string): Promise<User | never> {
-      return {
-        id: '1',
-        first_name: 'first',
-        last_name: 'last',
-        email: 'email@email.com',
-      };
+    async deleteById(_id: string): Promise<number | never> {
+      return 1;
     }
   }
 
@@ -126,18 +115,10 @@ describe('DeleteUserByIdController', () => {
 
   it('should delete from repository and return deleted user', async () => {
     const { sut, deleteUserByIdUseCaseMock } = sutFactory();
-    jest.spyOn(deleteUserByIdUseCaseMock, 'deleteById').mockResolvedValue({
-      id: '1000',
-      first_name: 'first',
-      last_name: 'last',
-      email: 'email@email.com',
-    });
+    jest.spyOn(deleteUserByIdUseCaseMock, 'deleteById').mockResolvedValue(1);
 
     const response = await sut.handleRequest({ params: { id: '1000' } });
-    expect(response.body.id).toBe('1000');
-    expect(response.body.first_name).toBe('first');
-    expect(response.body.last_name).toBe('last');
-    expect(response.body.email).toBe('email@email.com');
     expect(response.statusCode).toBe(200);
+    expect(response.body).toBe(1);
   });
 });
