@@ -35,6 +35,10 @@ export class UserValidationPartialEmptyFields extends ValidationComposite {
     if (this.invalidField(confirmPassword)) {
       throw new RequestValidationError('Missing confirmPassword');
     }
+
+    if (!email && !first_name && !last_name && !password && !confirmPassword) {
+      throw new RequestValidationError('Cannot proceed if body has no values');
+    }
   }
 
   private invalidField(field: unknown) {

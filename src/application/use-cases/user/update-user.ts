@@ -44,7 +44,6 @@ export class UpdateUser implements UpdateUserUseCase {
     if (newPassword) {
       newRequest.password_hash = await this.passwordHashing.hash(newPassword);
     }
-
     delete newRequest.password;
     delete newRequest.confirmPassword;
     const updatedRows = await this.updateUserRepository.update(id, newRequest);
