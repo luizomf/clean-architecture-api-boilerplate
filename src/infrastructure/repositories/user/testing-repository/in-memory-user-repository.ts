@@ -18,9 +18,15 @@ export class InMemoryUserRepository
     UpdateUserRepository {
   private users: DBUserMap = new Map();
 
-  async find(order: 'asc' | 'desc' = 'asc'): Promise<Readonly<User[]>> {
+  async find(
+    order: 'asc' | 'desc' = 'asc',
+    limit = 100,
+    offset = 0,
+  ): Promise<Readonly<User[]>> {
     if (order === 'asc') return this.toObject();
-    return this.toObject().reverse();
+    return this.toObject()
+      .reverse()
+      .slice(offset, limit + offset);
   }
 
   async findById(id: string): Promise<User | null> {
