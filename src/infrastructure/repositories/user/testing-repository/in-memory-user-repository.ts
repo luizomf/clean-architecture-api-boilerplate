@@ -6,6 +6,7 @@ import { CreateUserRepository } from '~/application/ports/repositories/create-us
 import { DeleteUserByIdRepository } from '~/application/ports/repositories/delete-user-by-id-repository';
 import { UpdateUserRepository } from '~/application/ports/repositories/update-user-repository';
 import { UpdateUserRequestModelBody } from '~/application/ports/user/models/update-user-request-model';
+import { FindAllUsersRepository } from '~/application/ports/repositories/find-all-users-repository';
 
 export type DBUserMap = Map<string, User>;
 
@@ -15,14 +16,15 @@ export class InMemoryUserRepository
     FindUserByEmailRepository,
     CreateUserRepository,
     DeleteUserByIdRepository,
-    UpdateUserRepository {
+    UpdateUserRepository,
+    FindAllUsersRepository {
   private users: DBUserMap = new Map();
 
   async find(
     order: 'asc' | 'desc' = 'asc',
     limit = 100,
     offset = 0,
-  ): Promise<Readonly<User[]>> {
+  ): Promise<User[]> {
     if (order === 'asc') return this.toObject();
     return this.toObject()
       .reverse()
