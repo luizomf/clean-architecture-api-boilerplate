@@ -4,7 +4,7 @@ import { resolve } from 'path';
 const dotenvFilePath = resolve(__dirname, '..', '..', '..', '.env');
 dotenv.config({ path: dotenvFilePath });
 
-export const knexConnection = {
+module.exports = {
   test: {
     client: 'sqlite3',
     connection: ':memory:',

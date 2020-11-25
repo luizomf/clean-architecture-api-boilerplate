@@ -153,4 +153,28 @@ describe('User Routes', () => {
         expect(response.body.error).toBe('NotFoundError');
       });
   });
+
+  it('should update a user if exists', async () => {
+    const createResponse = await request(app).post('/users').send({
+      first_name: 'first',
+      last_name: 'last',
+      email: 'email_11124577@email.com',
+      password: '123',
+      confirmPassword: '123',
+    });
+    const { id } = createResponse.body;
+
+    const updateResponse = await request(app).put(`/users/${id}`).send({
+      first_name: 'new_first_name',
+      last_name: 'new_last_name',
+      email: 'new_email123123@email.com',
+    });
+    expect(updateResponse.status).toBe(204);
+
+    const findResponse = await request(app).get(`/users/${id}`);
+
+    expect(findResponse.body.first_name).toBe('new_first_name');
+    expect(findResponse.body.last_name).toBe('new_last_name');
+    expect(findResponse.body.email).toBe('new_email123123@email.com');
+  });
 });
