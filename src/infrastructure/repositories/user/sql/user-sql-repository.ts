@@ -3,7 +3,9 @@ import { CreateUserRepository } from '~/application/ports/repositories/create-us
 import { DeleteUserByIdRepository } from '~/application/ports/repositories/delete-user-by-id-repository';
 import { FindUserByEmailRepository } from '~/application/ports/repositories/find-user-by-email-repository';
 import { FindUserByIdRepository } from '~/application/ports/repositories/find-user-by-id-repository';
+import { UpdateUserRepository } from '~/application/ports/repositories/update-user-repository';
 import { CreateUserRequestWithPasswordHash } from '~/application/ports/user/models/create-user-request-model';
+import { UpdateUserRequestModel } from '~/application/ports/user/models/update-user-request-model';
 import { User } from '~/domain/user/user';
 import { db } from '~/infrastructure/knex/connection';
 
@@ -12,7 +14,8 @@ export class UserSqlRepository
     FindUserByIdRepository,
     CreateUserRepository,
     FindUserByEmailRepository,
-    DeleteUserByIdRepository {
+    DeleteUserByIdRepository,
+    UpdateUserRepository {
   private readonly table = 'users';
 
   async findById(id: string): Promise<User | null> {
@@ -50,5 +53,19 @@ export class UserSqlRepository
   async deleteById(id: string): Promise<number> {
     const deleted = await db(this.table).delete().where({ id });
     return deleted;
+  }
+
+  async update(
+    id: string,
+    requestModel: UpdateUserRequestModel,
+  ): Promise<number | never> {
+    try {
+      const updated = await db(this.table).update(requestModel).where({ id });
+      return updated;
+    } catch (e) {
+      const error = new RepositoryError('Could not update user');
+      error.stack = e.stack;
+      throw error;
+    }
   }
 }

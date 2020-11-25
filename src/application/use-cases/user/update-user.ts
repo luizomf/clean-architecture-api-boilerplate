@@ -1,5 +1,6 @@
 import { EmailValidationError } from '~/application/errors/email-validation-error';
 import { NotFoundError } from '~/application/errors/not-found-error';
+import { RepositoryError } from '~/application/errors/repository-error';
 import { FindUserByEmailRepository } from '~/application/ports/repositories/find-user-by-email-repository';
 import { FindUserByIdRepository } from '~/application/ports/repositories/find-user-by-id-repository';
 import { UpdateUserRepository } from '~/application/ports/repositories/update-user-repository';
@@ -49,7 +50,12 @@ export class UpdateUser implements UpdateUserUseCase {
       newRequest.password_hash = password_hash;
     }
 
-    const user = this.updateUserRepository.update(id, newRequest);
-    return user;
+    const updated = await this.updateUserRepository.update(id, newRequest);
+
+    if (!updated) {
+      throw new RepositoryError('Could not update user');
+    }
+
+    return { ...foundUser, ...newRequest };
   }
 }

@@ -72,14 +72,8 @@ const updateUserRepositoryMockFactory = () => {
     async update(
       _id: string,
       _requestModel: UpdateUserRequestModel,
-    ): Promise<User | never> {
-      return {
-        id: '1',
-        email: 'email@email.com',
-        first_name: 'first_name',
-        last_name: 'last_name',
-        password_hash: 'any_hash',
-      };
+    ): Promise<number | never> {
+      return 1;
     }
   }
 
@@ -164,19 +158,13 @@ describe('UpdateUser', () => {
 
   it('should return updated user if everything is OK', async () => {
     const { sut, updateUserRepositoryMock } = sutFactory();
-    jest.spyOn(updateUserRepositoryMock, 'update').mockResolvedValue({
-      id: '1',
-      first_name: 'new_first_name',
-      last_name: 'last',
-      email: 'email@email.com',
-      password_hash: 'any_hash',
-    });
+    jest.spyOn(updateUserRepositoryMock, 'update').mockResolvedValue(1);
 
-    const response = await sut.update('1', { first_name: 'new_first_name' });
+    const response = await sut.update('1', { first_name: 'any_value' });
 
     expect(response.id).toBe('1');
-    expect(response.first_name).toBe('new_first_name');
-    expect(response.last_name).toBe('last');
+    expect(response.first_name).toBe('any_value');
+    expect(response.last_name).toBe('last_name');
     expect(response.email).toBe('email@email.com');
     expect(response.password_hash).toBe('any_hash');
   });

@@ -111,4 +111,40 @@ describe('UserSqlRepository', () => {
     const deleted = await sut.deleteById('abc');
     expect(deleted).toBe(0);
   });
+
+  it('should update a user if data is correct', async () => {
+    const { sut } = sutFactory();
+    const updated = await sut.update('1', {
+      first_name: 'another_first_name',
+      last_name: 'another_last_name',
+      email: 'another_updated@email.com',
+      password_hash: 'another_hash',
+    });
+    expect(updated).toBe(1);
+  });
+
+  it('should return zero (0) if update user do not exist', async () => {
+    const { sut } = sutFactory();
+    const updated = await sut.update('abc', {
+      first_name: 'another_first_name',
+      last_name: 'another_last_name',
+      email: 'another_updated@email.com',
+      password_hash: 'another_hash',
+    });
+    expect(updated).toBe(0);
+  });
+
+  it('should throw if user data is empty when updating', async () => {
+    const { sut } = sutFactory();
+    let error;
+
+    try {
+      await sut.update('abc', {});
+    } catch (e) {
+      error = e;
+    }
+
+    expect(error.name).toBe('RepositoryError');
+    expect(error.statusCode).toBe(500);
+  });
 });

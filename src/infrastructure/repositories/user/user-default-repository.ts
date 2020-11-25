@@ -3,6 +3,7 @@ import { CreateUserRepository } from '~/application/ports/repositories/create-us
 import { DeleteUserByIdRepository } from '~/application/ports/repositories/delete-user-by-id-repository';
 import { FindUserByEmailRepository } from '~/application/ports/repositories/find-user-by-email-repository';
 import { FindUserByIdRepository } from '~/application/ports/repositories/find-user-by-id-repository';
+import { UpdateUserRepository } from '~/application/ports/repositories/update-user-repository';
 import { UserSqlRepository } from './sql/user-sql-repository';
 import { inMemoryUserRepositoryFactory } from './testing-repository/in-memory-user-repository-factory';
 
@@ -14,10 +15,12 @@ const createUserRepository: CreateUserRepository = userSqlRepository;
 const findUserByIdRepository: FindUserByIdRepository = userSqlRepository;
 const findUserByEmailRepository: FindUserByEmailRepository = userSqlRepository;
 const deleteUserByIdRepository: DeleteUserByIdRepository = userSqlRepository;
+const updateUserRepository: UpdateUserRepository = userSqlRepository;
 
 export {
   createUserRepository,
   findUserByIdRepository,
   findUserByEmailRepository,
   deleteUserByIdRepository,
+  updateUserRepository,
 };
