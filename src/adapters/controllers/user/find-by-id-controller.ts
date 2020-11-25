@@ -16,6 +16,6 @@ export class FindUserByIdController implements Controller<User> {
     await this.validation.validate(requestModel);
     const { id } = requestModel.params;
     const user = await this.findUserByIdUseCase.findById(id);
-    return this.presenter.response(user);
+    return await this.presenter.response(user);
   }
 }

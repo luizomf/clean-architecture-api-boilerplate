@@ -17,6 +17,6 @@ export class DeleteUserByIdController implements Controller<void> {
   ): Promise<ResponseModel<void>> {
     await this.validation.validate(requestModel);
     await this.deleteUserByIdUseCase.deleteById(requestModel.params.id);
-    return this.presenter.response();
+    return await this.presenter.response();
   }
 }

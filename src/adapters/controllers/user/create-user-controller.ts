@@ -20,6 +20,6 @@ export class CreateUserController implements Controller<User> {
     const user = await this.createUser.create(
       requestModel.body as CreateUserRequestWithPasswordString,
     );
-    return this.presenter.response(user);
+    return await this.presenter.response(user);
   }
 }
