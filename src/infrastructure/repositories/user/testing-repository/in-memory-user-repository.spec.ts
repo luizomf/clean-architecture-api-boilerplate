@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { CreateUserRequestWithPasswordHash } from '~/application/ports/user/models/create-user-request-model';
 import { InMemoryUserRepository } from './in-memory-user-repository';
 
@@ -107,5 +108,22 @@ describe('InMemoryRepository', () => {
     return sut.findByEmail(user.email).then((response) => {
       return expect(response).toBeNull();
     });
+  });
+
+  it('should update a user if it exists', async () => {
+    await sut.create({
+      first_name: 'l',
+      last_name: 'l',
+      email: 'e',
+      password_hash: 'h',
+    });
+    await sut.update('1', { first_name: 'luiz321' });
+    const updated = (await sut.findById('1')) as any;
+    expect(updated.first_name).toBe('luiz321');
+  });
+
+  it('should NOT update user if it does not exist', async () => {
+    const updatedRows = await sut.update('abc', { first_name: 'luiz321' });
+    expect(updatedRows).toBe(0);
   });
 });

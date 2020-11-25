@@ -4,6 +4,8 @@ import { CreateUserRequestWithPasswordHash } from '~/application/ports/user/mode
 import { FindUserByEmailRepository } from '~/application/ports/repositories/find-user-by-email-repository';
 import { CreateUserRepository } from '~/application/ports/repositories/create-user-repository';
 import { DeleteUserByIdRepository } from '~/application/ports/repositories/delete-user-by-id-repository';
+import { UpdateUserRepository } from '~/application/ports/repositories/update-user-repository';
+import { UpdateUserRequestModelBody } from '~/application/ports/user/models/update-user-request-model';
 
 export type DBUserMap = Map<string, User>;
 
@@ -12,7 +14,8 @@ export class InMemoryUserRepository
     FindUserByIdRepository,
     FindUserByEmailRepository,
     CreateUserRepository,
-    DeleteUserByIdRepository {
+    DeleteUserByIdRepository,
+    UpdateUserRepository {
   private users: DBUserMap = new Map();
 
   async find(order: 'asc' | 'desc' = 'asc'): Promise<Readonly<User[]>> {
@@ -44,6 +47,22 @@ export class InMemoryUserRepository
     const user = this.users.get(id);
     if (!user) return 0;
     this.users.delete(id);
+    return 1;
+  }
+
+  async update(
+    id: string,
+    requestModel: UpdateUserRequestModelBody,
+  ): Promise<number> {
+    let user = await this.findById(id);
+
+    if (!user) {
+      return 0;
+    }
+
+    user = { ...user, ...requestModel };
+    this.users.set(id, user);
+
     return 1;
   }
 
