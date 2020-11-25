@@ -1,3 +1,4 @@
+import { FindUserByEmailRepository } from '~/application/ports/repositories/find-user-by-email-repository';
 import { FindUserByIdRepository } from '~/application/ports/repositories/find-user-by-id-repository';
 import { UpdateUserRepository } from '~/application/ports/repositories/update-user-repository';
 import { PasswordHashing } from '~/application/ports/security/password-hashing';
@@ -8,17 +9,20 @@ import { UpdateUser } from './update-user';
 const sutFactory = () => {
   const findUserByIdRepositoryMock = findUserByIdRepositoryMockFactory();
   const updateUserRepositoryMock = updateUserRepositoryMockFactory();
+  const findUserByEmailRepositoryMock = findUserByEmailRepositoryMockFactory();
   const passwordHashingMock = passwordHashingMockFactory();
   const sut = new UpdateUser(
     updateUserRepositoryMock,
     findUserByIdRepositoryMock,
+    findUserByEmailRepositoryMock,
     passwordHashingMock,
   );
 
   return {
     sut,
-    findUserByIdRepositoryMock,
     updateUserRepositoryMock,
+    findUserByIdRepositoryMock,
+    findUserByEmailRepositoryMock,
     passwordHashingMock,
   };
 };
@@ -37,6 +41,16 @@ const findUserByIdRepositoryMockFactory = () => {
   }
 
   return new FindUserByIdRepositoryMock();
+};
+
+const findUserByEmailRepositoryMockFactory = () => {
+  class FindUserByEmailRepositoryMock implements FindUserByEmailRepository {
+    async findByEmail(_email: string): Promise<User | null> {
+      return null;
+    }
+  }
+
+  return new FindUserByEmailRepositoryMock();
 };
 
 const passwordHashingMockFactory = () => {
@@ -186,5 +200,48 @@ describe('UpdateUser', () => {
     expect(updateUserRepositorySpy).toHaveBeenCalledWith('1', {
       password_hash: 'hashed',
     });
+  });
+
+  it('should call findUserByEmailRepository with correct values', async () => {
+    const { sut, findUserByEmailRepositoryMock } = sutFactory();
+    const findUserByEmailRepositorySpy = jest.spyOn(
+      findUserByEmailRepositoryMock,
+      'findByEmail',
+    );
+    await sut.update('1', {
+      first_name: 'new_first_name',
+      email: 'any_email@email.com',
+    });
+    expect(findUserByEmailRepositorySpy).toHaveBeenCalledTimes(1);
+    expect(findUserByEmailRepositorySpy).toHaveBeenCalledWith(
+      'any_email@email.com',
+    );
+  });
+
+  it('should throw if email is found', async () => {
+    const { sut, findUserByEmailRepositoryMock } = sutFactory();
+    jest
+      .spyOn(findUserByEmailRepositoryMock, 'findByEmail')
+      .mockResolvedValueOnce({
+        id: '1',
+        email: 'email@email.com',
+        first_name: 'first',
+        last_name: 'last',
+        password_hash: 'any_hash',
+      });
+
+    let error;
+
+    try {
+      await sut.update('1', {
+        first_name: 'new_first_name',
+        email: 'email@email.com',
+      });
+    } catch (e) {
+      error = e;
+    }
+
+    expect(error.name).toBe('EmailValidationError');
+    expect(error.statusCode).toBe(400);
   });
 });
