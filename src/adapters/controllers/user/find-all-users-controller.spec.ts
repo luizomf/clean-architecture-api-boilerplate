@@ -47,10 +47,27 @@ describe('FindAllUsersController', () => {
       findAllUsersValidationMock,
       'validate',
     );
+
     await sut.handleRequest({ query: { order: 'desc', limit: 10, offset: 2 } });
     expect(findAllUsersValidationSpy).toHaveBeenCalledTimes(1);
+
     expect(findAllUsersValidationSpy).toHaveBeenCalledWith({
       query: { order: 'desc', limit: 10, offset: 2 },
+    });
+
+    await sut.handleRequest({ query: { limit: 10, offset: 2 } });
+    expect(findAllUsersValidationSpy).toHaveBeenCalledWith({
+      query: { limit: 10, offset: 2 },
+    });
+
+    await sut.handleRequest({ query: { offset: 2 } });
+    expect(findAllUsersValidationSpy).toHaveBeenCalledWith({
+      query: { offset: 2 },
+    });
+
+    await sut.handleRequest({ query: {} });
+    expect(findAllUsersValidationSpy).toHaveBeenCalledWith({
+      query: {},
     });
   });
 
