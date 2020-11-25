@@ -232,4 +232,23 @@ describe('UpdateUser', () => {
     expect(error.name).toBe('EmailValidationError');
     expect(error.statusCode).toBe(400);
   });
+
+  it('should throw user not updated', async () => {
+    const { sut, updateUserRepositoryMock } = sutFactory();
+    jest.spyOn(updateUserRepositoryMock, 'update').mockResolvedValueOnce(0);
+
+    let error;
+
+    try {
+      await sut.update('1', {
+        first_name: 'new_first_name',
+        email: 'email@email.com',
+      });
+    } catch (e) {
+      error = e;
+    }
+
+    expect(error.name).toBe('RepositoryError');
+    expect(error.statusCode).toBe(500);
+  });
 });
