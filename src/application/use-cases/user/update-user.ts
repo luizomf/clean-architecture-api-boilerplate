@@ -28,13 +28,12 @@ export class UpdateUser implements UpdateUserUseCase {
     }
 
     const newRequest = { ...request };
+    const newPassword = newRequest.password;
+    const newEmail = newRequest.email;
 
-    const password = newRequest.password;
-    const email = newRequest.email;
-
-    if (email) {
+    if (newEmail) {
       const foundEmail = await this.findUserByEmailRepository.findByEmail(
-        email,
+        newEmail,
       );
 
       if (foundEmail) {
@@ -42,20 +41,15 @@ export class UpdateUser implements UpdateUserUseCase {
       }
     }
 
+    if (newPassword) {
+      newRequest.password_hash = await this.passwordHashing.hash(newPassword);
+    }
+
     delete newRequest.password;
     delete newRequest.confirmPassword;
+    const updatedRows = await this.updateUserRepository.update(id, newRequest);
 
-    if (password) {
-      const password_hash = await this.passwordHashing.hash(password);
-      newRequest.password_hash = password_hash;
-    }
-
-    const updated = await this.updateUserRepository.update(id, newRequest);
-
-    if (!updated) {
-      throw new RepositoryError('Could not update user');
-    }
-
+    if (updatedRows === 0) throw new RepositoryError('Could not update user');
     return { ...foundUser, ...newRequest };
   }
 }
