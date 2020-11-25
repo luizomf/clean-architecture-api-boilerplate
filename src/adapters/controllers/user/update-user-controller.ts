@@ -17,11 +17,11 @@ export class UpdateUserController implements Controller<void | never> {
   async handleRequest(
     requestModel: UpdateUserRequestModel,
   ): Promise<ResponseModel<void | never>> {
-    await this.validation.validate(requestModel);
-
     if (!requestModel.params || !requestModel.body) {
       throw new RequestValidationError('Missing data');
     }
+
+    await this.validation.validate(requestModel);
 
     const { id } = requestModel.params;
     const { body } = requestModel;
