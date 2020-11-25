@@ -5,7 +5,7 @@ import { FindUserByEmailRepository } from '~/application/ports/repositories/find
 import { FindUserByIdRepository } from '~/application/ports/repositories/find-user-by-id-repository';
 import { UpdateUserRepository } from '~/application/ports/repositories/update-user-repository';
 import { CreateUserRequestWithPasswordHash } from '~/application/ports/user/models/create-user-request-model';
-import { UpdateUserRequestModel } from '~/application/ports/user/models/update-user-request-model';
+import { UpdateUserRequestModelBody } from '~/application/ports/user/models/update-user-request-model';
 import { User } from '~/domain/user/user';
 import { db } from '~/infrastructure/knex/connection';
 
@@ -57,7 +57,7 @@ export class UserSqlRepository
 
   async update(
     id: string,
-    requestModel: UpdateUserRequestModel,
+    requestModel: UpdateUserRequestModelBody,
   ): Promise<number | never> {
     try {
       const updated = await db(this.table).update(requestModel).where({ id });

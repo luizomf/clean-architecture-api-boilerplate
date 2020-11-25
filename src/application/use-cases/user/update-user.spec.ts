@@ -2,7 +2,7 @@ import { FindUserByEmailRepository } from '~/application/ports/repositories/find
 import { FindUserByIdRepository } from '~/application/ports/repositories/find-user-by-id-repository';
 import { UpdateUserRepository } from '~/application/ports/repositories/update-user-repository';
 import { PasswordHashing } from '~/application/ports/security/password-hashing';
-import { UpdateUserRequestModel } from '~/application/ports/user/models/update-user-request-model';
+import { UpdateUserRequestModelBody } from '~/application/ports/user/models/update-user-request-model';
 import { User } from '~/domain/user/user';
 import { UpdateUser } from './update-user';
 
@@ -71,7 +71,7 @@ const updateUserRepositoryMockFactory = () => {
   class UpdateUserRepositoryMock implements UpdateUserRepository {
     async update(
       _id: string,
-      _requestModel: UpdateUserRequestModel,
+      _requestModel: UpdateUserRequestModelBody,
     ): Promise<number | never> {
       return 1;
     }

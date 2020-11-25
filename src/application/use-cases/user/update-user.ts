@@ -5,7 +5,7 @@ import { FindUserByEmailRepository } from '~/application/ports/repositories/find
 import { FindUserByIdRepository } from '~/application/ports/repositories/find-user-by-id-repository';
 import { UpdateUserRepository } from '~/application/ports/repositories/update-user-repository';
 import { PasswordHashing } from '~/application/ports/security/password-hashing';
-import { UpdateUserRequestModel } from '~/application/ports/user/models/update-user-request-model';
+import { UpdateUserRequestModelBody } from '~/application/ports/user/models/update-user-request-model';
 import { UpdateUserUseCase } from '~/application/ports/user/use-cases/update-user-use-case';
 import { User } from '~/domain/user/user';
 
@@ -19,7 +19,7 @@ export class UpdateUser implements UpdateUserUseCase {
 
   async update(
     id: string,
-    request: UpdateUserRequestModel,
+    request: UpdateUserRequestModelBody,
   ): Promise<User | never> {
     const foundUser = await this.findUserByIdRepository.findById(id);
 

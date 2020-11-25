@@ -1,9 +1,9 @@
 import { User } from '~/domain/user/user';
-import { UpdateUserRequestModel } from '../models/update-user-request-model';
+import { UpdateUserRequestModelBody } from '../models/update-user-request-model';
 
 export interface UpdateUserUseCase {
   update(
     id: string,
-    updateUserRequestModel: UpdateUserRequestModel,
+    updateUserRequestModel: UpdateUserRequestModelBody,
   ): Promise<User | never>;
 }
