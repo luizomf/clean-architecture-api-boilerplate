@@ -147,4 +147,10 @@ describe('UserSqlRepository', () => {
     expect(error.name).toBe('RepositoryError');
     expect(error.statusCode).toBe(500);
   });
+
+  it('should find all users', async () => {
+    const { sut } = sutFactory();
+    const users = await sut.find('desc', 100, 0);
+    expect(users.length).toBeGreaterThan(0);
+  });
 });
