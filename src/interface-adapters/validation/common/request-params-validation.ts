@@ -1,5 +1,5 @@
 import { RequestValidationError } from '~/application/errors/request-validation-error';
-import { RequestModel } from '~/application/ports/request/request-model';
+import { RequestModel } from '~/application/ports/requests/request-model';
 import { ValidationComposite } from '~/application/ports/validators/validation-composite';
 
 export class RequestParamsValidation extends ValidationComposite {

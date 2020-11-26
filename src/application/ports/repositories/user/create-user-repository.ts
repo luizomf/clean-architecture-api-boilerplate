@@ -1,5 +1,5 @@
-import { User } from '~/domain/user/user';
-import { CreateUserRequestWithPasswordHash } from '../../user/models/create-user-request-model';
+import { User } from '~/domain/user/models/user';
+import { CreateUserRequestWithPasswordHash } from '~/domain/user/models/create-user-request-model';
 
 export interface CreateUserRepository {
   create(

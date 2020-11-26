@@ -1,7 +1,7 @@
 import { EmailValidationError } from '~/application/errors/email-validation-error';
 import { RequestValidationError } from '~/application/errors/request-validation-error';
-import { RequestModel } from '~/application/ports/request/request-model';
-import { CreateUserRequestWithPasswordString } from '~/application/ports/user/models/create-user-request-model';
+import { RequestModel } from '~/application/ports/requests/request-model';
+import { CreateUserRequestWithPasswordString } from '~/domain/user/models/create-user-request-model';
 import { EmailValidator } from '~/application/ports/validators/email-validator';
 import { ValidationComposite } from '~/application/ports/validators/validation-composite';
 

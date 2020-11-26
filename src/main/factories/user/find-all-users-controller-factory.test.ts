@@ -1,4 +1,4 @@
-import { User } from '~/domain/user/user';
+import { User } from '~/domain/user/models/user';
 import { db } from '~/infrastructure/knex/connection';
 import { findAllUsersControllerFactory } from './find-all-users-controller-factory';
 

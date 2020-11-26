@@ -1,10 +1,10 @@
 import { BadRequestError } from '~/application/errors/bad-request-error';
-import { User } from '~/domain/user/user';
+import { User } from '~/domain/user/models/user';
 import { ValidationComposite } from '~/application/ports/validators/validation-composite';
 import { FindUserByIdController } from './find-by-id-controller';
 import { Presenter } from '~/application/ports/presenters/presenter';
-import { ResponseModel } from '~/application/ports/response/response-model';
-import { FindUserByIdUseCase } from '~/application/ports/user/use-cases/find-user-by-id-use-case';
+import { ResponseModel } from '~/application/ports/responses/response-model';
+import { FindUserByIdUseCase } from '~/domain/user/use-cases/find-user-by-id-use-case';
 
 const sutFactory = () => {
   const findUserByIdUseCaseMock = findUserUseCaseMockFactory();

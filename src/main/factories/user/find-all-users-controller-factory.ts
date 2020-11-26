@@ -1,5 +1,5 @@
 import { FindAllUsers } from '~/application/use-cases/user/find-all-users';
-import { User } from '~/domain/user/user';
+import { User } from '~/domain/user/models/user';
 import { findAllUsersRepository } from '~/infrastructure/repositories/user/user-default-repository';
 import { FindAllUsersController } from '~/interface-adapters/controllers/user/find-all-users-controller';
 import { GenericSuccessPresenter } from '~/interface-adapters/presenters/responses/generic/generic-success-presenter';

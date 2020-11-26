@@ -1,9 +1,18 @@
 import { RequestValidationError } from '~/application/errors/request-validation-error';
-import { UpdateUserRequestModel } from '~/application/ports/user/models/update-user-request-model';
+import { RequestModel } from '~/application/ports/requests/request-model';
 import { ValidationComposite } from '~/application/ports/validators/validation-composite';
+import {
+  UpdateUserRequestModelBody,
+  UpdateUserRequestModelParams,
+} from '~/domain/user/models/update-user-request-model';
 
 export class UserValidationPartialEmptyFields extends ValidationComposite {
-  async validate(request: UpdateUserRequestModel): Promise<void | never> {
+  async validate(
+    request: RequestModel<
+      UpdateUserRequestModelBody,
+      UpdateUserRequestModelParams
+    >,
+  ): Promise<void | never> {
     if (!request.body) {
       throw new RequestValidationError('Missing body');
     }

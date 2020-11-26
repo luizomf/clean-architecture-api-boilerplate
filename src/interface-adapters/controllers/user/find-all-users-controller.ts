@@ -1,9 +1,21 @@
 import { Controller } from '~/application/ports/controllers/controller';
 import { Presenter } from '~/application/ports/presenters/presenter';
-import { FindAllUsersRequestModel } from '~/application/ports/user/models/find-all-users-request-model';
-import { FindAllUsersUseCase } from '~/application/ports/user/use-cases/find-all-users-use-case';
+import { FindAllUsersUseCase } from '~/domain/user/use-cases/find-all-users-use-case';
 import { ValidationComposite } from '~/application/ports/validators/validation-composite';
-import { User } from '~/domain/user/user';
+import { User } from '~/domain/user/models/user';
+import { RequestModel } from '~/application/ports/requests/request-model';
+
+type FindAllUsersRequestModel = RequestModel<
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  any,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  any,
+  {
+    order?: 'desc' | 'asc';
+    limit?: number;
+    offset?: number;
+  }
+>;
 
 export class FindAllUsersController implements Controller<User[] | never> {
   constructor(

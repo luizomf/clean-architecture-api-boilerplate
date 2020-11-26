@@ -1,7 +1,7 @@
 import { NotFoundError } from '~/application/errors/not-found-error';
 import { FindUserByIdRepository } from '~/application/ports/repositories/user/find-user-by-id-repository';
-import { FindUserByIdUseCase } from '~/application/ports/user/use-cases/find-user-by-id-use-case';
-import { User } from '~/domain/user/user';
+import { FindUserByIdUseCase } from '~/domain/user/use-cases/find-user-by-id-use-case';
+import { User } from '~/domain/user/models/user';
 
 export class FindUserById implements FindUserByIdUseCase {
   constructor(private readonly repository: FindUserByIdRepository) {}

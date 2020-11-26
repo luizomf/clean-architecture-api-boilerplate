@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { CreateUserRequestWithPasswordHash } from '~/application/ports/user/models/create-user-request-model';
+import { CreateUserRequestWithPasswordHash } from '~/domain/user/models/create-user-request-model';
 import { InMemoryUserRepository } from './in-memory-user-repository';
 
 const sut = new InMemoryUserRepository();

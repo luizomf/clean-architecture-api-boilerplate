@@ -1,7 +1,7 @@
 import { GenericSuccessPresenter } from '~/interface-adapters/presenters/responses/generic/generic-success-presenter';
-import { FindAllUsersUseCase } from '~/application/ports/user/use-cases/find-all-users-use-case';
+import { FindAllUsersUseCase } from '~/domain/user/use-cases/find-all-users-use-case';
 import { ValidationComposite } from '~/application/ports/validators/validation-composite';
-import { User } from '~/domain/user/user';
+import { User } from '~/domain/user/models/user';
 import { FindAllUsersController } from './find-all-users-controller';
 
 const sutFactory = () => {

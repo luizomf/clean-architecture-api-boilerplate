@@ -2,8 +2,8 @@ import { FindUserByEmailRepository } from '~/application/ports/repositories/user
 import { FindUserByIdRepository } from '~/application/ports/repositories/user/find-user-by-id-repository';
 import { UpdateUserRepository } from '~/application/ports/repositories/user/update-user-repository';
 import { PasswordHashing } from '~/application/ports/security/password-hashing';
-import { UpdateUserRequestModelBody } from '~/application/ports/user/models/update-user-request-model';
-import { User } from '~/domain/user/user';
+import { UpdateUserRequestModelBody } from '~/domain/user/models/update-user-request-model';
+import { User } from '~/domain/user/models/user';
 import { UpdateUser } from './update-user';
 
 const sutFactory = () => {

@@ -1,5 +1,5 @@
 import { InternalServerError } from '~/application/errors/internal-server-error';
-import { RequestModel } from '~/application/ports/request/request-model';
+import { RequestModel } from '~/application/ports/requests/request-model';
 import { ValidationComposite } from '~/application/ports/validators/validation-composite';
 
 export class UserValidationComposite extends ValidationComposite {

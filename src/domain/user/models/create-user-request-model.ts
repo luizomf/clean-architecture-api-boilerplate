@@ -1,4 +1,4 @@
-import { User } from '~/domain/user/user';
+import { User } from '~/domain/user/models/user';
 
 type PasswordAndConfirmPasswordString = {
   password: string;

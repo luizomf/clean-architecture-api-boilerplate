@@ -1,6 +1,6 @@
 import { FindAllUsersRepository } from '~/application/ports/repositories/user/find-all-users-repository';
-import { FindAllUsersUseCase } from '~/application/ports/user/use-cases/find-all-users-use-case';
-import { User } from '~/domain/user/user';
+import { FindAllUsersUseCase } from '~/domain/user/use-cases/find-all-users-use-case';
+import { User } from '~/domain/user/models/user';
 
 export class FindAllUsers implements FindAllUsersUseCase {
   constructor(

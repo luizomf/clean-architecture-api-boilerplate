@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { RequestValidationError } from '~/application/errors/request-validation-error';
-import { FindAllUsersRequestModel } from '~/application/ports/user/models/find-all-users-request-model';
 import { ValidationComposite } from '~/application/ports/validators/validation-composite';
 
 export class FindAllUsersQueryValidation extends ValidationComposite {
-  async validate(request: FindAllUsersRequestModel): Promise<void | never> {
+  async validate(request: any): Promise<void | never> {
     if (!request.query) {
       return;
     }

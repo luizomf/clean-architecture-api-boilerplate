@@ -2,10 +2,14 @@
 import { RequestValidationError } from '~/application/errors/request-validation-error';
 import { Controller } from '~/application/ports/controllers/controller';
 import { Presenter } from '~/application/ports/presenters/presenter';
-import { ResponseModel } from '~/application/ports/response/response-model';
-import { UpdateUserRequestModel } from '~/application/ports/user/models/update-user-request-model';
-import { UpdateUserUseCase } from '~/application/ports/user/use-cases/update-user-use-case';
+import { ResponseModel } from '~/application/ports/responses/response-model';
+import { UpdateUserUseCase } from '~/domain/user/use-cases/update-user-use-case';
 import { ValidationComposite } from '~/application/ports/validators/validation-composite';
+import { RequestModel } from '~/application/ports/requests/request-model';
+import {
+  UpdateUserRequestModelBody,
+  UpdateUserRequestModelParams,
+} from '~/domain/user/models/update-user-request-model';
 
 export class UpdateUserController implements Controller<void | never> {
   constructor(
@@ -15,7 +19,10 @@ export class UpdateUserController implements Controller<void | never> {
   ) {}
 
   async handleRequest(
-    requestModel: UpdateUserRequestModel,
+    requestModel: RequestModel<
+      UpdateUserRequestModelBody,
+      UpdateUserRequestModelParams
+    >,
   ): Promise<ResponseModel<void | never>> {
     if (!requestModel.params || !requestModel.body) {
       throw new RequestValidationError('Missing data');

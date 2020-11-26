@@ -1,5 +1,5 @@
 import { FindAllUsersRepository } from '~/application/ports/repositories/user/find-all-users-repository';
-import { User } from '~/domain/user/user';
+import { User } from '~/domain/user/models/user';
 import { FindAllUsers } from './find-all-users';
 
 const sutFactory = () => {

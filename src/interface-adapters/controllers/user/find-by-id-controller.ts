@@ -1,9 +1,9 @@
-import { User } from '~/domain/user/user';
-import { RequestModel } from '~/application/ports/request/request-model';
+import { User } from '~/domain/user/models/user';
+import { RequestModel } from '~/application/ports/requests/request-model';
 import { ValidationComposite } from '~/application/ports/validators/validation-composite';
 import { Presenter } from '~/application/ports/presenters/presenter';
 import { Controller } from '~/application/ports/controllers/controller';
-import { FindUserByIdUseCase } from '~/application/ports/user/use-cases/find-user-by-id-use-case';
+import { FindUserByIdUseCase } from '~/domain/user/use-cases/find-user-by-id-use-case';
 
 export class FindUserByIdController implements Controller<User> {
   constructor(

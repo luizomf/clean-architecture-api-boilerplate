@@ -1,5 +1,5 @@
 import { RequestValidationError } from '~/application/errors/request-validation-error';
-import { RequestModel } from '~/application/ports/request/request-model';
+import { RequestModel } from '~/application/ports/requests/request-model';
 import { EmailValidator } from '~/application/ports/validators/email-validator';
 import { RequestBodyValidation } from '../../common/request-body-validation';
 import { RequestParamsIdValidation } from '../../common/request-params-id-validation';

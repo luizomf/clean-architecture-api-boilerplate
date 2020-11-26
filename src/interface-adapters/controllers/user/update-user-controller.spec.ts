@@ -4,9 +4,9 @@ import { RequestBodyValidation } from '~/interface-adapters/validation/common/re
 import { RequestParamsIdValidation } from '~/interface-adapters/validation/common/request-params-id-validation';
 import { RequestParamsValidation } from '~/interface-adapters/validation/common/request-params-validation';
 import { UserValidationComposite } from '~/interface-adapters/validation/user/composites/user-validation-composite';
-import { UpdateUserRequestModelBody } from '~/application/ports/user/models/update-user-request-model';
-import { UpdateUserUseCase } from '~/application/ports/user/use-cases/update-user-use-case';
-import { User } from '~/domain/user/user';
+import { UpdateUserRequestModelBody } from '~/domain/user/models/update-user-request-model';
+import { UpdateUserUseCase } from '~/domain/user/use-cases/update-user-use-case';
+import { User } from '~/domain/user/models/user';
 import { UpdateUserController } from './update-user-controller';
 
 const sutFactory = () => {

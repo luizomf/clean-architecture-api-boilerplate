@@ -1,6 +1,6 @@
 import { NotFoundError } from '~/application/errors/not-found-error';
 import { FindUserByIdRepository } from '~/application/ports/repositories/user/find-user-by-id-repository';
-import { User } from '~/domain/user/user';
+import { User } from '~/domain/user/models/user';
 import { FindUserById } from './find-user-by-id';
 
 const findUserRepositoryMockFactory = () => {

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { User } from '~/domain/user/user';
+import { User } from '~/domain/user/models/user';
 import { db } from '~/infrastructure/knex/connection';
 import { updateUserControllerFactory } from './update-user-controller-factory';
 
