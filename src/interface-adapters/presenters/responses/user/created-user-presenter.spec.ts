@@ -1,7 +1,7 @@
 import { CreatedUserPresenter } from './created-user-presenter';
 
 describe('CreatedUserPresenter', () => {
-  it('should return a user without password_hash', async () => {
+  it('should return a user', async () => {
     const sut = new CreatedUserPresenter();
 
     const bodyValue = {
@@ -17,6 +17,7 @@ describe('CreatedUserPresenter', () => {
       email: 'email@email.com',
       first_name: 'first',
       last_name: 'last',
+      password_hash: 'hash',
     };
 
     const response = await sut.response(bodyValue);
