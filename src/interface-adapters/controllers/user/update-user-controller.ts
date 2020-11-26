@@ -2,10 +2,10 @@
 import { RequestValidationError } from '~/application/errors/request-validation-error';
 import { Controller } from '~/application/ports/controllers/controller';
 import { Presenter } from '~/application/ports/presenters/presenter';
-import { ResponseModel } from '~/application/ports/responses/response-model';
+import { ResponseModel } from '~/domain/ports/responses/response-model';
 import { UpdateUserUseCase } from '~/domain/user/use-cases/update-user-use-case';
-import { ValidationComposite } from '~/application/ports/validators/validation-composite';
-import { RequestModel } from '~/application/ports/requests/request-model';
+import { ValidationComposite } from '~/domain/ports/validation/validation-composite';
+import { RequestModel } from '~/domain/ports/requests/request-model';
 import {
   UpdateUserRequestModelBody,
   UpdateUserRequestModelParams,

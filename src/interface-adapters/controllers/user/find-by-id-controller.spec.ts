@@ -1,9 +1,9 @@
 import { BadRequestError } from '~/application/errors/bad-request-error';
-import { UserEntity } from '~/domain/user/entities/user';
-import { ValidationComposite } from '~/application/ports/validators/validation-composite';
+import { User } from '~/domain/user/entities/user';
+import { ValidationComposite } from '~/domain/ports/validation/validation-composite';
 import { FindUserByIdController } from './find-by-id-controller';
 import { Presenter } from '~/application/ports/presenters/presenter';
-import { ResponseModel } from '~/application/ports/responses/response-model';
+import { ResponseModel } from '~/domain/ports/responses/response-model';
 import { FindUserByIdUseCase } from '~/domain/user/use-cases/find-user-by-id-use-case';
 
 const sutFactory = () => {
@@ -25,8 +25,8 @@ const sutFactory = () => {
 };
 
 const presenterMockFactory = () => {
-  class PresenterMock implements Presenter<UserEntity> {
-    async response(): Promise<ResponseModel<UserEntity>> {
+  class PresenterMock implements Presenter<User> {
+    async response(): Promise<ResponseModel<User>> {
       return {
         statusCode: 200,
         body: userMockFactory()[0],
@@ -47,7 +47,7 @@ const userValidationCompositeMockFactory = () => {
 
 const findUserUseCaseMockFactory = () => {
   class FindUserByIdUseCaseMock implements FindUserByIdUseCase {
-    async findById(_id: string): Promise<UserEntity> {
+    async findById(_id: string): Promise<User> {
       return userMockFactory()[0];
     }
   }
@@ -56,7 +56,7 @@ const findUserUseCaseMockFactory = () => {
   return findUserByIdUseCaseMock;
 };
 
-const userMockFactory = (): UserEntity[] => {
+const userMockFactory = (): User[] => {
   return [
     {
       id: '1',

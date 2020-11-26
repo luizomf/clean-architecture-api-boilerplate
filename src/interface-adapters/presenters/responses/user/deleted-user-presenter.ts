@@ -1,5 +1,5 @@
 import { Presenter } from '~/application/ports/presenters/presenter';
-import { ResponseModel } from '~/application/ports/responses/response-model';
+import { ResponseModel } from '~/domain/ports/responses/response-model';
 
 export class DeletedUserPresenter implements Presenter {
   async response(body: void): Promise<ResponseModel<void>> {

@@ -1,11 +1,11 @@
 import { NotFoundError } from '~/application/errors/not-found-error';
 import { FindUserByIdRepository } from '~/application/ports/repositories/user/find-user-by-id-repository';
-import { UserEntity } from '~/domain/user/entities/user';
+import { User } from '~/domain/user/entities/user';
 import { FindUserById } from './find-user-by-id';
 
 const findUserRepositoryMockFactory = () => {
   class FindUserByIdRepositoryMock implements FindUserByIdRepository {
-    async findById(): Promise<UserEntity | null> {
+    async findById(): Promise<User | null> {
       return userMockFactory()[0];
     }
   }
@@ -14,7 +14,7 @@ const findUserRepositoryMockFactory = () => {
   return findUserByIdRepositoryMock;
 };
 
-const userMockFactory = (): UserEntity[] => {
+const userMockFactory = (): User[] => {
   return [
     {
       id: '1',

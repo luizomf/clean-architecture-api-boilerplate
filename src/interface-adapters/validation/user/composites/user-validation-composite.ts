@@ -1,6 +1,6 @@
 import { InternalServerError } from '~/application/errors/internal-server-error';
-import { RequestModel } from '~/application/ports/requests/request-model';
-import { ValidationComposite } from '~/application/ports/validators/validation-composite';
+import { RequestModel } from '~/domain/ports/requests/request-model';
+import { ValidationComposite } from '~/domain/ports/validation/validation-composite';
 
 export class UserValidationComposite extends ValidationComposite {
   async validate(request: RequestModel): Promise<void | never> {

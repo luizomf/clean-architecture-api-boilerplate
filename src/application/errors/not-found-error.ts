@@ -1,4 +1,4 @@
-import { DefaultApplicationError } from './default-application-error';
+import { DefaultApplicationError } from '../../domain/ports/errors/default-application-error';
 
 export class NotFoundError extends DefaultApplicationError {
   statusCode = 404;

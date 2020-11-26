@@ -2,12 +2,12 @@
 
 import { Presenter } from '~/application/ports/presenters/presenter';
 import { CreateUserRequestValidationComposite } from '~/interface-adapters/validation/user/composites/create-user-request-validation-composite';
-import { EmailValidationError } from '~/application/errors/email-validation-error';
+import { EmailValidationError } from '~/domain/email/errors/email-validation-error';
 import { RequestValidationError } from '~/application/errors/request-validation-error';
-import { ResponseModel } from '~/application/ports/responses/response-model';
+import { ResponseModel } from '~/domain/ports/responses/response-model';
 import { CreateUserRequestWithPasswordString } from '~/domain/user/models/create-user-request-model';
 import { CreateUserUseCase } from '~/domain/user/use-cases/create-user-use-case';
-import { UserEntity } from '~/domain/user/entities/user';
+import { User } from '~/domain/user/entities/user';
 import { CreateUserController } from './create-user-controller';
 import { EmailValidatorAdapter } from '~/common/adapters/validators/email-validator-adapter';
 
@@ -36,7 +36,7 @@ const createUserUseCaseMockFactory = () => {
   class CreateUserUseCaseMock implements CreateUserUseCase {
     async create(
       _userData: CreateUserRequestWithPasswordString,
-    ): Promise<UserEntity> {
+    ): Promise<User> {
       return userResponseModelFactory();
     }
   }
@@ -45,8 +45,8 @@ const createUserUseCaseMockFactory = () => {
 };
 
 const createSuccessPresenterMockFactory = () => {
-  class CreateSuccessPresenterMock implements Presenter<UserEntity> {
-    async response(): Promise<ResponseModel<UserEntity>> {
+  class CreateSuccessPresenterMock implements Presenter<User> {
+    async response(): Promise<ResponseModel<User>> {
       return {
         statusCode: 200,
         body: userResponseModelFactory(),

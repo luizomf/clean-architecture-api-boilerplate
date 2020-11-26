@@ -1,13 +1,13 @@
 import { GenericSuccessPresenter } from '~/interface-adapters/presenters/responses/generic/generic-success-presenter';
 import { FindAllUsersUseCase } from '~/domain/user/use-cases/find-all-users-use-case';
-import { ValidationComposite } from '~/application/ports/validators/validation-composite';
-import { UserEntity } from '~/domain/user/entities/user';
+import { ValidationComposite } from '~/domain/ports/validation/validation-composite';
+import { User } from '~/domain/user/entities/user';
 import { FindAllUsersController } from './find-all-users-controller';
 
 const sutFactory = () => {
   const findAllUsersUseCaseMock = findAllUsersUseCaseMockFactory();
   const findAllUsersValidationMock = findAllUsersValidationMockFactory();
-  const genericSuccessPresenter = new GenericSuccessPresenter<UserEntity[]>();
+  const genericSuccessPresenter = new GenericSuccessPresenter<User[]>();
   const sut = new FindAllUsersController(
     findAllUsersUseCaseMock,
     findAllUsersValidationMock,

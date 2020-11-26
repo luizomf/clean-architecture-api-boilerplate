@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { UserEntity } from '~/domain/user/entities/user';
+import { User } from '~/domain/user/entities/user';
 import { db } from '~/infrastructure/knex/connection';
 import { deleteUserByIdControllerFactory } from './delete-user-by-id-controller-factory';
 
@@ -16,7 +16,7 @@ describe('createUserControllerFactory', () => {
     await db.migrate
       .latest({ directory: process.env.MIGRATIONS })
       .then(async () => {
-        await db<UserEntity>('users').insert([
+        await db<User>('users').insert([
           {
             first_name: 'user1',
             last_name: 'user11',

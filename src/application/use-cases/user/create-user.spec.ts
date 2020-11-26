@@ -1,9 +1,9 @@
-import { UserExistsError } from '~/application/errors/user-exists-error';
+import { UserExistsError } from '~/domain/user/errors/user-exists-error';
 import { CreateUserRepository } from '~/application/ports/repositories/user/create-user-repository';
 import { FindUserByEmailRepository } from '~/application/ports/repositories/user/find-user-by-email-repository';
-import { PasswordHashing } from '~/application/ports/security/password-hashing';
+import { PasswordHashing } from '~/domain/ports/security/password-hashing';
 import { CreateUserRequestWithPasswordHash } from '~/domain/user/models/create-user-request-model';
-import { UserEntity } from '~/domain/user/entities/user';
+import { User } from '~/domain/user/entities/user';
 import { CreateUser } from './create-user';
 
 const sutFactory = () => {
@@ -43,7 +43,7 @@ const createUserRepositoryMockFactory = (): CreateUserRepository => {
   class CreateUserRepositoryMock implements CreateUserRepository {
     async create(
       _requestModel: CreateUserRequestWithPasswordHash,
-    ): Promise<UserEntity | never> {
+    ): Promise<User | never> {
       return {
         id: '1',
         first_name: 'a_first_name',
@@ -58,7 +58,7 @@ const createUserRepositoryMockFactory = (): CreateUserRepository => {
 
 const findUserByEmailRepositoryMockFactory = () => {
   class FindUserByEmailRepositoryMock implements FindUserByEmailRepository {
-    async findByEmail(_email: string): Promise<UserEntity | null> {
+    async findByEmail(_email: string): Promise<User | null> {
       return null;
     }
   }

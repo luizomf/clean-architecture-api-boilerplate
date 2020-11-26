@@ -1,4 +1,4 @@
-import { ResponseModel } from '~/application/ports/responses/response-model';
+import { ResponseModel } from '~/domain/ports/responses/response-model';
 
 export type ErrorParams = {
   name?: string;

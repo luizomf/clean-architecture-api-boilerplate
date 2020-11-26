@@ -1,9 +1,9 @@
 import { Controller } from '~/application/ports/controllers/controller';
 import { Presenter } from '~/application/ports/presenters/presenter';
 import { FindAllUsersUseCase } from '~/domain/user/use-cases/find-all-users-use-case';
-import { ValidationComposite } from '~/application/ports/validators/validation-composite';
-import { UserEntity } from '~/domain/user/entities/user';
-import { RequestModel } from '~/application/ports/requests/request-model';
+import { ValidationComposite } from '~/domain/ports/validation/validation-composite';
+import { User } from '~/domain/user/entities/user';
+import { RequestModel } from '~/domain/ports/requests/request-model';
 
 type FindAllUsersRequestModel = RequestModel<
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -17,12 +17,11 @@ type FindAllUsersRequestModel = RequestModel<
   }
 >;
 
-export class FindAllUsersController
-  implements Controller<UserEntity[] | never> {
+export class FindAllUsersController implements Controller<User[] | never> {
   constructor(
     private readonly findAllUsersUseCase: FindAllUsersUseCase,
     private readonly findAllUsersValidation: ValidationComposite,
-    private readonly findAllUsersPresenter: Presenter<UserEntity[]>,
+    private readonly findAllUsersPresenter: Presenter<User[]>,
   ) {}
 
   async handleRequest(requestModel: FindAllUsersRequestModel) {

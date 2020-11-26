@@ -1,13 +1,13 @@
-import { EmailValidationError } from '~/application/errors/email-validation-error';
+import { EmailValidationError } from '~/domain/email/errors/email-validation-error';
 import { NotFoundError } from '~/application/errors/not-found-error';
 import { RepositoryError } from '~/application/errors/repository-error';
 import { FindUserByEmailRepository } from '~/application/ports/repositories/user/find-user-by-email-repository';
 import { FindUserByIdRepository } from '~/application/ports/repositories/user/find-user-by-id-repository';
 import { UpdateUserRepository } from '~/application/ports/repositories/user/update-user-repository';
-import { PasswordHashing } from '~/application/ports/security/password-hashing';
+import { PasswordHashing } from '~/domain/ports/security/password-hashing';
 import { UpdateUserRequestModelBody } from '~/domain/user/models/update-user-request-model';
 import { UpdateUserUseCase } from '~/domain/user/use-cases/update-user-use-case';
-import { UserEntity } from '~/domain/user/entities/user';
+import { User } from '~/domain/user/entities/user';
 
 export class UpdateUser implements UpdateUserUseCase {
   constructor(
@@ -20,7 +20,7 @@ export class UpdateUser implements UpdateUserUseCase {
   async update(
     id: string,
     request: UpdateUserRequestModelBody,
-  ): Promise<UserEntity | never> {
+  ): Promise<User | never> {
     const foundUser = await this.findUserByIdRepository.findById(id);
 
     if (!foundUser) {

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { UserEntity } from '~/domain/user/entities/user';
+import { User } from '~/domain/user/entities/user';
 import { db } from '~/infrastructure/knex/connection';
 import { UserSqlRepository } from './user-sql-repository';
 
@@ -14,7 +14,7 @@ const sutFactory = () => {
 describe('UserSqlRepository', () => {
   beforeAll(async () => {
     await db.migrate.latest({ directory: process.env.MIGRATIONS });
-    await db<UserEntity>('users').insert([
+    await db<User>('users').insert([
       {
         first_name: 'first_name',
         last_name: 'last_name',
@@ -36,7 +36,7 @@ describe('UserSqlRepository', () => {
 
   it('should find a user by id', async () => {
     const { sut } = sutFactory();
-    const user = (await sut.findById('1')) as UserEntity;
+    const user = (await sut.findById('1')) as User;
     expect(user.id).toBeTruthy();
     expect(user.first_name).toBe('first_name');
     expect(user.last_name).toBe('last_name');
@@ -52,7 +52,7 @@ describe('UserSqlRepository', () => {
 
   it('should find a user by email', async () => {
     const { sut } = sutFactory();
-    const user = (await sut.findByEmail('email@email.com')) as UserEntity;
+    const user = (await sut.findByEmail('email@email.com')) as User;
     expect(user.id).toBeTruthy();
     expect(user.first_name).toBe('first_name');
     expect(user.last_name).toBe('last_name');

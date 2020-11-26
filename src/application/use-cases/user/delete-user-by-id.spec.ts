@@ -1,6 +1,6 @@
 import { DeleteUserByIdRepository } from '~/application/ports/repositories/user/delete-user-by-id-repository';
 import { FindUserByIdRepository } from '~/application/ports/repositories/user/find-user-by-id-repository';
-import { UserEntity } from '~/domain/user/entities/user';
+import { User } from '~/domain/user/entities/user';
 import { DeleteUserById } from './delete-user-by-id';
 
 const sutFactory = () => {
@@ -20,7 +20,7 @@ const sutFactory = () => {
 
 const findUserByIdRepositoryMockFactory = () => {
   class FindUserByIdRepositoryMock implements FindUserByIdRepository {
-    async findById(_id: string): Promise<UserEntity | null> {
+    async findById(_id: string): Promise<User | null> {
       return {
         id: '1',
         first_name: 'first',

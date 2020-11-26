@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { RequestValidationError } from '~/application/errors/request-validation-error';
-import { EmailValidator } from '~/application/ports/validators/email-validator';
+import { EmailValidator } from '~/domain/email/validation/email-validator';
 import { UserValidationEmail } from './user-validation-email';
 
 const sutFactory = () => {

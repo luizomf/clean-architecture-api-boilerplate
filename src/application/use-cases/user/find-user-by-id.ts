@@ -1,12 +1,12 @@
 import { NotFoundError } from '~/application/errors/not-found-error';
 import { FindUserByIdRepository } from '~/application/ports/repositories/user/find-user-by-id-repository';
 import { FindUserByIdUseCase } from '~/domain/user/use-cases/find-user-by-id-use-case';
-import { UserEntity } from '~/domain/user/entities/user';
+import { User } from '~/domain/user/entities/user';
 
 export class FindUserById implements FindUserByIdUseCase {
   constructor(private readonly repository: FindUserByIdRepository) {}
 
-  async findById(id: string): Promise<UserEntity> {
+  async findById(id: string): Promise<User> {
     const user = await this.repository.findById(id);
 
     if (!user) {

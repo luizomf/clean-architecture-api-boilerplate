@@ -1,4 +1,4 @@
-import { EmailValidator } from '~/application/ports/validators/email-validator';
+import { EmailValidator } from '~/domain/email/validation/email-validator';
 import { RequestBodyValidation } from '../../common/request-body-validation';
 import { UserValidationEmail } from '../single-validations/user-validation-email';
 import { UserValidationEmptyFields } from '../single-validations/user-validation-empty-fields';

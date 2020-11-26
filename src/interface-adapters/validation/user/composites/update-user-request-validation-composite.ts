@@ -1,6 +1,6 @@
 import { RequestValidationError } from '~/application/errors/request-validation-error';
-import { RequestModel } from '~/application/ports/requests/request-model';
-import { EmailValidator } from '~/application/ports/validators/email-validator';
+import { RequestModel } from '~/domain/ports/requests/request-model';
+import { EmailValidator } from '~/domain/email/validation/email-validator';
 import { RequestBodyValidation } from '../../common/request-body-validation';
 import { RequestParamsIdValidation } from '../../common/request-params-id-validation';
 import { RequestParamsValidation } from '../../common/request-params-validation';

@@ -1,10 +1,10 @@
-import { UserExistsError } from '~/application/errors/user-exists-error';
+import { UserExistsError } from '~/domain/user/errors/user-exists-error';
 import { CreateUserRepository } from '~/application/ports/repositories/user/create-user-repository';
 import { FindUserByEmailRepository } from '~/application/ports/repositories/user/find-user-by-email-repository';
-import { PasswordHashing } from '~/application/ports/security/password-hashing';
+import { PasswordHashing } from '~/domain/ports/security/password-hashing';
 import { CreateUserRequestWithPasswordString } from '~/domain/user/models/create-user-request-model';
 import { CreateUserUseCase } from '~/domain/user/use-cases/create-user-use-case';
-import { UserEntity } from '~/domain/user/entities/user';
+import { User } from '~/domain/user/entities/user';
 
 export class CreateUser implements CreateUserUseCase {
   constructor(
@@ -13,9 +13,7 @@ export class CreateUser implements CreateUserUseCase {
     private readonly passwordHashing: PasswordHashing,
   ) {}
 
-  async create(
-    userData: CreateUserRequestWithPasswordString,
-  ): Promise<UserEntity> {
+  async create(userData: CreateUserRequestWithPasswordString): Promise<User> {
     const userExists = await this.findUserByEmailRepository.findByEmail(
       userData.email,
     );
