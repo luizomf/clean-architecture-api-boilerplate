@@ -1,6 +1,6 @@
-import { DeleteUserByIdController } from '~/adapters/controllers/user/delete-user-by-id-controller';
-import { DeletedUserPresenter } from '~/adapters/presenters/responses/user/deleted-user-presenter';
-import { RequestParamsIdValidation } from '~/adapters/validation/common/request-params-id-validation';
+import { DeleteUserByIdController } from '~/interface-adapters/controllers/user/delete-user-by-id-controller';
+import { DeletedUserPresenter } from '~/interface-adapters/presenters/responses/user/deleted-user-presenter';
+import { RequestParamsIdValidation } from '~/interface-adapters/validation/common/request-params-id-validation';
 import { DeleteUserById } from '~/application/use-cases/user/delete-user-by-id';
 import {
   deleteUserByIdRepository,

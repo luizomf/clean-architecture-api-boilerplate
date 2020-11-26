@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { UpdatedUserPresenter } from '~/adapters/presenters/responses/user/updated-user-presenter';
-import { RequestBodyValidation } from '~/adapters/validation/common/request-body-validation';
-import { RequestParamsIdValidation } from '~/adapters/validation/common/request-params-id-validation';
-import { RequestParamsValidation } from '~/adapters/validation/common/request-params-validation';
-import { UserValidationComposite } from '~/adapters/validation/user/composites/user-validation-composite';
+import { UpdatedUserPresenter } from '~/interface-adapters/presenters/responses/user/updated-user-presenter';
+import { RequestBodyValidation } from '~/interface-adapters/validation/common/request-body-validation';
+import { RequestParamsIdValidation } from '~/interface-adapters/validation/common/request-params-id-validation';
+import { RequestParamsValidation } from '~/interface-adapters/validation/common/request-params-validation';
+import { UserValidationComposite } from '~/interface-adapters/validation/user/composites/user-validation-composite';
 import { UpdateUserRequestModelBody } from '~/application/ports/user/models/update-user-request-model';
 import { UpdateUserUseCase } from '~/application/ports/user/use-cases/update-user-use-case';
 import { User } from '~/domain/user/user';

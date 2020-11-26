@@ -1,6 +1,6 @@
-import { CreateUserController } from '~/adapters/controllers/user/create-user-controller';
-import { CreatedUserPresenter } from '~/adapters/presenters/responses/user/created-user-presenter';
-import { CreateUserRequestValidationComposite } from '~/adapters/validation/user/composites/create-user-request-validation-composite';
+import { CreateUserController } from '~/interface-adapters/controllers/user/create-user-controller';
+import { CreatedUserPresenter } from '~/interface-adapters/presenters/responses/user/created-user-presenter';
+import { CreateUserRequestValidationComposite } from '~/interface-adapters/validation/user/composites/create-user-request-validation-composite';
 import { CreateUser } from '~/application/use-cases/user/create-user';
 import { BCryptAdapter } from '~/common/adapters/validators/bcrypt-adapter';
 import { EmailValidatorAdapter } from '~/common/adapters/validators/email-validator-adapter';
