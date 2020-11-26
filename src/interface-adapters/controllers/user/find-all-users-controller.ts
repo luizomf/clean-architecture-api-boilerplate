@@ -24,11 +24,11 @@ export class FindAllUsersController implements Controller<User[] | never> {
     }
 
     if (requestModel.query && requestModel.query.limit) {
-      limit = requestModel.query.limit;
+      limit = +requestModel.query.limit;
     }
 
     if (requestModel.query && requestModel.query.offset) {
-      offset = requestModel.query.offset;
+      offset = +requestModel.query.offset;
     }
 
     const users = await this.findAllUsersUseCase.findAll(order, limit, offset);

@@ -1,6 +1,7 @@
 import { RepositoryError } from '~/application/errors/repository-error';
 import { CreateUserRepository } from '~/application/ports/repositories/create-user-repository';
 import { DeleteUserByIdRepository } from '~/application/ports/repositories/delete-user-by-id-repository';
+import { FindAllUsersRepository } from '~/application/ports/repositories/find-all-users-repository';
 import { FindUserByEmailRepository } from '~/application/ports/repositories/find-user-by-email-repository';
 import { FindUserByIdRepository } from '~/application/ports/repositories/find-user-by-id-repository';
 import { UpdateUserRepository } from '~/application/ports/repositories/update-user-repository';
@@ -15,7 +16,8 @@ export class UserSqlRepository
     CreateUserRepository,
     FindUserByEmailRepository,
     DeleteUserByIdRepository,
-    UpdateUserRepository {
+    UpdateUserRepository,
+    FindAllUsersRepository {
   private readonly table = 'users';
 
   async findById(id: string): Promise<User | null> {
@@ -67,5 +69,18 @@ export class UserSqlRepository
       error.stack = e.stack;
       throw error;
     }
+  }
+
+  async find(
+    order: 'asc' | 'desc',
+    limit: number,
+    offset: number,
+  ): Promise<User[]> {
+    const users = await db(this.table)
+      .select('id', 'first_name', 'last_name', 'email', 'password_hash')
+      .orderBy('id', order)
+      .limit(limit)
+      .offset(offset);
+    return users;
   }
 }

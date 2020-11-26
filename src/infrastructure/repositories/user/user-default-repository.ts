@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { CreateUserRepository } from '~/application/ports/repositories/create-user-repository';
 import { DeleteUserByIdRepository } from '~/application/ports/repositories/delete-user-by-id-repository';
+import { FindAllUsersRepository } from '~/application/ports/repositories/find-all-users-repository';
 import { FindUserByEmailRepository } from '~/application/ports/repositories/find-user-by-email-repository';
 import { FindUserByIdRepository } from '~/application/ports/repositories/find-user-by-id-repository';
 import { UpdateUserRepository } from '~/application/ports/repositories/update-user-repository';
@@ -16,6 +17,7 @@ const findUserByIdRepository: FindUserByIdRepository = userSqlRepository;
 const findUserByEmailRepository: FindUserByEmailRepository = userSqlRepository;
 const deleteUserByIdRepository: DeleteUserByIdRepository = userSqlRepository;
 const updateUserRepository: UpdateUserRepository = userSqlRepository;
+const findAllUsersRepository: FindAllUsersRepository = userSqlRepository;
 
 export {
   createUserRepository,
@@ -23,4 +25,5 @@ export {
   findUserByEmailRepository,
   deleteUserByIdRepository,
   updateUserRepository,
+  findAllUsersRepository,
 };

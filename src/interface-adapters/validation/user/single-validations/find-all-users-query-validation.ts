@@ -26,11 +26,11 @@ export class FindAllUsersQueryValidation extends ValidationComposite {
       return;
     }
 
-    if (typeof num !== 'number') {
+    if (Number.isNaN(+num)) {
       throw new RequestValidationError('Limit and Offset must be numbers');
     }
 
-    if (num < 0) {
+    if (+num < 0) {
       throw new RequestValidationError(
         'Limit and Offset must be positive numbers',
       );

@@ -58,7 +58,7 @@ describe('FindAllUsersQueryValidation', () => {
     let error;
 
     try {
-      await sut.validate({ query: { order: 'asc', limit: '20' } } as any);
+      await sut.validate({ query: { order: 'asc', limit: 'abc' } } as any);
     } catch (e) {
       error = e;
     }
