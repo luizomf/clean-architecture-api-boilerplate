@@ -6,7 +6,7 @@ export async function up(knex: Knex): Promise<void> {
     t.string('first_name', 100).notNullable();
     t.string('last_name', 100).notNullable();
     t.string('email', 254).notNullable().unique();
-    t.binary('password_hash', 60).notNullable();
+    t.string('password_hash', 60).notNullable();
   });
 }
 

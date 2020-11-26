@@ -1,5 +1,5 @@
-import { DeleteUserByIdRepository } from '~/application/ports/repositories/delete-user-by-id-repository';
-import { FindUserByIdRepository } from '~/application/ports/repositories/find-user-by-id-repository';
+import { DeleteUserByIdRepository } from '~/application/ports/repositories/user/delete-user-by-id-repository';
+import { FindUserByIdRepository } from '~/application/ports/repositories/user/find-user-by-id-repository';
 import { User } from '~/domain/user/user';
 import { DeleteUserById } from './delete-user-by-id';
 

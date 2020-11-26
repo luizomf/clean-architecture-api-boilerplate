@@ -1,5 +1,5 @@
 import { NotFoundError } from '~/application/errors/not-found-error';
-import { FindUserByIdRepository } from '~/application/ports/repositories/find-user-by-id-repository';
+import { FindUserByIdRepository } from '~/application/ports/repositories/user/find-user-by-id-repository';
 import { FindUserByIdUseCase } from '~/application/ports/user/use-cases/find-user-by-id-use-case';
 import { User } from '~/domain/user/user';
 

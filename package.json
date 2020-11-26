@@ -22,6 +22,7 @@
     "lint": "eslint 'src/**/*.ts' --fix --max-warnings 0",
     "lint:ts": "tsc --noEmit",
     "prePush": "npm run test:coverage && npm run lint && npm run lint:ts && npm run build",
+    "migrate:make": "knex --knexfile src/infrastructure/knex/knexfile.ts migrate:make -x ts",
     "migrate:dev": "knex --knexfile ./src/infrastructure/knex/knexfile.ts migrate:latest --env development",
     "migrate:prod": "knex --knexfile ./src/infrastructure/knex/knexfile.ts migrate:latest --env production",
     "rollback:dev": "knex --knexfile ./src/infrastructure/knex/knexfile.ts migrate:rollback --env development",

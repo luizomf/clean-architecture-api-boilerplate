@@ -1,4 +1,4 @@
-import { UpdateUserRequestModelBody } from '../user/models/update-user-request-model';
+import { UpdateUserRequestModelBody } from '../../user/models/update-user-request-model';
 
 export interface UpdateUserRepository {
   update(

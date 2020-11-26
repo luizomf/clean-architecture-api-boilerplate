@@ -1,9 +1,9 @@
 import { EmailValidationError } from '~/application/errors/email-validation-error';
 import { NotFoundError } from '~/application/errors/not-found-error';
 import { RepositoryError } from '~/application/errors/repository-error';
-import { FindUserByEmailRepository } from '~/application/ports/repositories/find-user-by-email-repository';
-import { FindUserByIdRepository } from '~/application/ports/repositories/find-user-by-id-repository';
-import { UpdateUserRepository } from '~/application/ports/repositories/update-user-repository';
+import { FindUserByEmailRepository } from '~/application/ports/repositories/user/find-user-by-email-repository';
+import { FindUserByIdRepository } from '~/application/ports/repositories/user/find-user-by-id-repository';
+import { UpdateUserRepository } from '~/application/ports/repositories/user/update-user-repository';
 import { PasswordHashing } from '~/application/ports/security/password-hashing';
 import { UpdateUserRequestModelBody } from '~/application/ports/user/models/update-user-request-model';
 import { UpdateUserUseCase } from '~/application/ports/user/use-cases/update-user-use-case';

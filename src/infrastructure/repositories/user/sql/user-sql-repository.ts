@@ -1,10 +1,10 @@
 import { RepositoryError } from '~/application/errors/repository-error';
-import { CreateUserRepository } from '~/application/ports/repositories/create-user-repository';
-import { DeleteUserByIdRepository } from '~/application/ports/repositories/delete-user-by-id-repository';
-import { FindAllUsersRepository } from '~/application/ports/repositories/find-all-users-repository';
-import { FindUserByEmailRepository } from '~/application/ports/repositories/find-user-by-email-repository';
-import { FindUserByIdRepository } from '~/application/ports/repositories/find-user-by-id-repository';
-import { UpdateUserRepository } from '~/application/ports/repositories/update-user-repository';
+import { CreateUserRepository } from '~/application/ports/repositories/user/create-user-repository';
+import { DeleteUserByIdRepository } from '~/application/ports/repositories/user/delete-user-by-id-repository';
+import { FindAllUsersRepository } from '~/application/ports/repositories/user/find-all-users-repository';
+import { FindUserByEmailRepository } from '~/application/ports/repositories/user/find-user-by-email-repository';
+import { FindUserByIdRepository } from '~/application/ports/repositories/user/find-user-by-id-repository';
+import { UpdateUserRepository } from '~/application/ports/repositories/user/update-user-repository';
 import { CreateUserRequestWithPasswordHash } from '~/application/ports/user/models/create-user-request-model';
 import { UpdateUserRequestModelBody } from '~/application/ports/user/models/update-user-request-model';
 import { User } from '~/domain/user/user';

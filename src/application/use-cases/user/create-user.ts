@@ -1,6 +1,6 @@
 import { UserExistsError } from '~/application/errors/user-exists-error';
-import { CreateUserRepository } from '~/application/ports/repositories/create-user-repository';
-import { FindUserByEmailRepository } from '~/application/ports/repositories/find-user-by-email-repository';
+import { CreateUserRepository } from '~/application/ports/repositories/user/create-user-repository';
+import { FindUserByEmailRepository } from '~/application/ports/repositories/user/find-user-by-email-repository';
 import { PasswordHashing } from '~/application/ports/security/password-hashing';
 import { CreateUserRequestWithPasswordString } from '~/application/ports/user/models/create-user-request-model';
 import { CreateUserUseCase } from '~/application/ports/user/use-cases/create-user-use-case';

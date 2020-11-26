@@ -1,4 +1,4 @@
-import { FindAllUsersRepository } from '~/application/ports/repositories/find-all-users-repository';
+import { FindAllUsersRepository } from '~/application/ports/repositories/user/find-all-users-repository';
 import { User } from '~/domain/user/user';
 import { FindAllUsers } from './find-all-users';
 
