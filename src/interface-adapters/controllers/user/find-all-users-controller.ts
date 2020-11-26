@@ -2,7 +2,7 @@ import { Controller } from '~/application/ports/controllers/controller';
 import { Presenter } from '~/application/ports/presenters/presenter';
 import { FindAllUsersUseCase } from '~/domain/user/use-cases/find-all-users-use-case';
 import { ValidationComposite } from '~/application/ports/validators/validation-composite';
-import { User } from '~/domain/user/models/user';
+import { UserEntity } from '~/domain/user/entities/user';
 import { RequestModel } from '~/application/ports/requests/request-model';
 
 type FindAllUsersRequestModel = RequestModel<
@@ -17,11 +17,12 @@ type FindAllUsersRequestModel = RequestModel<
   }
 >;
 
-export class FindAllUsersController implements Controller<User[] | never> {
+export class FindAllUsersController
+  implements Controller<UserEntity[] | never> {
   constructor(
     private readonly findAllUsersUseCase: FindAllUsersUseCase,
     private readonly findAllUsersValidation: ValidationComposite,
-    private readonly findAllUsersPresenter: Presenter<User[]>,
+    private readonly findAllUsersPresenter: Presenter<UserEntity[]>,
   ) {}
 
   async handleRequest(requestModel: FindAllUsersRequestModel) {

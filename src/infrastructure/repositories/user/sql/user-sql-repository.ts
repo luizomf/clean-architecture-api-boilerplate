@@ -7,7 +7,7 @@ import { FindUserByIdRepository } from '~/application/ports/repositories/user/fi
 import { UpdateUserRepository } from '~/application/ports/repositories/user/update-user-repository';
 import { CreateUserRequestWithPasswordHash } from '~/domain/user/models/create-user-request-model';
 import { UpdateUserRequestModelBody } from '~/domain/user/models/update-user-request-model';
-import { User } from '~/domain/user/models/user';
+import { UserEntity } from '~/domain/user/entities/user';
 import { db } from '~/infrastructure/knex/connection';
 
 export class UserSqlRepository
@@ -20,23 +20,23 @@ export class UserSqlRepository
     FindAllUsersRepository {
   private readonly table = 'users';
 
-  async findById(id: string): Promise<User | null> {
-    const user = await db<User>(this.table).where({ id }).first();
+  async findById(id: string): Promise<UserEntity | null> {
+    const user = await db<UserEntity>(this.table).where({ id }).first();
     if (!user) return null;
     return { ...user, id: user.id.toString() };
   }
 
-  async findByEmail(email: string): Promise<User | null> {
-    const user = await db<User>(this.table).where({ email }).first();
+  async findByEmail(email: string): Promise<UserEntity | null> {
+    const user = await db<UserEntity>(this.table).where({ email }).first();
     if (!user) return null;
     return { ...user, id: user.id.toString() };
   }
 
   async create(
     requestModel: CreateUserRequestWithPasswordHash,
-  ): Promise<User | never> {
+  ): Promise<UserEntity | never> {
     try {
-      const user = await db<User>(this.table)
+      const user = await db<UserEntity>(this.table)
         .insert(requestModel)
         .returning('id');
       return {
@@ -76,7 +76,7 @@ export class UserSqlRepository
     order: 'asc' | 'desc',
     limit: number,
     offset: number,
-  ): Promise<User[]> {
+  ): Promise<UserEntity[]> {
     const users = await db(this.table)
       .select('id', 'first_name', 'last_name', 'email', 'password_hash')
       .orderBy('id', order)

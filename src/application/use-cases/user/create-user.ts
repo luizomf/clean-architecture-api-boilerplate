@@ -4,7 +4,7 @@ import { FindUserByEmailRepository } from '~/application/ports/repositories/user
 import { PasswordHashing } from '~/application/ports/security/password-hashing';
 import { CreateUserRequestWithPasswordString } from '~/domain/user/models/create-user-request-model';
 import { CreateUserUseCase } from '~/domain/user/use-cases/create-user-use-case';
-import { User } from '~/domain/user/models/user';
+import { UserEntity } from '~/domain/user/entities/user';
 
 export class CreateUser implements CreateUserUseCase {
   constructor(
@@ -13,7 +13,9 @@ export class CreateUser implements CreateUserUseCase {
     private readonly passwordHashing: PasswordHashing,
   ) {}
 
-  async create(userData: CreateUserRequestWithPasswordString): Promise<User> {
+  async create(
+    userData: CreateUserRequestWithPasswordString,
+  ): Promise<UserEntity> {
     const userExists = await this.findUserByEmailRepository.findByEmail(
       userData.email,
     );

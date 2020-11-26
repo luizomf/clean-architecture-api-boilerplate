@@ -3,7 +3,7 @@ import { CreateUserRepository } from '~/application/ports/repositories/user/crea
 import { FindUserByEmailRepository } from '~/application/ports/repositories/user/find-user-by-email-repository';
 import { PasswordHashing } from '~/application/ports/security/password-hashing';
 import { CreateUserRequestWithPasswordHash } from '~/domain/user/models/create-user-request-model';
-import { User } from '~/domain/user/models/user';
+import { UserEntity } from '~/domain/user/entities/user';
 import { CreateUser } from './create-user';
 
 const sutFactory = () => {
@@ -43,7 +43,7 @@ const createUserRepositoryMockFactory = (): CreateUserRepository => {
   class CreateUserRepositoryMock implements CreateUserRepository {
     async create(
       _requestModel: CreateUserRequestWithPasswordHash,
-    ): Promise<User | never> {
+    ): Promise<UserEntity | never> {
       return {
         id: '1',
         first_name: 'a_first_name',
@@ -58,7 +58,7 @@ const createUserRepositoryMockFactory = (): CreateUserRepository => {
 
 const findUserByEmailRepositoryMockFactory = () => {
   class FindUserByEmailRepositoryMock implements FindUserByEmailRepository {
-    async findByEmail(_email: string): Promise<User | null> {
+    async findByEmail(_email: string): Promise<UserEntity | null> {
       return null;
     }
   }

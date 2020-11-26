@@ -6,9 +6,9 @@ import { FindUserByIdRepository } from '~/application/ports/repositories/user/fi
 import { UpdateUserRepository } from '~/application/ports/repositories/user/update-user-repository';
 import { CreateUserRequestWithPasswordHash } from '~/domain/user/models/create-user-request-model';
 import { UpdateUserRequestModelBody } from '~/domain/user/models/update-user-request-model';
-import { User } from '~/domain/user/models/user';
+import { UserEntity } from '~/domain/user/entities/user';
 
-export type DBUserMap = Map<string, User>;
+export type DBUserMap = Map<string, UserEntity>;
 
 export class InMemoryUserRepository
   implements
@@ -24,22 +24,24 @@ export class InMemoryUserRepository
     order: 'asc' | 'desc' = 'asc',
     limit = 100,
     offset = 0,
-  ): Promise<User[]> {
+  ): Promise<UserEntity[]> {
     if (order === 'asc') return this.toObject();
     return this.toObject()
       .reverse()
       .slice(offset, limit + offset);
   }
 
-  async findById(id: string): Promise<User | null> {
+  async findById(id: string): Promise<UserEntity | null> {
     return this.users.get(id) || null;
   }
 
-  async findByEmail(email: string): Promise<User | null> {
+  async findByEmail(email: string): Promise<UserEntity | null> {
     return this.toObject().find((user) => user.email === email) || null;
   }
 
-  async create(user: CreateUserRequestWithPasswordHash): Promise<User | never> {
+  async create(
+    user: CreateUserRequestWithPasswordHash,
+  ): Promise<UserEntity | never> {
     const id = this.createNewId();
 
     const newUser = { ...user, id };
@@ -83,7 +85,7 @@ export class InMemoryUserRepository
     return newId.toString();
   }
 
-  private toObject(): User[] {
+  private toObject(): UserEntity[] {
     return [...this.users.values()];
   }
 }

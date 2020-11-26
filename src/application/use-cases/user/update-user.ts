@@ -7,7 +7,7 @@ import { UpdateUserRepository } from '~/application/ports/repositories/user/upda
 import { PasswordHashing } from '~/application/ports/security/password-hashing';
 import { UpdateUserRequestModelBody } from '~/domain/user/models/update-user-request-model';
 import { UpdateUserUseCase } from '~/domain/user/use-cases/update-user-use-case';
-import { User } from '~/domain/user/models/user';
+import { UserEntity } from '~/domain/user/entities/user';
 
 export class UpdateUser implements UpdateUserUseCase {
   constructor(
@@ -20,7 +20,7 @@ export class UpdateUser implements UpdateUserUseCase {
   async update(
     id: string,
     request: UpdateUserRequestModelBody,
-  ): Promise<User | never> {
+  ): Promise<UserEntity | never> {
     const foundUser = await this.findUserByIdRepository.findById(id);
 
     if (!foundUser) {

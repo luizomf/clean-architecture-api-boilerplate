@@ -1,5 +1,5 @@
-import { User } from '~/domain/user/models/user';
+import { UserEntity } from '~/domain/user/entities/user';
 
 export interface FindUserByIdUseCase {
-  findById(id: string): Promise<User>;
+  findById(id: string): Promise<UserEntity>;
 }

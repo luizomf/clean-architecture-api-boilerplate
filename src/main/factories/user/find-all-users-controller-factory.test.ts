@@ -1,4 +1,4 @@
-import { User } from '~/domain/user/models/user';
+import { UserEntity } from '~/domain/user/entities/user';
 import { db } from '~/infrastructure/knex/connection';
 import { findAllUsersControllerFactory } from './find-all-users-controller-factory';
 
@@ -13,7 +13,7 @@ const sutFactory = () => {
 describe('findAllUsersControllerFactory', () => {
   beforeAll(async () => {
     await db.migrate.latest({ directory: process.env.MIGRATIONS });
-    await db<User>('users').insert([
+    await db<UserEntity>('users').insert([
       {
         first_name: 'first_1',
         last_name: 'last_1',

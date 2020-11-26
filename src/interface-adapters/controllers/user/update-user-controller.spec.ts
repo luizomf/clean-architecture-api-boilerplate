@@ -6,7 +6,7 @@ import { RequestParamsValidation } from '~/interface-adapters/validation/common/
 import { UserValidationComposite } from '~/interface-adapters/validation/user/composites/user-validation-composite';
 import { UpdateUserRequestModelBody } from '~/domain/user/models/update-user-request-model';
 import { UpdateUserUseCase } from '~/domain/user/use-cases/update-user-use-case';
-import { User } from '~/domain/user/models/user';
+import { UserEntity } from '~/domain/user/entities/user';
 import { UpdateUserController } from './update-user-controller';
 
 const sutFactory = () => {
@@ -43,7 +43,7 @@ const updateUserUseCaseMockFactory = () => {
     async update(
       _id: string,
       _updateUserRequestModel: UpdateUserRequestModelBody,
-    ): Promise<User | never> {
+    ): Promise<UserEntity | never> {
       return {
         id: '1',
         first_name: 'first',

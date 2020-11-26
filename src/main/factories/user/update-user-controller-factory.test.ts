@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { User } from '~/domain/user/models/user';
+import { UserEntity } from '~/domain/user/entities/user';
 import { db } from '~/infrastructure/knex/connection';
 import { updateUserControllerFactory } from './update-user-controller-factory';
 
@@ -14,7 +14,7 @@ const sutFactory = () => {
 describe('updateUserControllerFactory', () => {
   beforeAll(async () => {
     await db.migrate.latest({ directory: process.env.MIGRATIONS });
-    await db<User>('users').insert([
+    await db<UserEntity>('users').insert([
       {
         first_name: 'first1',
         last_name: 'last1',

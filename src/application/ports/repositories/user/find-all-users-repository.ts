@@ -1,5 +1,9 @@
-import { User } from '~/domain/user/models/user';
+import { UserEntity } from '~/domain/user/entities/user';
 
 export interface FindAllUsersRepository {
-  find(order: 'asc' | 'desc', limit: number, offset: number): Promise<User[]>;
+  find(
+    order: 'asc' | 'desc',
+    limit: number,
+    offset: number,
+  ): Promise<UserEntity[]>;
 }

@@ -7,7 +7,7 @@ import { RequestValidationError } from '~/application/errors/request-validation-
 import { ResponseModel } from '~/application/ports/responses/response-model';
 import { CreateUserRequestWithPasswordString } from '~/domain/user/models/create-user-request-model';
 import { CreateUserUseCase } from '~/domain/user/use-cases/create-user-use-case';
-import { User } from '~/domain/user/models/user';
+import { UserEntity } from '~/domain/user/entities/user';
 import { CreateUserController } from './create-user-controller';
 import { EmailValidatorAdapter } from '~/common/adapters/validators/email-validator-adapter';
 
@@ -36,7 +36,7 @@ const createUserUseCaseMockFactory = () => {
   class CreateUserUseCaseMock implements CreateUserUseCase {
     async create(
       _userData: CreateUserRequestWithPasswordString,
-    ): Promise<User> {
+    ): Promise<UserEntity> {
       return userResponseModelFactory();
     }
   }
@@ -45,8 +45,8 @@ const createUserUseCaseMockFactory = () => {
 };
 
 const createSuccessPresenterMockFactory = () => {
-  class CreateSuccessPresenterMock implements Presenter<User> {
-    async response(): Promise<ResponseModel<User>> {
+  class CreateSuccessPresenterMock implements Presenter<UserEntity> {
+    async response(): Promise<ResponseModel<UserEntity>> {
       return {
         statusCode: 200,
         body: userResponseModelFactory(),

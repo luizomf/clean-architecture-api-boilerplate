@@ -1,4 +1,4 @@
-import { User } from '~/domain/user/models/user';
+import { UserEntity } from '~/domain/user/entities/user';
 
 type PasswordAndConfirmPasswordString = {
   password: string;
@@ -9,6 +9,7 @@ type PasswordHash = {
   password_hash: string;
 };
 
-export type CreateUserRequestWithPasswordString = Omit<User, 'id'> &
+export type CreateUserRequestWithPasswordString = Omit<UserEntity, 'id'> &
   PasswordAndConfirmPasswordString;
-export type CreateUserRequestWithPasswordHash = Omit<User, 'id'> & PasswordHash;
+export type CreateUserRequestWithPasswordHash = Omit<UserEntity, 'id'> &
+  PasswordHash;

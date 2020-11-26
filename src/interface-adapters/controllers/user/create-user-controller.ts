@@ -4,13 +4,13 @@ import { RequestModel } from '~/application/ports/requests/request-model';
 import { CreateUserRequestWithPasswordString } from '~/domain/user/models/create-user-request-model';
 import { CreateUserUseCase } from '~/domain/user/use-cases/create-user-use-case';
 import { ValidationComposite } from '~/application/ports/validators/validation-composite';
-import { User } from '~/domain/user/models/user';
+import { UserEntity } from '~/domain/user/entities/user';
 
-export class CreateUserController implements Controller<User> {
+export class CreateUserController implements Controller<UserEntity> {
   constructor(
     private readonly createUser: CreateUserUseCase,
     private readonly validation: ValidationComposite,
-    private readonly presenter: Presenter<User>,
+    private readonly presenter: Presenter<UserEntity>,
   ) {}
 
   async handleRequest(

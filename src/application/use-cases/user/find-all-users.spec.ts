@@ -1,5 +1,5 @@
 import { FindAllUsersRepository } from '~/application/ports/repositories/user/find-all-users-repository';
-import { User } from '~/domain/user/models/user';
+import { UserEntity } from '~/domain/user/entities/user';
 import { FindAllUsers } from './find-all-users';
 
 const sutFactory = () => {
@@ -18,7 +18,7 @@ const findAllUsersRepositoryMockFactory = () => {
       _order: 'asc' | 'desc',
       _limit: number,
       _offset: number,
-    ): Promise<User[]> {
+    ): Promise<UserEntity[]> {
       return [
         {
           id: '1',
