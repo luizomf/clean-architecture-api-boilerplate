@@ -1,9 +1,9 @@
 import { Controller } from '~/application/ports/controllers/controller';
 import { Presenter } from '~/application/ports/presenters/presenter';
-import { RequestModel } from '~/domain/ports/requests/request-model';
-import { ResponseModel } from '~/domain/ports/responses/response-model';
+import { RequestModel } from '~/application/ports/requests/request-model';
+import { ResponseModel } from '~/application/ports/responses/response-model';
 import { DeleteUserByIdUseCase } from '~/domain/user/use-cases/delete-user-by-id-use-case';
-import { ValidationComposite } from '~/domain/ports/validation/validation-composite';
+import { ValidationComposite } from '~/application/ports/validation/validation-composite';
 
 export class DeleteUserByIdController implements Controller<void> {
   constructor(

@@ -2,9 +2,9 @@
 
 import { Presenter } from '~/application/ports/presenters/presenter';
 import { CreateUserRequestValidationComposite } from '~/interface-adapters/validation/user/composites/create-user-request-validation-composite';
-import { EmailValidationError } from '~/domain/email/errors/email-validation-error';
+import { EmailValidationError } from '~/application/errors/email-validation-error';
 import { RequestValidationError } from '~/application/errors/request-validation-error';
-import { ResponseModel } from '~/domain/ports/responses/response-model';
+import { ResponseModel } from '~/application/ports/responses/response-model';
 import { CreateUserRequestWithPasswordString } from '~/domain/user/models/create-user-request-model';
 import { CreateUserUseCase } from '~/domain/user/use-cases/create-user-use-case';
 import { User } from '~/domain/user/entities/user';

@@ -1,4 +1,4 @@
-import { DefaultApplicationError } from '~/domain/ports/errors/default-application-error';
+import { DefaultApplicationError } from '~/application/errors/default-application-error';
 
 export class BadRequestError extends DefaultApplicationError {
   name = 'BadRequestError';

@@ -1,6 +1,6 @@
 import { GenericSuccessPresenter } from '~/interface-adapters/presenters/responses/generic/generic-success-presenter';
 import { FindAllUsersUseCase } from '~/domain/user/use-cases/find-all-users-use-case';
-import { ValidationComposite } from '~/domain/ports/validation/validation-composite';
+import { ValidationComposite } from '~/application/ports/validation/validation-composite';
 import { User } from '~/domain/user/entities/user';
 import { FindAllUsersController } from './find-all-users-controller';
 

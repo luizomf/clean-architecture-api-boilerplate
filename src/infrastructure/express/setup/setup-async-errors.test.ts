@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import request from 'supertest';
-import { DefaultApplicationError } from '~/domain/ports/errors/default-application-error';
-import { EmailValidationError } from '~/domain/email/errors/email-validation-error';
+import { DefaultApplicationError } from '~/application/errors/default-application-error';
+import { EmailValidationError } from '~/application/errors/email-validation-error';
 import { Controller } from '~/application/ports/controllers/controller';
 import { db } from '~/infrastructure/knex/connection';
 import { app } from '../server';

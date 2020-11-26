@@ -1,7 +1,7 @@
-import { UserExistsError } from '~/domain/user/errors/user-exists-error';
+import { UserExistsError } from '~/application/errors/user-exists-error';
 import { CreateUserRepository } from '~/application/ports/repositories/user/create-user-repository';
 import { FindUserByEmailRepository } from '~/application/ports/repositories/user/find-user-by-email-repository';
-import { PasswordHashing } from '~/domain/ports/security/password-hashing';
+import { PasswordHashing } from '~/application/ports/security/password-hashing';
 import { CreateUserRequestWithPasswordString } from '~/domain/user/models/create-user-request-model';
 import { CreateUserUseCase } from '~/domain/user/use-cases/create-user-use-case';
 import { User } from '~/domain/user/entities/user';

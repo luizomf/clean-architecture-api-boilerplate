@@ -1,6 +1,6 @@
 import { User } from '~/domain/user/entities/user';
-import { RequestModel } from '~/domain/ports/requests/request-model';
-import { ValidationComposite } from '~/domain/ports/validation/validation-composite';
+import { RequestModel } from '~/application/ports/requests/request-model';
+import { ValidationComposite } from '~/application/ports/validation/validation-composite';
 import { Presenter } from '~/application/ports/presenters/presenter';
 import { Controller } from '~/application/ports/controllers/controller';
 import { FindUserByIdUseCase } from '~/domain/user/use-cases/find-user-by-id-use-case';

@@ -1,5 +1,5 @@
 import { Presenter } from '~/application/ports/presenters/presenter';
-import { ResponseModel } from '~/domain/ports/responses/response-model';
+import { ResponseModel } from '~/application/ports/responses/response-model';
 
 export class GenericSuccessPresenter<T> implements Presenter<T> {
   async response(body: T): Promise<ResponseModel<T>> {

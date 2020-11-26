@@ -1,5 +1,5 @@
 import { Express, Request, Response, NextFunction } from 'express';
-import { DefaultApplicationError } from '~/domain/ports/errors/default-application-error';
+import { DefaultApplicationError } from '~/application/errors/default-application-error';
 
 export const setupAsyncErrors = (app: Express): void => {
   app.use((error: Error, req: Request, res: Response, next: NextFunction) => {

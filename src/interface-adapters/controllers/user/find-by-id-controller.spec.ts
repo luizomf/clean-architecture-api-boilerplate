@@ -1,9 +1,9 @@
 import { BadRequestError } from '~/application/errors/bad-request-error';
 import { User } from '~/domain/user/entities/user';
-import { ValidationComposite } from '~/domain/ports/validation/validation-composite';
+import { ValidationComposite } from '~/application/ports/validation/validation-composite';
 import { FindUserByIdController } from './find-by-id-controller';
 import { Presenter } from '~/application/ports/presenters/presenter';
-import { ResponseModel } from '~/domain/ports/responses/response-model';
+import { ResponseModel } from '~/application/ports/responses/response-model';
 import { FindUserByIdUseCase } from '~/domain/user/use-cases/find-user-by-id-use-case';
 
 const sutFactory = () => {

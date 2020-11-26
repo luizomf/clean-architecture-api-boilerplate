@@ -1,9 +1,9 @@
 import { Controller } from '~/application/ports/controllers/controller';
 import { Presenter } from '~/application/ports/presenters/presenter';
-import { RequestModel } from '~/domain/ports/requests/request-model';
+import { RequestModel } from '~/application/ports/requests/request-model';
 import { CreateUserRequestWithPasswordString } from '~/domain/user/models/create-user-request-model';
 import { CreateUserUseCase } from '~/domain/user/use-cases/create-user-use-case';
-import { ValidationComposite } from '~/domain/ports/validation/validation-composite';
+import { ValidationComposite } from '~/application/ports/validation/validation-composite';
 import { User } from '~/domain/user/entities/user';
 
 export class CreateUserController implements Controller<User> {

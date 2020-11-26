@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { Controller } from '~/application/ports/controllers/controller';
-import { DefaultApplicationError } from '~/domain/ports/errors/default-application-error';
+import { DefaultApplicationError } from '~/application/errors/default-application-error';
 
 export const expressRouteAdapter = <T>(controller: Controller<T>) => {
   return async (request: Request, response: Response, next: NextFunction) => {

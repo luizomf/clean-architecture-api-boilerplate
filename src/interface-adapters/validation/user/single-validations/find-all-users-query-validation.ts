@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { RequestValidationError } from '~/application/errors/request-validation-error';
-import { ValidationComposite } from '~/domain/ports/validation/validation-composite';
+import { ValidationComposite } from '~/application/ports/validation/validation-composite';
 
 export class FindAllUsersQueryValidation extends ValidationComposite {
   async validate(request: any): Promise<void | never> {

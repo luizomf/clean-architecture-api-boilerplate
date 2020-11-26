@@ -1,9 +1,9 @@
 import { Controller } from '~/application/ports/controllers/controller';
 import { Presenter } from '~/application/ports/presenters/presenter';
 import { FindAllUsersUseCase } from '~/domain/user/use-cases/find-all-users-use-case';
-import { ValidationComposite } from '~/domain/ports/validation/validation-composite';
+import { ValidationComposite } from '~/application/ports/validation/validation-composite';
 import { User } from '~/domain/user/entities/user';
-import { RequestModel } from '~/domain/ports/requests/request-model';
+import { RequestModel } from '~/application/ports/requests/request-model';
 
 type FindAllUsersRequestModel = RequestModel<
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

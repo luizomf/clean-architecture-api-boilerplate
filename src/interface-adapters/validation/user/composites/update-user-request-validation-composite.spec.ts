@@ -1,5 +1,5 @@
-import { EmailValidationError } from '~/domain/email/errors/email-validation-error';
-import { EmailValidator } from '~/domain/email/validation/email-validator';
+import { EmailValidationError } from '~/application/errors/email-validation-error';
+import { EmailValidator } from '~/application/ports/validation/email-validator';
 import { UpdateUserRequestValidationComposite } from './update-user-request-validation-composite';
 
 const sutFactory = () => {

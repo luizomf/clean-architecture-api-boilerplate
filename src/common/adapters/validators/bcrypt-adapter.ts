@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt';
-import { PasswordHashing } from '~/domain/ports/security/password-hashing';
+import { PasswordHashing } from '~/application/ports/security/password-hashing';
 
 export class BCryptAdapter implements PasswordHashing {
   private readonly saltRounds = 10;

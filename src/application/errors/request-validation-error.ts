@@ -1,4 +1,4 @@
-import { DefaultApplicationError } from '../../domain/ports/errors/default-application-error';
+import { DefaultApplicationError } from './default-application-error';
 
 export class RequestValidationError extends DefaultApplicationError {
   statusCode = 400;

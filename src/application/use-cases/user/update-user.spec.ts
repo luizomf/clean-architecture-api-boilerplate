@@ -1,7 +1,7 @@
 import { FindUserByEmailRepository } from '~/application/ports/repositories/user/find-user-by-email-repository';
 import { FindUserByIdRepository } from '~/application/ports/repositories/user/find-user-by-id-repository';
 import { UpdateUserRepository } from '~/application/ports/repositories/user/update-user-repository';
-import { PasswordHashing } from '~/domain/ports/security/password-hashing';
+import { PasswordHashing } from '~/application/ports/security/password-hashing';
 import { UpdateUserRequestModelBody } from '~/domain/user/models/update-user-request-model';
 import { User } from '~/domain/user/entities/user';
 import { UpdateUser } from './update-user';

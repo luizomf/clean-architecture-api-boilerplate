@@ -1,7 +1,7 @@
 import { RequestValidationError } from '~/application/errors/request-validation-error';
-import { RequestModel } from '~/domain/ports/requests/request-model';
+import { RequestModel } from '~/application/ports/requests/request-model';
 import { CreateUserRequestWithPasswordString } from '~/domain/user/models/create-user-request-model';
-import { ValidationComposite } from '~/domain/ports/validation/validation-composite';
+import { ValidationComposite } from '~/application/ports/validation/validation-composite';
 
 export class UserValidationEmptyFields extends ValidationComposite {
   async validate(
