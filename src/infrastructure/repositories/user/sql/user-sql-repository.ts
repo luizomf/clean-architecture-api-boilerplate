@@ -48,6 +48,7 @@ export class UserSqlRepository
       };
     } catch (error) {
       const repositoryError = new RepositoryError('Could not create User');
+      repositoryError.stack = error.stack;
       throw repositoryError;
     }
   }
@@ -64,10 +65,10 @@ export class UserSqlRepository
     try {
       const updated = await db(this.table).update(requestModel).where({ id });
       return updated;
-    } catch (e) {
-      const error = new RepositoryError('Could not update user');
-      error.stack = e.stack;
-      throw error;
+    } catch (error) {
+      const repositoryError = new RepositoryError('Could not create User');
+      repositoryError.stack = error.stack;
+      throw repositoryError;
     }
   }
 
