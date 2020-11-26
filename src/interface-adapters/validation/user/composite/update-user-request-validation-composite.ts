@@ -1,12 +1,12 @@
 import { RequestValidationError } from '~/application/errors/request-validation-error';
 import { RequestModel } from '~/application/ports/requests/request-model';
 import { EmailValidator } from '~/application/ports/validation/email-validator';
-import { RequestBodyValidation } from '../../common/request-body-validation';
-import { RequestParamsIdValidation } from '../../common/request-params-id-validation';
-import { RequestParamsValidation } from '../../common/request-params-validation';
-import { UserValidationEmail } from '../single-validations/user-validation-email';
-import { UserValidationMatchPasswords } from '../single-validations/user-validation-match-passwords';
-import { UserValidationPartialEmptyFields } from '../single-validations/user-validation-partial-empty-fields';
+import { RequestBodyValidation } from '../../common/leaf/request-body-validation';
+import { RequestParamsIdValidation } from '../../common/leaf/request-params-id-validation';
+import { RequestParamsValidation } from '../../common/leaf/request-params-validation';
+import { UserValidationEmail } from '../leaf/user-validation-email';
+import { UserValidationMatchPasswords } from '../leaf/user-validation-match-passwords';
+import { UserValidationPartialEmptyFields } from '../leaf/user-validation-partial-empty-fields';
 import { UserValidationComposite } from './user-validation-composite';
 
 export class UpdateUserRequestValidationComposite extends UserValidationComposite {

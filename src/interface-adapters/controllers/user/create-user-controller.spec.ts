@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { Presenter } from '~/application/ports/presenters/presenter';
-import { CreateUserRequestValidationComposite } from '~/interface-adapters/validation/user/composites/create-user-request-validation-composite';
+import { CreateUserRequestValidationComposite } from '~/interface-adapters/validation/user/composite/create-user-request-validation-composite';
 import { EmailValidationError } from '~/application/errors/email-validation-error';
 import { RequestValidationError } from '~/application/errors/request-validation-error';
 import { ResponseModel } from '~/application/ports/responses/response-model';

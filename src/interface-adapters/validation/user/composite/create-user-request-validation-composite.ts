@@ -1,8 +1,8 @@
 import { EmailValidator } from '~/application/ports/validation/email-validator';
-import { RequestBodyValidation } from '../../common/request-body-validation';
-import { UserValidationEmail } from '../single-validations/user-validation-email';
-import { UserValidationEmptyFields } from '../single-validations/user-validation-empty-fields';
-import { UserValidationMatchPasswords } from '../single-validations/user-validation-match-passwords';
+import { RequestBodyValidation } from '../../common/leaf/request-body-validation';
+import { UserValidationEmail } from '../leaf/user-validation-email';
+import { UserValidationEmptyFields } from '../leaf/user-validation-empty-fields';
+import { UserValidationMatchPasswords } from '../leaf/user-validation-match-passwords';
 import { UserValidationComposite } from './user-validation-composite';
 
 export class CreateUserRequestValidationComposite extends UserValidationComposite {
