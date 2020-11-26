@@ -9,7 +9,7 @@ import { CreateUserRequestWithPasswordString } from '~/application/ports/user/mo
 import { CreateUserUseCase } from '~/application/ports/user/use-cases/create-user-use-case';
 import { User } from '~/domain/user/user';
 import { CreateUserController } from './create-user-controller';
-import { EmailValidatorAdapter } from '~/common/validators/email-validator-adapter';
+import { EmailValidatorAdapter } from '~/common/adapters/validators/email-validator-adapter';
 
 const sutFactory = () => {
   const createUserUseCaseMock = createUserUseCaseMockFactory();

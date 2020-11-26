@@ -5,8 +5,8 @@ import { EmailValidationError } from '~/application/errors/email-validation-erro
 import { Controller } from '~/application/ports/controllers/controller';
 import { db } from '~/infrastructure/knex/connection';
 import { app } from '../server';
-import { expressMiddlewareAdapter } from '../utils/express-middleware-adapter';
-import { expressRouteAdapter } from '../utils/express-route-adapter';
+import { expressMiddlewareAdapter } from '../adapters/express-middleware-adapter';
+import { expressRouteAdapter } from '../adapters/express-route-adapter';
 import { setupAsyncErrors } from './setup-async-errors';
 
 const sut = setupAsyncErrors;

@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { expressMiddlewareAdapter } from '../utils/express-middleware-adapter';
+import { expressMiddlewareAdapter } from '../adapters/express-middleware-adapter';
 
 export const middlewareExample = expressMiddlewareAdapter(
   async (

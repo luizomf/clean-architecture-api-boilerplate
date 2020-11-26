@@ -2,8 +2,8 @@ import { UpdateUserController } from '~/adapters/controllers/user/update-user-co
 import { UpdatedUserPresenter } from '~/adapters/presenters/responses/user/updated-user-presenter';
 import { UpdateUserRequestValidationComposite } from '~/adapters/validation/user/composites/update-user-request-validation-composite';
 import { UpdateUser } from '~/application/use-cases/user/update-user';
-import { BCryptAdapter } from '~/common/validators/bcrypt-adapter';
-import { EmailValidatorAdapter } from '~/common/validators/email-validator-adapter';
+import { BCryptAdapter } from '~/common/adapters/validators/bcrypt-adapter';
+import { EmailValidatorAdapter } from '~/common/adapters/validators/email-validator-adapter';
 import {
   findUserByEmailRepository,
   findUserByIdRepository,
