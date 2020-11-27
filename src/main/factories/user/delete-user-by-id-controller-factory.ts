@@ -1,22 +1,19 @@
 import { DeleteUserByIdController } from '~/interface-adapters/controllers/user/delete-user-by-id-controller';
-import { DeletedUserPresenter } from '~/interface-adapters/presenters/responses/user/deleted-user-presenter';
-import { RequestParamsIdValidation } from '~/interface-adapters/validation/common/leaf/request-params-id-validation';
 import { DeleteUserById } from '~/application/use-cases/user/delete-user-by-id';
 import {
   deleteUserByIdRepository,
   findUserByIdRepository,
 } from '~/infrastructure/repositories/user/user-default-repository';
+import { GenericDeletedPresenter } from '~/interface-adapters/presenters/responses/generic/generic-deleted-presenter';
 
 export const deleteUserByIdControllerFactory = () => {
   const deleteUserByIdUseCase = new DeleteUserById(
     deleteUserByIdRepository,
     findUserByIdRepository,
   );
-  const deleteUserByIdValidation = new RequestParamsIdValidation();
-  const deleteUserByIdPresenter = new DeletedUserPresenter();
+  const deleteUserByIdPresenter = new GenericDeletedPresenter();
   const deleteUserByIdController = new DeleteUserByIdController(
     deleteUserByIdUseCase,
-    deleteUserByIdValidation,
     deleteUserByIdPresenter,
   );
 
@@ -24,6 +21,5 @@ export const deleteUserByIdControllerFactory = () => {
     deleteUserByIdController,
     deleteUserByIdPresenter,
     deleteUserByIdUseCase,
-    deleteUserByIdValidation,
   };
 };

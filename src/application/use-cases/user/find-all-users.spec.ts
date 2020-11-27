@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { FindAllUsersRepository } from '~/application/ports/repositories/user/find-all-users-repository';
 import { User } from '~/domain/user/entities/user';
 import { FindAllUsers } from './find-all-users';
@@ -14,11 +15,7 @@ const sutFactory = () => {
 
 const findAllUsersRepositoryMockFactory = () => {
   class FindAllUsersRepositoryMock implements FindAllUsersRepository {
-    async find(
-      _order: 'asc' | 'desc',
-      _limit: number,
-      _offset: number,
-    ): Promise<User[]> {
+    async find(_any: any): Promise<User[]> {
       return [
         {
           id: '1',
@@ -62,9 +59,18 @@ describe('FindAllUsers', () => {
       findAllUsersRepositoryMock,
       'find',
     );
-    await sut.findAll('desc', 2, 0);
+    await sut.findAll({ order: 'desc', limit: 2, offset: 0 });
     expect(findAllUsersRepositorySpy).toHaveBeenCalledTimes(1);
     expect(findAllUsersRepositorySpy).toHaveBeenCalledWith('desc', 2, 0);
+
+    await sut.findAll({ order: 'desc' });
+    expect(findAllUsersRepositorySpy).toHaveBeenCalledWith('desc', 100, 0);
+
+    await sut.findAll({ limit: 10 });
+    expect(findAllUsersRepositorySpy).toHaveBeenCalledWith('desc', 10, 0);
+
+    await sut.findAll({ offset: 10 });
+    expect(findAllUsersRepositorySpy).toHaveBeenCalledWith('desc', 100, 10);
   });
 
   it('should return an array of users', async () => {

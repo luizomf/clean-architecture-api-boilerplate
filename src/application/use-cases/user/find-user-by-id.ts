@@ -1,6 +1,6 @@
 import { NotFoundError } from '~/application/errors/not-found-error';
 import { FindUserByIdRepository } from '~/application/ports/repositories/user/find-user-by-id-repository';
-import { FindUserByIdUseCase } from '~/domain/user/use-cases/find-user-by-id-use-case';
+import { FindUserByIdUseCase } from '~/application/ports/use-cases/user/find-user-by-id-use-case';
 import { User } from '~/domain/user/entities/user';
 // import { ValidationComposite } from '~/application/ports/validation/validation-composite';
 

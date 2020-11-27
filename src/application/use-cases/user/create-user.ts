@@ -3,7 +3,7 @@ import { CreateUserRepository } from '~/application/ports/repositories/user/crea
 import { FindUserByEmailRepository } from '~/application/ports/repositories/user/find-user-by-email-repository';
 import { PasswordHashing } from '~/application/ports/security/password-hashing';
 import { CreateUserRequestWithPasswordString } from '~/domain/user/models/create-user-request-model';
-import { CreateUserUseCase } from '~/domain/user/use-cases/create-user-use-case';
+import { CreateUserUseCase } from '~/application/ports/use-cases/user/create-user-use-case';
 import { User } from '~/domain/user/entities/user';
 
 export class CreateUser implements CreateUserUseCase {

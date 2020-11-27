@@ -6,8 +6,7 @@ import { FindUserByIdRepository } from '~/application/ports/repositories/user/fi
 import { UpdateUserRepository } from '~/application/ports/repositories/user/update-user-repository';
 import { PasswordHashing } from '~/application/ports/security/password-hashing';
 import { UpdateUserRequestModelBody } from '~/domain/user/models/update-user-request-model';
-import { UpdateUserUseCase } from '~/domain/user/use-cases/update-user-use-case';
-import { User } from '~/domain/user/entities/user';
+import { UpdateUserUseCase } from '~/application/ports/use-cases/user/update-user-use-case';
 
 export class UpdateUser implements UpdateUserUseCase {
   constructor(
@@ -20,7 +19,7 @@ export class UpdateUser implements UpdateUserUseCase {
   async update(
     id: string,
     request: UpdateUserRequestModelBody,
-  ): Promise<User | never> {
+  ): Promise<number | never> {
     const foundUser = await this.findUserByIdRepository.findById(id);
 
     if (!foundUser) {
@@ -44,11 +43,14 @@ export class UpdateUser implements UpdateUserUseCase {
     if (newPassword) {
       newRequest.password_hash = await this.passwordHashing.hash(newPassword);
     }
+
     delete newRequest.password;
     delete newRequest.confirmPassword;
+
     const updatedRows = await this.updateUserRepository.update(id, newRequest);
 
-    if (updatedRows === 0) throw new RepositoryError('Could not update user');
-    return { ...foundUser, ...newRequest };
+    if (updatedRows === 0 || !updatedRows)
+      throw new RepositoryError('Could not update user');
+    return updatedRows;
   }
 }

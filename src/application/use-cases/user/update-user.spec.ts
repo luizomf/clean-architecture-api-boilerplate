@@ -156,17 +156,11 @@ describe('UpdateUser', () => {
     expect(error.message).toBe('Any Error');
   });
 
-  it('should return updated user if everything is OK', async () => {
+  it('should return number of rows updated if everything is OK', async () => {
     const { sut, updateUserRepositoryMock } = sutFactory();
     jest.spyOn(updateUserRepositoryMock, 'update').mockResolvedValue(1);
-
     const response = await sut.update('1', { first_name: 'any_value' });
-
-    expect(response.id).toBe('1');
-    expect(response.first_name).toBe('any_value');
-    expect(response.last_name).toBe('last_name');
-    expect(response.email).toBe('email@email.com');
-    expect(response.password_hash).toBe('any_hash');
+    expect(response).toBe(1);
   });
 
   it('should hash password if password is received', async () => {

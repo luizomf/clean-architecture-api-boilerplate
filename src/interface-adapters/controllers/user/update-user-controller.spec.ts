@@ -1,124 +1,113 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { UpdatedUserPresenter } from '~/interface-adapters/presenters/responses/user/updated-user-presenter';
-import { RequestBodyValidation } from '~/interface-adapters/validation/common/leaf/request-body-validation';
-import { RequestParamsIdValidation } from '~/interface-adapters/validation/common/leaf/request-params-id-validation';
-import { RequestParamsValidation } from '~/interface-adapters/validation/common/leaf/request-params-validation';
-import { UserValidationComposite } from '~/interface-adapters/validation/user/composite/user-validation-composite';
-import { UpdateUserRequestModelBody } from '~/domain/user/models/update-user-request-model';
-import { UpdateUserUseCase } from '~/domain/user/use-cases/update-user-use-case';
-import { User } from '~/domain/user/entities/user';
+import { Presenter } from '~/application/ports/presenters/presenter';
+import { ResponseModel } from '~/application/ports/responses/response-model';
+import { UpdateUserUseCase } from '~/application/ports/use-cases/user/update-user-use-case';
+import { CreateUserRequestWithPasswordString } from '~/domain/user/models/create-user-request-model';
 import { UpdateUserController } from './update-user-controller';
 
 const sutFactory = () => {
-  const updateUserRequestModelValidationMock = updateUserRequestModelValidationMockFactory();
-  const updateUserUseCaseMock = updateUserUseCaseMockFactory();
-  const presenter = new UpdatedUserPresenter();
-  const sut = new UpdateUserController(
-    updateUserRequestModelValidationMock,
-    updateUserUseCaseMock,
-    presenter,
-  );
+  const useCaseMock = useCaseMockFactory();
+  const presenterMock = presenterMockFactory();
+  const sut = new UpdateUserController(useCaseMock, presenterMock);
 
   return {
     sut,
-    updateUserRequestModelValidationMock,
-    updateUserUseCaseMock,
+    useCaseMock,
+    presenterMock,
   };
 };
 
-const updateUserRequestModelValidationMockFactory = () => {
-  class UpdateUserRequestModelValidationMock extends UserValidationComposite {
-    constructor() {
-      super();
-      this.add(new RequestParamsValidation());
-      this.add(new RequestBodyValidation());
-      this.add(new RequestParamsIdValidation());
-    }
-  }
-  return new UpdateUserRequestModelValidationMock();
-};
-
-const updateUserUseCaseMockFactory = () => {
-  class UpdateUserUseCaseMock implements UpdateUserUseCase {
+const useCaseMockFactory = () => {
+  class UseCaseMock implements UpdateUserUseCase {
     async update(
       _id: string,
-      _updateUserRequestModel: UpdateUserRequestModelBody,
-    ): Promise<User | never> {
+      _updateUserRequestModel: Partial<CreateUserRequestWithPasswordString>,
+    ): Promise<number> | never {
+      return 1;
+    }
+  }
+
+  return new UseCaseMock();
+};
+
+const presenterMockFactory = () => {
+  class PresenterMock implements Presenter<void> {
+    async response(_body: any): Promise<ResponseModel<void>> | never {
       return {
-        id: '1',
-        first_name: 'first',
-        last_name: 'last',
-        email: 'email@email.com',
-        password_hash: 'any_hash',
+        statusCode: 204,
+        body: undefined,
       };
     }
   }
-  return new UpdateUserUseCaseMock();
+
+  return new PresenterMock();
+};
+
+const responseDataMockFactory = () => {
+  return {
+    id: '1',
+    first_name: 'first1',
+    last_name: 'last1',
+    email: 'email1@email.com',
+    password_hash: 'hash1',
+  };
+};
+
+const requestDataMockFactory = () => {
+  const response = responseDataMockFactory();
+
+  return {
+    params: {
+      id: '1',
+    },
+    body: {
+      first_name: response.first_name,
+      last_name: response.last_name,
+      email: response.email,
+      password: '123',
+      confirmPassword: '123',
+    },
+  };
 };
 
 describe('UpdateUserController', () => {
-  it('should call UpdateUserRequestModelValidation with request', async () => {
-    const { sut, updateUserRequestModelValidationMock } = sutFactory();
-    const updateUserRequestModelValidationSpy = jest.spyOn(
-      updateUserRequestModelValidationMock,
-      'validate',
-    );
-    await sut.handleRequest({ params: { id: '1' }, body: {} } as any);
-    expect(updateUserRequestModelValidationSpy).toHaveBeenCalledTimes(1);
-    expect(updateUserRequestModelValidationSpy).toHaveBeenCalledWith({
-      params: { id: '1' },
-      body: {},
-    });
-  });
-
-  it('should throw if request is missing params, params.id or body', async () => {
-    const { sut, updateUserRequestModelValidationMock } = sutFactory();
-    jest.spyOn(updateUserRequestModelValidationMock, 'validate');
-
+  it('should throw if request.body or request.params.id does not exist', async () => {
+    const { sut } = sutFactory();
     let error;
-
     try {
-      await sut.handleRequest({ params: {} } as any);
-    } catch (e) {
-      error = e;
+      await sut.handleRequest('' as any);
+    } catch (requestError) {
+      error = requestError;
     }
-
     expect(error.name).toBe('RequestValidationError');
-    expect(error.statusCode).toBe(400);
-
-    error = undefined;
-    try {
-      await sut.handleRequest({ body: {} } as any);
-    } catch (e) {
-      error = e;
-    }
-
-    expect(error.name).toBe('RequestValidationError');
-    expect(error.statusCode).toBe(400);
-
-    error = undefined;
-    try {
-      await sut.handleRequest({ params: { id: '1' } } as any);
-    } catch (e) {
-      error = e;
-    }
-
-    expect(error.name).toBe('RequestValidationError');
+    expect(error.message).toBe('Invalid request');
     expect(error.statusCode).toBe(400);
   });
 
-  it('should call UpdateUserUseCase with correct values', async () => {
-    const { sut, updateUserUseCaseMock } = sutFactory();
-    const updateUserUseCaseSpy = jest.spyOn(updateUserUseCaseMock, 'update');
+  it('should call use case with correct values', async () => {
+    const { sut, useCaseMock } = sutFactory();
+    const useCaseSpy = jest.spyOn(useCaseMock, 'update');
+    await sut.handleRequest(requestDataMockFactory());
+    expect(useCaseSpy).toBeCalledTimes(1);
+    expect(useCaseSpy).toBeCalledWith(
+      requestDataMockFactory().params.id,
+      requestDataMockFactory().body,
+    );
+  });
 
-    await sut.handleRequest({
-      params: { id: '1' },
-      body: { first_name: 'first' },
-    });
+  it('should call presenter with no values', async () => {
+    const { sut, presenterMock } = sutFactory();
+    const presenterSpy = jest.spyOn(presenterMock, 'response');
+    await sut.handleRequest(requestDataMockFactory());
+    expect(presenterSpy).toBeCalledTimes(1);
+    expect(presenterSpy).toBeCalledWith();
+  });
 
-    expect(updateUserUseCaseSpy).toHaveBeenCalledTimes(1);
-    expect(updateUserUseCaseSpy).toHaveBeenLastCalledWith('1', {
-      first_name: 'first',
+  it('should return statusCode 204 and no body if everything is OK', async () => {
+    const { sut } = sutFactory();
+    const response = await sut.handleRequest(requestDataMockFactory());
+    expect(response).toEqual({
+      statusCode: 204,
     });
   });
 });

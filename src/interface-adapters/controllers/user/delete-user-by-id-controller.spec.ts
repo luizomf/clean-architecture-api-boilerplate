@@ -1,32 +1,36 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { RequestValidationError } from '~/application/errors/request-validation-error';
 import { Presenter } from '~/application/ports/presenters/presenter';
-import { DeleteUserByIdUseCase } from '~/domain/user/use-cases/delete-user-by-id-use-case';
-import { ValidationComposite } from '~/application/ports/validation/validation-composite';
+import { ResponseModel } from '~/application/ports/responses/response-model';
+import { DeleteUserByIdUseCase } from '~/application/ports/use-cases/user/delete-user-by-id-use-case';
 import { DeleteUserByIdController } from './delete-user-by-id-controller';
 
 const sutFactory = () => {
-  const deleteUserByIdUseCaseMock = deleteUserByIdUseCaseMockFactory();
-  const validationMock = validationMockFactory();
-  const presenter = presenterMockFactory();
-  const sut = new DeleteUserByIdController(
-    deleteUserByIdUseCaseMock,
-    validationMock,
-    presenter,
-  );
+  const useCaseMock = useCaseMockFactory();
+  const presenterMock = presenterMockFactory();
+  const sut = new DeleteUserByIdController(useCaseMock, presenterMock);
 
   return {
     sut,
-    validationMock,
-    deleteUserByIdUseCaseMock,
+    useCaseMock,
+    presenterMock,
   };
 };
 
+const useCaseMockFactory = () => {
+  class UseCaseMock implements DeleteUserByIdUseCase {
+    async deleteById(_id: string): Promise<number> {
+      return 1;
+    }
+  }
+
+  return new UseCaseMock();
+};
+
 const presenterMockFactory = () => {
-  class PresenterMock implements Presenter {
-    async response(_user: any) {
+  class PresenterMock implements Presenter<void> {
+    async response(_body: any): Promise<ResponseModel<void>> | never {
       return {
-        statusCode: 200,
+        statusCode: 204,
         body: undefined,
       };
     }
@@ -35,90 +39,54 @@ const presenterMockFactory = () => {
   return new PresenterMock();
 };
 
-const validationMockFactory = () => {
-  class Validation extends ValidationComposite {
-    async validate(_any: any) {
-      return undefined;
-    }
-  }
-
-  return new Validation();
-};
-
-const deleteUserByIdUseCaseMockFactory = () => {
-  class DeleteUserByIdUseCaseMock implements DeleteUserByIdUseCase {
-    async deleteById(_id: string): Promise<number | never> {
-      return 1;
-    }
-  }
-
-  return new DeleteUserByIdUseCaseMock();
-};
-
 describe('DeleteUserByIdController', () => {
-  it('should call validation with correct values', async () => {
-    const { sut, validationMock } = sutFactory();
-    const validationSpy = jest.spyOn(validationMock, 'validate');
-    await sut.handleRequest({ params: { id: '1000' } });
-    expect(validationSpy).toBeCalledTimes(1);
-    expect(validationSpy).toHaveBeenCalledWith({ params: { id: '1000' } });
-  });
-
-  it('should call DeleteUserByIdUseCase with correct values', async () => {
-    const { sut, deleteUserByIdUseCaseMock } = sutFactory();
-    const deleteUserByIdUseCaseSpy = jest.spyOn(
-      deleteUserByIdUseCaseMock,
-      'deleteById',
-    );
-    await sut.handleRequest({ params: { id: '21' } });
-    expect(deleteUserByIdUseCaseSpy).toHaveBeenCalledTimes(1);
-    expect(deleteUserByIdUseCaseSpy).toHaveBeenCalledWith('21');
-  });
-
-  it('should throw if validation throws', async () => {
-    const { sut, validationMock } = sutFactory();
-    jest
-      .spyOn(validationMock, 'validate')
-      .mockRejectedValue(new RequestValidationError('Error msg'));
-
+  it('should throw if request.params.id is set', async () => {
+    const { sut } = sutFactory();
     let error;
 
     try {
-      await sut.handleRequest({ params: { id: '1000' } });
-    } catch (e) {
-      error = e;
+      await sut.handleRequest('' as any);
+    } catch (requestError) {
+      error = requestError;
     }
 
     expect(error.name).toBe('RequestValidationError');
-    expect(error.message).toBe('Error msg');
+    expect(error.message).toBe('Missing params');
     expect(error.statusCode).toBe(400);
-  });
 
-  it('should throw if DeleteUserByIdUseCase throws', async () => {
-    const { sut, deleteUserByIdUseCaseMock } = sutFactory();
-    jest
-      .spyOn(deleteUserByIdUseCaseMock, 'deleteById')
-      .mockRejectedValue(new RequestValidationError('Error msg'));
-
-    let error;
-
+    error = undefined;
     try {
-      await sut.handleRequest({ params: { id: '1000' } });
-    } catch (e) {
-      error = e;
+      await sut.handleRequest({ params: {} });
+    } catch (requestError) {
+      error = requestError;
     }
 
     expect(error.name).toBe('RequestValidationError');
-    expect(error.message).toBe('Error msg');
+    expect(error.message).toBe('Missing params');
     expect(error.statusCode).toBe(400);
   });
 
-  it('should delete from repository and return deleted user', async () => {
-    const { sut, deleteUserByIdUseCaseMock } = sutFactory();
-    jest.spyOn(deleteUserByIdUseCaseMock, 'deleteById').mockResolvedValue(1);
+  it('should call use case with correct values', async () => {
+    const { sut, useCaseMock } = sutFactory();
+    const useCaseSpy = jest.spyOn(useCaseMock, 'deleteById');
+    await sut.handleRequest({ params: { id: '1' } });
+    expect(useCaseSpy).toBeCalledTimes(1);
+    expect(useCaseSpy).toBeCalledWith('1');
+  });
 
-    const response = await sut.handleRequest({ params: { id: '1000' } });
-    expect(response.statusCode).toBe(200);
-    expect(response.body).toBeUndefined();
+  it('should call presenter with empty body', async () => {
+    const { sut, presenterMock } = sutFactory();
+    const presenterSpy = jest.spyOn(presenterMock, 'response');
+    await sut.handleRequest({ params: { id: '1' } });
+    expect(presenterSpy).toBeCalledTimes(1);
+    expect(presenterSpy).toBeCalledWith();
+  });
+
+  it('should return statusCode 204 and empty body if everything is OK', async () => {
+    const { sut } = sutFactory();
+    const response = await sut.handleRequest({ params: { id: '1' } });
+    expect(response).toEqual({
+      statusCode: 204,
+    });
   });
 });
