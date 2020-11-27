@@ -5,11 +5,14 @@ import {
   findUserByIdRepository,
 } from '~/infrastructure/repositories/user/user-default-repository';
 import { GenericDeletedPresenter } from '~/interface-adapters/presenters/responses/generic/generic-deleted-presenter';
+import { ValidateStringNotEmpty } from '~/application/validation/common/leaf/validate-string-not-empty';
 
 export const deleteUserByIdControllerFactory = () => {
+  const deleteUserByIdValidation = new ValidateStringNotEmpty();
   const deleteUserByIdUseCase = new DeleteUserById(
     deleteUserByIdRepository,
     findUserByIdRepository,
+    deleteUserByIdValidation,
   );
   const deleteUserByIdPresenter = new GenericDeletedPresenter();
   const deleteUserByIdController = new DeleteUserByIdController(
@@ -21,5 +24,6 @@ export const deleteUserByIdControllerFactory = () => {
     deleteUserByIdController,
     deleteUserByIdPresenter,
     deleteUserByIdUseCase,
+    deleteUserByIdValidation,
   };
 };
