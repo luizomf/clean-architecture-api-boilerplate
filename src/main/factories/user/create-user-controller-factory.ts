@@ -1,10 +1,10 @@
-import { CreateUserController } from '~/interface-adapters/controllers/user/create-user-controller';
+import { CreateUserController } from '~/presentation/controllers/user/create-user-controller';
 import { CreateUser } from '~/application/use-cases/user/create-user';
 import {
   createUserRepository,
   findUserByEmailRepository,
 } from '~/infrastructure/repositories/user/user-default-repository';
-import { GenericCreatedPresenter } from '~/interface-adapters/presenters/responses/generic/generic-created-presenter';
+import { GenericCreatedPresenter } from '~/presentation/presenters/responses/generic/generic-created-presenter';
 import { User } from '~/domain/user/entities/user';
 import { BCryptAdapter } from '~/common/adapters/security/bcrypt-adapter';
 
