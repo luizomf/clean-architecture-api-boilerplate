@@ -2,19 +2,25 @@ import { UserExistsError } from '~/application/errors/user-exists-error';
 import { CreateUserRepository } from '~/application/ports/repositories/user/create-user-repository';
 import { FindUserByEmailRepository } from '~/application/ports/repositories/user/find-user-by-email-repository';
 import { PasswordHashing } from '~/application/ports/security/password-hashing';
-import { CreateUserRequestWithPasswordHash } from '~/domain/user/models/create-user-request-model';
+import {
+  CreateUserRequestWithPasswordHash,
+  CreateUserRequestWithPasswordString,
+} from '~/domain/user/models/create-user-request-model';
 import { User } from '~/domain/user/entities/user';
 import { CreateUser } from './create-user';
+import { ValidationComposite } from '~/application/ports/validation/validation-composite';
 
 const sutFactory = () => {
   const userRequestMock = userRequestFactoryWithPassword();
   const createUserRepositoryMock = createUserRepositoryMockFactory();
   const findUserByEmailRepositoryMock = findUserByEmailRepositoryMockFactory();
   const passwordHashingMock = passwordHashingMockFactory();
+  const validationMock = validationMockFactory();
   const sut = new CreateUser(
     createUserRepositoryMock,
     findUserByEmailRepositoryMock,
     passwordHashingMock,
+    validationMock,
   );
 
   return {
@@ -22,7 +28,18 @@ const sutFactory = () => {
     userRequestMock,
     createUserRepositoryMock,
     findUserByEmailRepositoryMock,
+    validationMock,
   };
+};
+
+const validationMockFactory = () => {
+  class ValidationMock extends ValidationComposite<CreateUserRequestWithPasswordString> {
+    async validate(
+      _request: CreateUserRequestWithPasswordString,
+    ): Promise<void | never> {}
+  }
+
+  return new ValidationMock();
 };
 
 const passwordHashingMockFactory = () => {

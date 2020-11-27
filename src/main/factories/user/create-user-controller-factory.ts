@@ -7,13 +7,16 @@ import {
 import { GenericCreatedPresenter } from '~/presentation/presenters/responses/generic/generic-created-presenter';
 import { User } from '~/domain/user/entities/user';
 import { BCryptAdapter } from '~/common/adapters/security/bcrypt-adapter';
+import { CreateUserValidation } from '~/application/validation/user/composite/create-user-validation';
 
 export const createUserControllerFactory = () => {
   const bcryptAdapter = new BCryptAdapter();
+  const createUserValidation = new CreateUserValidation();
   const createUserUseCase = new CreateUser(
     createUserRepository,
     findUserByEmailRepository,
     bcryptAdapter,
+    createUserValidation,
   );
   const createdUserPresenter = new GenericCreatedPresenter<User>();
   const createUserController = new CreateUserController(
@@ -27,5 +30,6 @@ export const createUserControllerFactory = () => {
     createUserUseCase,
     createdUserPresenter,
     createUserController,
+    createUserValidation,
   };
 };
