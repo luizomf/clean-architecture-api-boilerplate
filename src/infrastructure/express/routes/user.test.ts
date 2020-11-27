@@ -27,6 +27,8 @@ describe('User Routes', () => {
         expect(response.body.first_name).toBe('first_name1');
         expect(response.body.last_name).toBe('last_name1');
         expect(response.body.email).toBe('email1@email.com');
+        expect(response.body.password_hash).toBeTruthy();
+        expect(response.body.password_hash.length).toBe(60);
       })
       .catch((e) => {
         throw e;
