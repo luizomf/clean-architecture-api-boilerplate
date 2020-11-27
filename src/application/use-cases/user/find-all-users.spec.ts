@@ -1,15 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FindAllUsersRepository } from '~/application/ports/repositories/user/find-all-users-repository';
+import { FindAllUsersRequestModel } from '~/application/ports/use-cases/user/find-all-users-use-case';
+import { ValidationComposite } from '~/application/ports/validation/validation-composite';
 import { User } from '~/domain/user/entities/user';
 import { FindAllUsers } from './find-all-users';
 
 const sutFactory = () => {
   const findAllUsersRepositoryMock = findAllUsersRepositoryMockFactory();
-  const sut = new FindAllUsers(findAllUsersRepositoryMock);
+  const validationMock = validationMockFactory();
+  const sut = new FindAllUsers(findAllUsersRepositoryMock, validationMock);
 
   return {
     sut,
     findAllUsersRepositoryMock,
+    validationMock,
   };
 };
 
@@ -52,7 +56,27 @@ const findAllUsersRepositoryMockFactory = () => {
   return new FindAllUsersRepositoryMock();
 };
 
+const validationMockFactory = () => {
+  class ValidationMock extends ValidationComposite<FindAllUsersRequestModel> {
+    async validate(_request: FindAllUsersRequestModel): Promise<void | never> {}
+  }
+
+  return new ValidationMock();
+};
+
 describe('FindAllUsers', () => {
+  it('should call validation with correct values', async () => {
+    const { sut, validationMock } = sutFactory();
+    const validationSpy = jest.spyOn(validationMock, 'validate');
+    await sut.findAll({ order: 'asc', limit: 200, offset: 1000 });
+    expect(validationSpy).toHaveBeenCalledTimes(1);
+    expect(validationSpy).toHaveBeenCalledWith({
+      order: 'asc',
+      limit: 200,
+      offset: 1000,
+    });
+  });
+
   it('should call findAllUsersRepository with correct values', async () => {
     const { sut, findAllUsersRepositoryMock } = sutFactory();
     const findAllUsersRepositorySpy = jest.spyOn(

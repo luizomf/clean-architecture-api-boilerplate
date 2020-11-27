@@ -3,14 +3,16 @@ import {
   FindAllUsersRequestModel,
   FindAllUsersUseCase,
 } from '~/application/ports/use-cases/user/find-all-users-use-case';
+import { ValidationComposite } from '~/application/ports/validation/validation-composite';
 import { User } from '~/domain/user/entities/user';
 
 export class FindAllUsers implements FindAllUsersUseCase {
   constructor(
     private readonly findAllUsersRepository: FindAllUsersRepository,
+    private readonly validation: ValidationComposite<FindAllUsersRequestModel>,
   ) {}
 
-  async findAll(request?: FindAllUsersRequestModel): Promise<User[]> {
+  async findAll(request?: FindAllUsersRequestModel): Promise<User[]> | never {
     let order: 'desc' | 'asc' = 'desc';
     let limit = 100;
     let offset = 0;
@@ -21,6 +23,7 @@ export class FindAllUsers implements FindAllUsersUseCase {
       if (request.offset) offset = request.offset;
     }
 
+    await this.validation.validate({ order, limit, offset });
     const users = await this.findAllUsersRepository.find(order, limit, offset);
     return users;
   }
