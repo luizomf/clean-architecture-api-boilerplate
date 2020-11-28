@@ -7,7 +7,6 @@ import { PasswordHashing } from '~/application/ports/security/password-hashing';
 import { SignInUseCase } from '~/application/ports/use-cases/sign-in/sign-in-use-case';
 import { ValidationComposite } from '~/application/ports/validation/validation-composite';
 import { SignInModel } from '~/domain/sign-in/models/sign-in-model';
-import { findUserByEmailRepository } from '~/infrastructure/repositories/user/user-default-repository';
 
 export class SignIn implements SignInUseCase {
   constructor(
@@ -22,7 +21,9 @@ export class SignIn implements SignInUseCase {
       await this.validation.validate(signInModel);
     }
 
-    const user = await findUserByEmailRepository.findByEmail(signInModel.email);
+    const user = await this.findUserByEmailRepository.findByEmail(
+      signInModel.email,
+    );
 
     if (!user) {
       throw new NotFoundError('User not found');
