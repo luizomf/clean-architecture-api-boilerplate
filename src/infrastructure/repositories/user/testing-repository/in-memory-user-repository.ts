@@ -6,7 +6,7 @@ import { FindUserByIdRepository } from '~/application/ports/repositories/user/fi
 import { UpdateUserRepository } from '~/application/ports/repositories/user/update-user-repository';
 import { CreateUserRequestWithPasswordHash } from '~/domain/user/models/create-user-request-model';
 import { UpdateUserRequestModelBody } from '~/domain/user/models/update-user-request-model';
-import { User } from '~/domain/user/models/user';
+import { User } from '~/domain/user/entities/user';
 
 export type DBUserMap = Map<string, User>;
 

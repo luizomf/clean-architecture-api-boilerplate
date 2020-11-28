@@ -1,22 +1,22 @@
-import { DeleteUserByIdController } from '~/interface-adapters/controllers/user/delete-user-by-id-controller';
-import { DeletedUserPresenter } from '~/interface-adapters/presenters/responses/user/deleted-user-presenter';
-import { RequestParamsIdValidation } from '~/interface-adapters/validation/common/request-params-id-validation';
+import { DeleteUserByIdController } from '~/presentation/controllers/user/delete-user-by-id-controller';
 import { DeleteUserById } from '~/application/use-cases/user/delete-user-by-id';
 import {
   deleteUserByIdRepository,
   findUserByIdRepository,
 } from '~/infrastructure/repositories/user/user-default-repository';
+import { GenericDeletedPresenter } from '~/presentation/presenters/responses/generic/generic-deleted-presenter';
+import { ValidateStringNotEmpty } from '~/application/validation/common/leaf/validate-string-not-empty';
 
 export const deleteUserByIdControllerFactory = () => {
+  const deleteUserByIdValidation = new ValidateStringNotEmpty();
   const deleteUserByIdUseCase = new DeleteUserById(
     deleteUserByIdRepository,
     findUserByIdRepository,
+    deleteUserByIdValidation,
   );
-  const deleteUserByIdValidation = new RequestParamsIdValidation();
-  const deleteUserByIdPresenter = new DeletedUserPresenter();
+  const deleteUserByIdPresenter = new GenericDeletedPresenter();
   const deleteUserByIdController = new DeleteUserByIdController(
     deleteUserByIdUseCase,
-    deleteUserByIdValidation,
     deleteUserByIdPresenter,
   );
 

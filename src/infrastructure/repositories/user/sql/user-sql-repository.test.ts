@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { User } from '~/domain/user/models/user';
+import { User } from '~/domain/user/entities/user';
 import { db } from '~/infrastructure/knex/connection';
 import { UserSqlRepository } from './user-sql-repository';
 

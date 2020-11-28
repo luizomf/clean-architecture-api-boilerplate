@@ -1,29 +1,26 @@
-import { CreateUserController } from '~/interface-adapters/controllers/user/create-user-controller';
-import { CreatedUserPresenter } from '~/interface-adapters/presenters/responses/user/created-user-presenter';
-import { CreateUserRequestValidationComposite } from '~/interface-adapters/validation/user/composites/create-user-request-validation-composite';
+import { CreateUserController } from '~/presentation/controllers/user/create-user-controller';
 import { CreateUser } from '~/application/use-cases/user/create-user';
-import { BCryptAdapter } from '~/common/adapters/validators/bcrypt-adapter';
-import { EmailValidatorAdapter } from '~/common/adapters/validators/email-validator-adapter';
 import {
   createUserRepository,
   findUserByEmailRepository,
 } from '~/infrastructure/repositories/user/user-default-repository';
+import { GenericCreatedPresenter } from '~/presentation/presenters/responses/generic/generic-created-presenter';
+import { User } from '~/domain/user/entities/user';
+import { BCryptAdapter } from '~/common/adapters/security/bcrypt-adapter';
+import { CreateUserValidation } from '~/application/validation/user/composite/create-user-validation';
 
 export const createUserControllerFactory = () => {
   const bcryptAdapter = new BCryptAdapter();
+  const createUserValidation = new CreateUserValidation();
   const createUserUseCase = new CreateUser(
     createUserRepository,
     findUserByEmailRepository,
     bcryptAdapter,
+    createUserValidation,
   );
-  const emailValidatorAdapter = new EmailValidatorAdapter();
-  const createUserRequestValidationAdapter = new CreateUserRequestValidationComposite(
-    emailValidatorAdapter,
-  );
-  const createdUserPresenter = new CreatedUserPresenter();
+  const createdUserPresenter = new GenericCreatedPresenter<User>();
   const createUserController = new CreateUserController(
     createUserUseCase,
-    createUserRequestValidationAdapter,
     createdUserPresenter,
   );
 
@@ -31,9 +28,8 @@ export const createUserControllerFactory = () => {
     createUserRepository,
     bcryptAdapter,
     createUserUseCase,
-    emailValidatorAdapter,
-    createUserRequestValidationAdapter,
     createdUserPresenter,
     createUserController,
+    createUserValidation,
   };
 };

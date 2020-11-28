@@ -3,19 +3,22 @@ import { FindUserByIdRepository } from '~/application/ports/repositories/user/fi
 import { UpdateUserRepository } from '~/application/ports/repositories/user/update-user-repository';
 import { PasswordHashing } from '~/application/ports/security/password-hashing';
 import { UpdateUserRequestModelBody } from '~/domain/user/models/update-user-request-model';
-import { User } from '~/domain/user/models/user';
+import { User } from '~/domain/user/entities/user';
 import { UpdateUser } from './update-user';
+import { ValidationComposite } from '~/application/ports/validation/validation-composite';
 
 const sutFactory = () => {
   const findUserByIdRepositoryMock = findUserByIdRepositoryMockFactory();
   const updateUserRepositoryMock = updateUserRepositoryMockFactory();
   const findUserByEmailRepositoryMock = findUserByEmailRepositoryMockFactory();
   const passwordHashingMock = passwordHashingMockFactory();
+  const validationMock = validationMockFactory();
   const sut = new UpdateUser(
     updateUserRepositoryMock,
     findUserByIdRepositoryMock,
     findUserByEmailRepositoryMock,
     passwordHashingMock,
+    validationMock,
   );
 
   return {
@@ -24,7 +27,18 @@ const sutFactory = () => {
     findUserByIdRepositoryMock,
     findUserByEmailRepositoryMock,
     passwordHashingMock,
+    validationMock,
   };
+};
+
+const validationMockFactory = () => {
+  class ValidationMock extends ValidationComposite<UpdateUserRequestModelBody> {
+    async validate(
+      _request: UpdateUserRequestModelBody,
+    ): Promise<void | never> {}
+  }
+
+  return new ValidationMock();
 };
 
 const findUserByIdRepositoryMockFactory = () => {
@@ -156,17 +170,11 @@ describe('UpdateUser', () => {
     expect(error.message).toBe('Any Error');
   });
 
-  it('should return updated user if everything is OK', async () => {
+  it('should return number of rows updated if everything is OK', async () => {
     const { sut, updateUserRepositoryMock } = sutFactory();
     jest.spyOn(updateUserRepositoryMock, 'update').mockResolvedValue(1);
-
     const response = await sut.update('1', { first_name: 'any_value' });
-
-    expect(response.id).toBe('1');
-    expect(response.first_name).toBe('any_value');
-    expect(response.last_name).toBe('last_name');
-    expect(response.email).toBe('email@email.com');
-    expect(response.password_hash).toBe('any_hash');
+    expect(response).toBe(1);
   });
 
   it('should hash password if password is received', async () => {

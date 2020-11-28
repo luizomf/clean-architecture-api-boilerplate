@@ -1,14 +1,17 @@
 import { DeleteUserByIdRepository } from '~/application/ports/repositories/user/delete-user-by-id-repository';
 import { FindUserByIdRepository } from '~/application/ports/repositories/user/find-user-by-id-repository';
-import { User } from '~/domain/user/models/user';
+import { ValidationComposite } from '~/application/ports/validation/validation-composite';
+import { User } from '~/domain/user/entities/user';
 import { DeleteUserById } from './delete-user-by-id';
 
 const sutFactory = () => {
   const findUserByIdRepositoryMock = findUserByIdRepositoryMockFactory();
   const deleteUserByIdRepositoryMock = deleteUserByIdRepositoryMockFactory();
+  const validationMock = validationMockFactory();
   const sut = new DeleteUserById(
     deleteUserByIdRepositoryMock,
     findUserByIdRepositoryMock,
+    validationMock,
   );
 
   return {
@@ -42,6 +45,14 @@ const deleteUserByIdRepositoryMockFactory = () => {
   }
 
   return new DeleteUserByIdRepositoryMock();
+};
+
+const validationMockFactory = () => {
+  class ValidationMock extends ValidationComposite<string> {
+    async validate(_id: string): Promise<void | never> {}
+  }
+
+  return new ValidationMock();
 };
 
 describe('DeleteUserById', () => {

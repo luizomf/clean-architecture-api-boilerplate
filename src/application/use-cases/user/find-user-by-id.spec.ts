@@ -1,7 +1,19 @@
 import { NotFoundError } from '~/application/errors/not-found-error';
 import { FindUserByIdRepository } from '~/application/ports/repositories/user/find-user-by-id-repository';
-import { User } from '~/domain/user/models/user';
+import { ValidationComposite } from '~/application/ports/validation/validation-composite';
+import { User } from '~/domain/user/entities/user';
 import { FindUserById } from './find-user-by-id';
+
+const sutFactory = () => {
+  const repository = findUserRepositoryMockFactory();
+  const validationMock = validationMockFactory();
+  const sut = new FindUserById(repository, validationMock);
+
+  return {
+    sut,
+    repository,
+  };
+};
 
 const findUserRepositoryMockFactory = () => {
   class FindUserByIdRepositoryMock implements FindUserByIdRepository {
@@ -25,14 +37,12 @@ const userMockFactory = (): User[] => {
   ];
 };
 
-const sutFactory = () => {
-  const repository = findUserRepositoryMockFactory();
-  const sut = new FindUserById(repository);
+const validationMockFactory = () => {
+  class ValidationMock extends ValidationComposite<string> {
+    async validate(_id: string): Promise<void | never> {}
+  }
 
-  return {
-    sut,
-    repository,
-  };
+  return new ValidationMock();
 };
 
 describe('FindUserById Usecase', () => {

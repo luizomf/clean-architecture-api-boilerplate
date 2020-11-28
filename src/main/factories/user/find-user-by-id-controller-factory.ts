@@ -1,23 +1,26 @@
-import { FindUserByIdController } from '~/interface-adapters/controllers/user/find-by-id-controller';
+import { FindUserByIdController } from '~/presentation/controllers/user/find-by-id-controller';
 import { FindUserById } from '~/application/use-cases/user/find-user-by-id';
-import { SuccessUserPresenter } from '~/interface-adapters/presenters/responses/user/success-user-presenter';
-import { FindUserByIdValidationComposite } from '~/interface-adapters/validation/user/composites/find-user-by-id-validation-composite';
 import { findUserByIdRepository } from '~/infrastructure/repositories/user/user-default-repository';
+import { GenericSuccessPresenter } from '~/presentation/presenters/responses/generic/generic-success-presenter';
+import { User } from '~/domain/user/entities/user';
+import { ValidateStringNotEmpty } from '~/application/validation/common/leaf/validate-string-not-empty';
 
 export const findUserByIdControllerFactory = () => {
-  const findUserByIdValidationComposite = new FindUserByIdValidationComposite();
-  const successUserPresenter = new SuccessUserPresenter();
-  const findUserById = new FindUserById(findUserByIdRepository);
+  const successUserPresenter = new GenericSuccessPresenter<User>();
+  const findUserByIdValidation = new ValidateStringNotEmpty();
+  const findUserById = new FindUserById(
+    findUserByIdRepository,
+    findUserByIdValidation,
+  );
   const findUserByIdController = new FindUserByIdController(
     findUserById,
-    findUserByIdValidationComposite,
     successUserPresenter,
   );
 
   return {
-    findUserByIdValidationComposite,
     successUserPresenter,
     findUserById,
     findUserByIdController,
+    findUserByIdValidation,
   };
 };
