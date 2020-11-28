@@ -32,9 +32,11 @@ This is the **"Use Cases"** layer. Here you may add the application **Use cases*
 >
 >We do, however, expect that changes to the operation of the application will affect the use-cases and therefore the software in this layer. If the details of a use-case change, then some code in this layer will certainly be affected. ([Read the source](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html))
 
-### adapters
+### adapters (presentation)
 
 This is the "Interface Adapters" layer. I don't really like that name, because I think it's confusing (it may change in the future). The behavior of software in this layer is not the same as the "Adapter" design pattern by Gof, as it must not depend on external layers.
+
+I'm using the name **"Presentation"** for this layer.
 
 Here's the description by Uncle Bob:
 
@@ -80,50 +82,56 @@ In our case, data enter the system via "express routes" (infrastructure layer) t
 
 ```
 src - root directory
-├── adapters - Interface Adapters (described in clean architecture layers)
-│   ├── controllers - all controller implementations (interface is in application layer)
-│   │   └── user - controllers for "User" entity
-│   ├── presenters - all presenters implementations
-│   │   └── responses - all response models
-│   │       ├── generic - generic response models
-│   │       └── user - "User" entity response models
-│   └── validation - validations for this layer
-│       ├── common - common validation that may be used by other entities
-│       └── user - "User" entity validations
-│           ├── composites - validations that may be composed by other validations
-│           └── single-validations - validations that are specific for some cases
-├── application - Use Cases (described in clean architecture layers)
-│   ├── errors - all application related errors
-│   ├── ports - the name is from "Hexagonal Architecture". Just interfaces here.
+├── application - APPLICATION LAYER
+│   ├── errors - error classes
+│   ├── ports - interfaces and abstract classes as ports for this layer
 │   │   ├── controllers - interfaces for controllers
 │   │   ├── presenters - interfaces for presenters
 │   │   ├── repositories - interfaces for repositories
-│   │   ├── request - interfaces for request models
-│   │   ├── response - interfaces for response models
-│   │   ├── security - interfaces for any security concern
-│   │   ├── user - data model for users (interfaces)
-│   │   └── validators - validator interfaces
-│   └── use-cases - all application use cases
-│       └── user - all use cases for user entity
-├── common - Cross-cutting concerns (add things that can be used in all layers)
-│   └── validators - mostly adapters (by Gof) for any validator
-├── domain - Domain/Entities (described in clean architecture layers)
-│   └── user - the entity "User"
-└── infrastructure - Frameworks and Drivers (described in clean architecture layers)
-    ├── console-application - this is nothing really, just me testing the controllers
-    ├── express - all express configs
-    │   ├── middlewares - express middlewares
-    │   ├── routes - express routes
-    │   ├── setup - express setups
-    │   └── utils - express helper functions
-    ├── factories - factories to put all classes together (generally controllers)
-    │   └── user - factories for user controllers
-    ├── knex - knex configurations
-    │   └── migrations - knex migrations
-    └── repositories - add your repositories here
-        └── user - repositories for "User" entity
-            ├── sql - repositories related to SQL (I'm using PostgreSQL)
-            └── testing-repository - an in memory repository made just for fun
+│   │   │   └── user - interfaces for user repositories
+│   │   ├── requests - interfaces for request
+│   │   ├── responses - interfaces for responses
+│   │   ├── security - interfaces for security concerns
+│   │   ├── use-cases - interfaces for use cases
+│   │   │   └── user - interfaces for user use cases
+│   │   └── validation - interfaces for validations concerns
+│   ├── use-cases - concrete use cases
+│   │   └── user - concrete user use cases
+│   └── validation - concrete validations
+│       ├── common - cross concern validations
+│       │   └── leaf - leaf validations in composite pattern
+│       └── user - user validations
+│           ├── composite - composite user validations in composite pattern
+│           └── leaf - leaf user validations in composite pattern
+├── common - CROSS-CONCERN LAYER
+│   └── adapters - adapters for any external resource
+│       ├── security - security concerns adapters
+│       └── validators - validation concern adapters
+├── domain - DOMAIN LAYER
+│   └── user - a user
+│       ├── entities
+│       └── models
+├── infrastructure - INFRASTRUCTURE LAYER
+│   ├── express - anything express related
+│   │   ├── adapters - route adapters
+│   │   ├── middlewares
+│   │   ├── routes
+│   │   └── setup - setup functions
+│   ├── knex - anything knex related
+│   │   └── migrations
+│   └── repositories - anything repository related
+│       └── user - user repositories
+│           ├── sql - sql repositories
+│           └── testing-repository - in memory repository
+├── main - MAIN LAYER
+│   └── factories - factories for classes (mostly controllers)
+│       └── user - user classes factories
+└── presentation - PRESENTATION LAYER
+    ├── controllers - concrete controllers
+    │   └── user - user controllers
+    └── presenters - concrete presenters
+        └── responses
+            └── generic - generic presenters
 ```
 ## The "User" entity
 
