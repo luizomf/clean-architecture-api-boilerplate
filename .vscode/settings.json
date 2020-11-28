@@ -5,8 +5,13 @@
     "python": "clear && venv/bin/python -u",
     "typescript": "clear && npx ts-node -r 'dotenv/config' -r 'tsconfig-paths/register' --transpile-only",
   },
+  "code-runner.runInTerminal": true,
   "python.pythonPath": "venv/bin/python",
   "cSpell.ignoreWords": [
     "usecase"
-  ]
+  ],
+  "window.zoomLevel": 0,
+  "editor.fontSize": 26,
+  "terminal.integrated.fontSize": 26,
+  "editor.glyphMargin": false
 }
