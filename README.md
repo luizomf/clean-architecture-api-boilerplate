@@ -14,7 +14,7 @@ Read more about clean architecture in [this article](https://blog.cleancoder.com
 
 The folder structure may change in the future, but currently we have that:
 
-### domain
+### domain layer
 
 This is the "domain" or "entities" layer. Here's the description by Uncle Bob:
 
@@ -22,7 +22,7 @@ This is the "domain" or "entities" layer. Here's the description by Uncle Bob:
 >
 > If you don’t have an enterprise, and are just writing a single application, then these entities are the business objects of the application. They encapsulate the most general and high-level rules. They are the least likely to change when something external changes. For example, you would not expect these objects to be affected by a change to page navigation, or security. No operational change to any particular application should affect the entity layer. ([Read the source](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html))
 
-### application
+### application layer
 
 This is the **"Use Cases"** layer. Here you may add the application **Use cases**. Here's the description by Uncle Bob:
 
@@ -32,7 +32,7 @@ This is the **"Use Cases"** layer. Here you may add the application **Use cases*
 >
 >We do, however, expect that changes to the operation of the application will affect the use-cases and therefore the software in this layer. If the details of a use-case change, then some code in this layer will certainly be affected. ([Read the source](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html))
 
-### adapters (presentation)
+### adapters (presentation) layer
 
 This is the "Interface Adapters" layer. I don't really like that name, because I think it's confusing (it may change in the future). The behavior of software in this layer is not the same as the "Adapter" design pattern by Gof, as it must not depend on external layers.
 
@@ -49,7 +49,7 @@ Here's the description by Uncle Bob:
 
 I tried my best to follow this description, but It's a bit confusing to me.
 
-### infrastructure
+### infrastructure layer
 
 This folder (layer) is where we add everything related to external "**Frameworks and Drivers**". Here you can add the repositories, external frameworks, web and so on.
 
@@ -58,6 +58,10 @@ Here's the description by Uncle Bob:
 >The outermost layer is generally composed of frameworks and tools such as the Database, the Web Framework, etc. Generally you don’t write much code in this layer other than glue code that communicates to the next circle inwards.
 >
 >This layer is where all the details go. The Web is a detail. The database is a detail. We keep these things on the outside where they can do little harm. ([Read the source](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html))
+
+### main layer
+
+This layer is where we put everything together. It's the "dirty layer", because most factories will be here. It may depend on all other layers in the system.
 
 ## Clean Architecture visual guide
 
