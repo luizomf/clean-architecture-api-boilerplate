@@ -5,17 +5,20 @@ import { PasswordHashing } from '~/application/ports/security/password-hashing';
 import { UpdateUserRequestModelBody } from '~/domain/user/models/update-user-request-model';
 import { User } from '~/domain/user/entities/user';
 import { UpdateUser } from './update-user';
+import { ValidationComposite } from '~/application/ports/validation/validation-composite';
 
 const sutFactory = () => {
   const findUserByIdRepositoryMock = findUserByIdRepositoryMockFactory();
   const updateUserRepositoryMock = updateUserRepositoryMockFactory();
   const findUserByEmailRepositoryMock = findUserByEmailRepositoryMockFactory();
   const passwordHashingMock = passwordHashingMockFactory();
+  const validationMock = validationMockFactory();
   const sut = new UpdateUser(
     updateUserRepositoryMock,
     findUserByIdRepositoryMock,
     findUserByEmailRepositoryMock,
     passwordHashingMock,
+    validationMock,
   );
 
   return {
@@ -24,7 +27,18 @@ const sutFactory = () => {
     findUserByIdRepositoryMock,
     findUserByEmailRepositoryMock,
     passwordHashingMock,
+    validationMock,
   };
+};
+
+const validationMockFactory = () => {
+  class ValidationMock extends ValidationComposite<UpdateUserRequestModelBody> {
+    async validate(
+      _request: UpdateUserRequestModelBody,
+    ): Promise<void | never> {}
+  }
+
+  return new ValidationMock();
 };
 
 const findUserByIdRepositoryMockFactory = () => {

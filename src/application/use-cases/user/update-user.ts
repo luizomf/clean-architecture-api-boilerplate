@@ -7,6 +7,7 @@ import { UpdateUserRepository } from '~/application/ports/repositories/user/upda
 import { PasswordHashing } from '~/application/ports/security/password-hashing';
 import { UpdateUserRequestModelBody } from '~/domain/user/models/update-user-request-model';
 import { UpdateUserUseCase } from '~/application/ports/use-cases/user/update-user-use-case';
+import { ValidationComposite } from '~/application/ports/validation/validation-composite';
 
 export class UpdateUser implements UpdateUserUseCase {
   constructor(
@@ -14,31 +15,20 @@ export class UpdateUser implements UpdateUserUseCase {
     private readonly findUserByIdRepository: FindUserByIdRepository,
     private readonly findUserByEmailRepository: FindUserByEmailRepository,
     private readonly passwordHashing: PasswordHashing,
+    private readonly validation: ValidationComposite<UpdateUserRequestModelBody>,
   ) {}
 
   async update(
     id: string,
     request: UpdateUserRequestModelBody,
   ): Promise<number | never> {
-    const foundUser = await this.findUserByIdRepository.findById(id);
-
-    if (!foundUser) {
-      throw new NotFoundError('User does not exist');
-    }
+    await this.validation.validate(request);
+    await this.checkUserExists(id);
 
     const newRequest = { ...request };
     const newPassword = newRequest.password;
-    const newEmail = newRequest.email;
 
-    if (newEmail) {
-      const foundEmail = await this.findUserByEmailRepository.findByEmail(
-        newEmail,
-      );
-
-      if (foundEmail) {
-        throw new EmailValidationError('E-mail already in use.');
-      }
-    }
+    await this.checkEmailExists(newRequest.email);
 
     if (newPassword) {
       newRequest.password_hash = await this.passwordHashing.hash(newPassword);
@@ -49,8 +39,30 @@ export class UpdateUser implements UpdateUserUseCase {
 
     const updatedRows = await this.updateUserRepository.update(id, newRequest);
 
-    if (updatedRows === 0 || !updatedRows)
+    if (updatedRows === 0 || !updatedRows) {
       throw new RepositoryError('Could not update user');
+    }
+
     return updatedRows;
+  }
+
+  private async checkUserExists(id: string): Promise<void | never> {
+    const foundUser = await this.findUserByIdRepository.findById(id);
+
+    if (!foundUser) {
+      throw new NotFoundError('User does not exist');
+    }
+  }
+
+  private async checkEmailExists(newEmail?: string): Promise<void | never> {
+    if (newEmail) {
+      const foundEmail = await this.findUserByEmailRepository.findByEmail(
+        newEmail,
+      );
+
+      if (foundEmail) {
+        throw new EmailValidationError('E-mail already in use.');
+      }
+    }
   }
 }

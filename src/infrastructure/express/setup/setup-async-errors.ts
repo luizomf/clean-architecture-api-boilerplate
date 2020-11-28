@@ -16,6 +16,9 @@ export const setupAsyncErrors = (app: Express): void => {
     if (!(error instanceof DefaultApplicationError)) {
       return res.status(500).json({
         error: error.name,
+        message: 'Something went wrong',
+        statusCode: 500,
+        messages: ['Something went wrong'],
       });
     }
 

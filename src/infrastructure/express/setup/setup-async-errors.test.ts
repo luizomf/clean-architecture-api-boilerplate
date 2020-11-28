@@ -40,7 +40,7 @@ describe('Setup Async Errors', () => {
       });
     const response = await request(app).get('/__test-a-generic-error');
     expect(response.status).toBe(500);
-    expect(response.body).toEqual({ error: 'Error' });
+    expect(response.body.error).toBe('Error');
   });
 
   it('should catch errors derived from DefaultApplicationError', async () => {
@@ -93,6 +93,6 @@ describe('Setup Async Errors', () => {
     sut(app);
     const response = await request(app).get('/__test-a-middleware-error');
     expect(response.status).toBe(500);
-    expect(response.body).toEqual({ error: 'Error' });
+    expect(response.body.error).toEqual('Error');
   });
 });
