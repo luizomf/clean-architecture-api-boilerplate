@@ -5,7 +5,7 @@ import { JwtTokenAdapter } from '~/common/adapters/security/jwt-token-adapter';
 import { findUserByEmailRepository } from '~/infrastructure/repositories/user/user-default-repository';
 import { SignInController } from '~/presentation/controllers/sign-in/sign-in-controller';
 
-const secret = process.env.JWT_SECRET || 'configure-secret-in-dotenv-file';
+const secret = process.env.JWT_SECRET as string;
 
 export const signInControllerFactory = () => {
   const jwtToken = new JwtTokenAdapter(secret);
