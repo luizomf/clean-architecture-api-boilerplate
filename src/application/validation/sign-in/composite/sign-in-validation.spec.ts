@@ -45,7 +45,7 @@ describe('SignInValidation', () => {
     let error;
 
     try {
-      await sut.validate({ email: 'emailemailcom', password: '123' } as any);
+      await sut.validate({ email: 'emailEmailCom', password: '123' } as any);
     } catch (e) {
       error = e;
     }
