@@ -3,7 +3,7 @@ import { Presenter } from '~/application/ports/presenters/presenter';
 import { ResponseModel } from '~/application/ports/responses/response-model';
 import { CreateUserUseCase } from '~/application/ports/use-cases/user/create-user-use-case';
 import { User } from '~/domain/user/entities/user';
-import { CreateUserRequestWithPasswordString } from '~/domain/user/models/create-user-request-model';
+import { UserRequestWithPasswordString } from '~/domain/user/models/user-request-required-fields';
 import { CreateUserController } from './create-user-controller';
 
 const sutFactory = () => {
@@ -21,7 +21,7 @@ const sutFactory = () => {
 const useCaseMockFactory = () => {
   class UseCaseMock implements CreateUserUseCase {
     async create(
-      _userData: CreateUserRequestWithPasswordString,
+      _userData: UserRequestWithPasswordString,
     ): Promise<User> | never {
       return responseDataMockFactory();
     }

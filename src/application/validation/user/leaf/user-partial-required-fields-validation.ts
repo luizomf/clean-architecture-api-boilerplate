@@ -1,9 +1,9 @@
 import { RequestValidationError } from '~/application/errors/request-validation-error';
 import { ValidationComposite } from '~/application/ports/validation/validation-composite';
-import { UpdateUserRequestModelBody } from '~/domain/user/models/update-user-request-model';
+import { UserRequestPartialFields } from '~/domain/user/models/user-request-partial-fields';
 
-export class UserPartialRequiredFieldsValidation extends ValidationComposite<UpdateUserRequestModelBody> {
-  async validate(request: UpdateUserRequestModelBody): Promise<void | never> {
+export class UserPartialRequiredFieldsValidation extends ValidationComposite<UserRequestPartialFields> {
+  async validate(request: UserRequestPartialFields): Promise<void | never> {
     const error = new RequestValidationError('Invalid request');
 
     const { first_name, last_name, email, password, confirmPassword } = request;

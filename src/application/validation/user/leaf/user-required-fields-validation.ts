@@ -1,10 +1,10 @@
 import { RequestValidationError } from '~/application/errors/request-validation-error';
 import { ValidationComposite } from '~/application/ports/validation/validation-composite';
-import { CreateUserRequestWithPasswordString } from '~/domain/user/models/create-user-request-model';
+import { UserRequestWithPasswordString } from '~/domain/user/models/user-request-required-fields';
 
-export class UserRequiredFieldsValidation extends ValidationComposite<CreateUserRequestWithPasswordString> {
+export class UserRequiredFieldsValidation extends ValidationComposite<UserRequestWithPasswordString> {
   async validate(
-    request: CreateUserRequestWithPasswordString,
+    request: UserRequestWithPasswordString,
   ): Promise<void | never> {
     const error = new RequestValidationError('Invalid request');
     const { first_name, last_name, email, password, confirmPassword } = request;

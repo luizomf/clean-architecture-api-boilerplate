@@ -5,9 +5,9 @@ import { ResponseModel } from '~/application/ports/responses/response-model';
 import { UpdateUserUseCase } from '~/application/ports/use-cases/user/update-user-use-case';
 import { RequestModel } from '~/application/ports/requests/request-model';
 import {
-  UpdateUserRequestModelBody,
+  UserRequestPartialFields,
   UpdateUserRequestModelParams,
-} from '~/domain/user/models/update-user-request-model';
+} from '~/domain/user/models/user-request-partial-fields';
 import { RequestValidationError } from '~/application/errors/request-validation-error';
 
 export class UpdateUserController implements Controller<void | never> {
@@ -18,7 +18,7 @@ export class UpdateUserController implements Controller<void | never> {
 
   async handleRequest(
     requestModel: RequestModel<
-      UpdateUserRequestModelBody,
+      UserRequestPartialFields,
       UpdateUserRequestModelParams
     >,
   ): Promise<ResponseModel<void | never>> {

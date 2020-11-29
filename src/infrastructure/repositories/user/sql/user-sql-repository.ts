@@ -5,8 +5,8 @@ import { FindAllUsersRepository } from '~/application/ports/repositories/user/fi
 import { FindUserByEmailRepository } from '~/application/ports/repositories/user/find-user-by-email-repository';
 import { FindUserByIdRepository } from '~/application/ports/repositories/user/find-user-by-id-repository';
 import { UpdateUserRepository } from '~/application/ports/repositories/user/update-user-repository';
-import { CreateUserRequestWithPasswordHash } from '~/domain/user/models/create-user-request-model';
-import { UpdateUserRequestModelBody } from '~/domain/user/models/update-user-request-model';
+import { UserRequestWithPasswordHash } from '~/domain/user/models/user-request-required-fields';
+import { UserRequestPartialFields } from '~/domain/user/models/user-request-partial-fields';
 import { User } from '~/domain/user/entities/user';
 import { db } from '~/infrastructure/knex/connection';
 
@@ -33,7 +33,7 @@ export class UserSqlRepository
   }
 
   async create(
-    requestModel: CreateUserRequestWithPasswordHash,
+    requestModel: UserRequestWithPasswordHash,
   ): Promise<User | never> {
     try {
       const user = await db<User>(this.table)
@@ -60,7 +60,7 @@ export class UserSqlRepository
 
   async update(
     id: string,
-    requestModel: UpdateUserRequestModelBody,
+    requestModel: UserRequestPartialFields,
   ): Promise<number | never> {
     try {
       const updated = await db(this.table).update(requestModel).where({ id });

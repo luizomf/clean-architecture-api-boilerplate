@@ -2,7 +2,7 @@ import { UserExistsError } from '~/application/errors/user-exists-error';
 import { CreateUserRepository } from '~/application/ports/repositories/user/create-user-repository';
 import { FindUserByEmailRepository } from '~/application/ports/repositories/user/find-user-by-email-repository';
 import { PasswordHashing } from '~/application/ports/security/password-hashing';
-import { CreateUserRequestWithPasswordString } from '~/domain/user/models/create-user-request-model';
+import { UserRequestWithPasswordString } from '~/domain/user/models/user-request-required-fields';
 import { CreateUserUseCase } from '~/application/ports/use-cases/user/create-user-use-case';
 import { User } from '~/domain/user/entities/user';
 import { ValidationComposite } from '~/application/ports/validation/validation-composite';
@@ -12,10 +12,10 @@ export class CreateUser implements CreateUserUseCase {
     private readonly createUserRepository: CreateUserRepository,
     private readonly findUserByEmailRepository: FindUserByEmailRepository,
     private readonly passwordHashing: PasswordHashing,
-    private readonly validation: ValidationComposite<CreateUserRequestWithPasswordString>,
+    private readonly validation: ValidationComposite<UserRequestWithPasswordString>,
   ) {}
 
-  async create(userData: CreateUserRequestWithPasswordString): Promise<User> {
+  async create(userData: UserRequestWithPasswordString): Promise<User> {
     await this.validation.validate(userData);
     const userExists = await this.findUserByEmailRepository.findByEmail(
       userData.email,

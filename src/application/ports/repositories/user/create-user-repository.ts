@@ -1,8 +1,6 @@
 import { User } from '~/domain/user/entities/user';
-import { CreateUserRequestWithPasswordHash } from '~/domain/user/models/create-user-request-model';
+import { UserRequestWithPasswordHash } from '~/domain/user/models/user-request-required-fields';
 
 export interface CreateUserRepository {
-  create(
-    requestModel: CreateUserRequestWithPasswordHash,
-  ): Promise<User | never>;
+  create(requestModel: UserRequestWithPasswordHash): Promise<User | never>;
 }

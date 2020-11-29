@@ -1,6 +1,6 @@
 import { User } from '~/domain/user/entities/user';
-import { CreateUserRequestWithPasswordString } from '~/domain/user/models/create-user-request-model';
+import { UserRequestWithPasswordString } from '~/domain/user/models/user-request-required-fields';
 
 export interface CreateUserUseCase {
-  create(userData: CreateUserRequestWithPasswordString): Promise<User> | never;
+  create(userData: UserRequestWithPasswordString): Promise<User> | never;
 }

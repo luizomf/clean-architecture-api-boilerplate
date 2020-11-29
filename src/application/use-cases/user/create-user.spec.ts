@@ -3,9 +3,9 @@ import { CreateUserRepository } from '~/application/ports/repositories/user/crea
 import { FindUserByEmailRepository } from '~/application/ports/repositories/user/find-user-by-email-repository';
 import { PasswordHashing } from '~/application/ports/security/password-hashing';
 import {
-  CreateUserRequestWithPasswordHash,
-  CreateUserRequestWithPasswordString,
-} from '~/domain/user/models/create-user-request-model';
+  UserRequestWithPasswordHash,
+  UserRequestWithPasswordString,
+} from '~/domain/user/models/user-request-required-fields';
 import { User } from '~/domain/user/entities/user';
 import { CreateUser } from './create-user';
 import { ValidationComposite } from '~/application/ports/validation/validation-composite';
@@ -33,9 +33,9 @@ const sutFactory = () => {
 };
 
 const validationMockFactory = () => {
-  class ValidationMock extends ValidationComposite<CreateUserRequestWithPasswordString> {
+  class ValidationMock extends ValidationComposite<UserRequestWithPasswordString> {
     async validate(
-      _request: CreateUserRequestWithPasswordString,
+      _request: UserRequestWithPasswordString,
     ): Promise<void | never> {}
   }
 
@@ -59,7 +59,7 @@ const passwordHashingMockFactory = () => {
 const createUserRepositoryMockFactory = (): CreateUserRepository => {
   class CreateUserRepositoryMock implements CreateUserRepository {
     async create(
-      _requestModel: CreateUserRequestWithPasswordHash,
+      _requestModel: UserRequestWithPasswordHash,
     ): Promise<User | never> {
       return {
         id: '1',

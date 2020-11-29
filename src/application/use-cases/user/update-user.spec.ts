@@ -2,7 +2,7 @@ import { FindUserByEmailRepository } from '~/application/ports/repositories/user
 import { FindUserByIdRepository } from '~/application/ports/repositories/user/find-user-by-id-repository';
 import { UpdateUserRepository } from '~/application/ports/repositories/user/update-user-repository';
 import { PasswordHashing } from '~/application/ports/security/password-hashing';
-import { UpdateUserRequestModelBody } from '~/domain/user/models/update-user-request-model';
+import { UserRequestPartialFields } from '~/domain/user/models/user-request-partial-fields';
 import { User } from '~/domain/user/entities/user';
 import { UpdateUser } from './update-user';
 import { ValidationComposite } from '~/application/ports/validation/validation-composite';
@@ -32,10 +32,8 @@ const sutFactory = () => {
 };
 
 const validationMockFactory = () => {
-  class ValidationMock extends ValidationComposite<UpdateUserRequestModelBody> {
-    async validate(
-      _request: UpdateUserRequestModelBody,
-    ): Promise<void | never> {}
+  class ValidationMock extends ValidationComposite<UserRequestPartialFields> {
+    async validate(_request: UserRequestPartialFields): Promise<void | never> {}
   }
 
   return new ValidationMock();
@@ -85,7 +83,7 @@ const updateUserRepositoryMockFactory = () => {
   class UpdateUserRepositoryMock implements UpdateUserRepository {
     async update(
       _id: string,
-      _requestModel: UpdateUserRequestModelBody,
+      _requestModel: UserRequestPartialFields,
     ): Promise<number | never> {
       return 1;
     }

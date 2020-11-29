@@ -5,7 +5,7 @@ import { FindUserByEmailRepository } from '~/application/ports/repositories/user
 import { FindUserByIdRepository } from '~/application/ports/repositories/user/find-user-by-id-repository';
 import { UpdateUserRepository } from '~/application/ports/repositories/user/update-user-repository';
 import { PasswordHashing } from '~/application/ports/security/password-hashing';
-import { UpdateUserRequestModelBody } from '~/domain/user/models/update-user-request-model';
+import { UserRequestPartialFields } from '~/domain/user/models/user-request-partial-fields';
 import { UpdateUserUseCase } from '~/application/ports/use-cases/user/update-user-use-case';
 import { ValidationComposite } from '~/application/ports/validation/validation-composite';
 
@@ -15,12 +15,12 @@ export class UpdateUser implements UpdateUserUseCase {
     private readonly findUserByIdRepository: FindUserByIdRepository,
     private readonly findUserByEmailRepository: FindUserByEmailRepository,
     private readonly passwordHashing: PasswordHashing,
-    private readonly validation: ValidationComposite<UpdateUserRequestModelBody>,
+    private readonly validation: ValidationComposite<UserRequestPartialFields>,
   ) {}
 
   async update(
     id: string,
-    request: UpdateUserRequestModelBody,
+    request: UserRequestPartialFields,
   ): Promise<number | never> {
     await this.validation.validate(request);
     await this.checkUserExists(id);

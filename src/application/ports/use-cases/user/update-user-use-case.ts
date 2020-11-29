@@ -1,8 +1,8 @@
-import { UpdateUserRequestModelBody } from '~/domain/user/models/update-user-request-model';
+import { UserRequestPartialFields } from '~/domain/user/models/user-request-partial-fields';
 
 export interface UpdateUserUseCase {
   update(
     id: string,
-    updateUserRequestModel: UpdateUserRequestModelBody,
+    updateUserRequestModel: UserRequestPartialFields,
   ): Promise<number | never>;
 }

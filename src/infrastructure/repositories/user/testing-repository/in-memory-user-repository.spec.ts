@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { CreateUserRequestWithPasswordHash } from '~/domain/user/models/create-user-request-model';
+import { UserRequestWithPasswordHash } from '~/domain/user/models/user-request-required-fields';
 import { InMemoryUserRepository } from './in-memory-user-repository';
 
 const sut = new InMemoryUserRepository();
 
-const sampleDataFactory = (): CreateUserRequestWithPasswordHash[] => {
+const sampleDataFactory = (): UserRequestWithPasswordHash[] => {
   return [
     {
       first_name: 'user firstname 1',

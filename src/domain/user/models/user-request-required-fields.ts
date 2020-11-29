@@ -9,6 +9,6 @@ type PasswordHash = {
   password_hash: string;
 };
 
-export type CreateUserRequestWithPasswordString = Omit<User, 'id'> &
+export type UserRequestWithPasswordString = Omit<User, 'id'> &
   PasswordAndConfirmPasswordString;
-export type CreateUserRequestWithPasswordHash = Omit<User, 'id'> & PasswordHash;
+export type UserRequestWithPasswordHash = Omit<User, 'id'> & PasswordHash;

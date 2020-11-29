@@ -1,10 +1,10 @@
 import { InternalServerError } from '~/application/errors/internal-server-error';
 import { ValidationComposite } from '~/application/ports/validation/validation-composite';
-import { CreateUserRequestWithPasswordString } from '~/domain/user/models/create-user-request-model';
+import { UserRequestWithPasswordString } from '~/domain/user/models/user-request-required-fields';
 
-export class UserCompositeValidation extends ValidationComposite<CreateUserRequestWithPasswordString> {
+export class UserCompositeValidation extends ValidationComposite<UserRequestWithPasswordString> {
   async validate(
-    request: CreateUserRequestWithPasswordString,
+    request: UserRequestWithPasswordString,
   ): Promise<void | never> {
     if (this.validations.length === 0) {
       throw new InternalServerError('Composite has no validations');

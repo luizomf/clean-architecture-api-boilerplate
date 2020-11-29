@@ -4,8 +4,8 @@ import { FindAllUsersRepository } from '~/application/ports/repositories/user/fi
 import { FindUserByEmailRepository } from '~/application/ports/repositories/user/find-user-by-email-repository';
 import { FindUserByIdRepository } from '~/application/ports/repositories/user/find-user-by-id-repository';
 import { UpdateUserRepository } from '~/application/ports/repositories/user/update-user-repository';
-import { CreateUserRequestWithPasswordHash } from '~/domain/user/models/create-user-request-model';
-import { UpdateUserRequestModelBody } from '~/domain/user/models/update-user-request-model';
+import { UserRequestWithPasswordHash } from '~/domain/user/models/user-request-required-fields';
+import { UserRequestPartialFields } from '~/domain/user/models/user-request-partial-fields';
 import { User } from '~/domain/user/entities/user';
 
 export type DBUserMap = Map<string, User>;
@@ -39,7 +39,7 @@ export class InMemoryUserRepository
     return this.toObject().find((user) => user.email === email) || null;
   }
 
-  async create(user: CreateUserRequestWithPasswordHash): Promise<User | never> {
+  async create(user: UserRequestWithPasswordHash): Promise<User | never> {
     const id = this.createNewId();
 
     const newUser = { ...user, id };
@@ -47,7 +47,7 @@ export class InMemoryUserRepository
     return newUser;
   }
 
-  createMany(...users: CreateUserRequestWithPasswordHash[]): void {
+  createMany(...users: UserRequestWithPasswordHash[]): void {
     users.forEach((user) => this.create(user));
   }
 
@@ -60,7 +60,7 @@ export class InMemoryUserRepository
 
   async update(
     id: string,
-    requestModel: UpdateUserRequestModelBody,
+    requestModel: UserRequestPartialFields,
   ): Promise<number> {
     let user = await this.findById(id);
 

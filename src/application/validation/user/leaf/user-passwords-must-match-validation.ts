@@ -1,11 +1,10 @@
 import { RequestValidationError } from '~/application/errors/request-validation-error';
 import { ValidationComposite } from '~/application/ports/validation/validation-composite';
-import { CreateUserRequestWithPasswordString } from '~/domain/user/models/create-user-request-model';
+import { UserRequestWithPasswordString } from '~/domain/user/models/user-request-required-fields';
+import { UserRequestPartialFields } from '~/domain/user/models/user-request-partial-fields';
 
-export class UserPasswordsMustMatchValidation extends ValidationComposite<CreateUserRequestWithPasswordString> {
-  async validate(
-    request?: CreateUserRequestWithPasswordString,
-  ): Promise<void | never> {
+export class UserPasswordsMustMatchValidation extends ValidationComposite<UserRequestWithPasswordString> {
+  async validate(request?: UserRequestPartialFields): Promise<void | never> {
     if (!request) {
       return;
     }

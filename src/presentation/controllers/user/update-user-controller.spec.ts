@@ -2,7 +2,7 @@
 import { Presenter } from '~/application/ports/presenters/presenter';
 import { ResponseModel } from '~/application/ports/responses/response-model';
 import { UpdateUserUseCase } from '~/application/ports/use-cases/user/update-user-use-case';
-import { CreateUserRequestWithPasswordString } from '~/domain/user/models/create-user-request-model';
+import { UserRequestWithPasswordString } from '~/domain/user/models/user-request-required-fields';
 import { UpdateUserController } from './update-user-controller';
 
 const sutFactory = () => {
@@ -21,7 +21,7 @@ const useCaseMockFactory = () => {
   class UseCaseMock implements UpdateUserUseCase {
     async update(
       _id: string,
-      _updateUserRequestModel: Partial<CreateUserRequestWithPasswordString>,
+      _updateUserRequestModel: Partial<UserRequestWithPasswordString>,
     ): Promise<number> | never {
       return 1;
     }
