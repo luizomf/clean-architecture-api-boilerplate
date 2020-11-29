@@ -2,7 +2,7 @@ import { RequestValidationError } from '~/application/errors/request-validation-
 import { ValidationComposite } from '~/application/ports/validation/validation-composite';
 import { CreateUserRequestWithPasswordString } from '~/domain/user/models/create-user-request-model';
 
-export class UserEmptyRequiredFieldsValidation extends ValidationComposite<CreateUserRequestWithPasswordString> {
+export class UserRequiredFieldsValidation extends ValidationComposite<CreateUserRequestWithPasswordString> {
   async validate(
     request: CreateUserRequestWithPasswordString,
   ): Promise<void | never> {

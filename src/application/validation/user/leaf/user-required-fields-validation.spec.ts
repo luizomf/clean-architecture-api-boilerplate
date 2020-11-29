@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { UserEmptyRequiredFieldsValidation } from './user-empty-required-fields-validation';
+import { UserRequiredFieldsValidation } from './user-required-fields-validation';
 
 const sutFactory = () => {
-  const sut = new UserEmptyRequiredFieldsValidation();
+  const sut = new UserRequiredFieldsValidation();
 
   return {
     sut,
