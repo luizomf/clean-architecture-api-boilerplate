@@ -2,11 +2,7 @@ import jwt from 'jsonwebtoken';
 import { JwtToken } from '~/application/ports/security/jwt-token';
 
 export class JwtTokenAdapter implements JwtToken {
-  private readonly secret: string;
-
-  constructor(secret: string) {
-    this.secret = secret;
-  }
+  constructor(private readonly secret: string) {}
 
   sign(userId: string) {
     const token = jwt.sign({ id: userId }, this.secret, {
