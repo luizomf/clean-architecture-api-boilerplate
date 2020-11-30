@@ -219,7 +219,7 @@ describe('SignIn', () => {
       error = e;
     }
 
-    expect(error.name).toBe('RequestValidationError');
+    expect(error.name).toBe('UnauthorizedError');
     expect(error.message).toBe('Invalid credentials');
   });
 

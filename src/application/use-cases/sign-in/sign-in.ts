@@ -1,6 +1,6 @@
 import { InternalServerError } from '~/application/errors/internal-server-error';
 import { NotFoundError } from '~/application/errors/not-found-error';
-import { RequestValidationError } from '~/application/errors/request-validation-error';
+import { UnauthorizedError } from '~/application/errors/unauthorized-error';
 import { FindUserByEmailRepository } from '~/application/ports/repositories/user/find-user-by-email-repository';
 import { JwtToken } from '~/application/ports/security/jwt-token';
 import { PasswordHashing } from '~/application/ports/security/password-hashing';
@@ -58,7 +58,7 @@ export class SignIn implements SignInUseCase {
     );
 
     if (!isPasswordCorrect) {
-      throw new RequestValidationError('Invalid credentials');
+      throw new UnauthorizedError('Invalid credentials');
     }
   }
 }

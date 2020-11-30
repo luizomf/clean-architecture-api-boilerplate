@@ -1,4 +1,5 @@
 import { RequestValidationError } from '~/application/errors/request-validation-error';
+import { UnauthorizedError } from '~/application/errors/unauthorized-error';
 import { Controller } from '~/application/ports/controllers/controller';
 import { Presenter } from '~/application/ports/presenters/presenter';
 import { RequestModel } from '~/application/ports/requests/request-model';
@@ -20,7 +21,7 @@ export class SignInController implements Controller<string | never> {
     }
 
     if (!signInModel.body.email || !signInModel.body.password) {
-      throw new RequestValidationError('Missing e-mail or password');
+      throw new UnauthorizedError('Missing e-mail or password');
     }
 
     const jwtToken = await this.signInUseCase.verify(signInModel.body);

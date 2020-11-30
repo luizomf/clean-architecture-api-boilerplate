@@ -69,7 +69,7 @@ describe('SignInController', () => {
     } catch (e) {
       error = e;
     }
-    expect(error.name).toBe('RequestValidationError');
+    expect(error.name).toBe('UnauthorizedError');
     expect(error.message).toBe('Missing e-mail or password');
 
     error = new Error('');
@@ -78,7 +78,7 @@ describe('SignInController', () => {
     } catch (e) {
       error = e;
     }
-    expect(error.name).toBe('RequestValidationError');
+    expect(error.name).toBe('UnauthorizedError');
     expect(error.message).toBe('Missing e-mail or password');
   });
 

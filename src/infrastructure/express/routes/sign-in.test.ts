@@ -31,11 +31,11 @@ describe('User Routes', () => {
       });
   });
 
-  it('should return RequestValidationError if email or password is empty', async () => {
+  it('should return UnauthorizedError if email or password is empty', async () => {
     const response1 = await request(app)
       .post('/sign-in')
       .send({ email: 'email@email.com', password: '' });
-    expect(response1.body.error).toBe('RequestValidationError');
+    expect(response1.body.error).toBe('UnauthorizedError');
     expect(response1.body.messages).toEqual(
       expect.arrayContaining(['Missing e-mail or password']),
     );
@@ -43,25 +43,25 @@ describe('User Routes', () => {
     const response2 = await request(app)
       .post('/sign-in')
       .send({ email: '', password: '123' });
-    expect(response2.body.error).toBe('RequestValidationError');
+    expect(response2.body.error).toBe('UnauthorizedError');
     expect(response2.body.messages).toEqual(
       expect.arrayContaining(['Missing e-mail or password']),
     );
   });
 
-  it('should return RequestValidationError if password is incorrect', async () => {
+  it('should return UnauthorizedError if password is incorrect', async () => {
     const response1 = await request(app)
       .post('/sign-in')
       .send({ email: 'email@email.com', password: '1234' });
-    expect(response1.body.error).toBe('RequestValidationError');
+    expect(response1.body.error).toBe('UnauthorizedError');
     expect(response1.body.messages).toEqual(
       expect.arrayContaining(['Invalid credentials']),
     );
   });
 
-  it('should return RequestValidationError email or password is missing', async () => {
+  it('should return UnauthorizedError email or password is missing', async () => {
     const response1 = await request(app).post('/sign-in').send();
-    expect(response1.body.error).toBe('RequestValidationError');
+    expect(response1.body.error).toBe('UnauthorizedError');
     expect(response1.body.messages).toEqual(
       expect.arrayContaining(['Missing e-mail or password']),
     );
