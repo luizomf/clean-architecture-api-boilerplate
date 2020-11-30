@@ -56,7 +56,7 @@ describe('DeleteUserByIdController', () => {
 
     error = undefined;
     try {
-      await sut.handleRequest({ params: {} });
+      await sut.handleRequest({ params: {} } as any);
     } catch (requestError) {
       error = requestError;
     }

@@ -5,10 +5,8 @@ import { RequestModel } from '~/application/ports/requests/request-model';
 import { FindAllUsersUseCase } from '~/application/ports/use-cases/user/find-all-users-use-case';
 
 type FindAllUsersRequestModel = RequestModel<
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  any,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  any,
+  void,
+  void,
   {
     order?: 'desc' | 'asc';
     limit?: number;

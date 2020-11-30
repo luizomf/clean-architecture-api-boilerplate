@@ -12,7 +12,7 @@ export class DeleteUserByIdController implements Controller<void | never> {
   ) {}
 
   async handleRequest(
-    requestModel: RequestModel,
+    requestModel: RequestModel<void, { id: string }>,
   ): Promise<ResponseModel<void>> | never {
     if (!requestModel || !requestModel.params || !requestModel.params.id) {
       throw new RequestValidationError('Missing params');

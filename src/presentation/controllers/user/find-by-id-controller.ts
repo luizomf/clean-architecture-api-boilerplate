@@ -11,7 +11,7 @@ export class FindUserByIdController implements Controller<User | never> {
     private readonly presenter: Presenter<User>,
   ) {}
 
-  async handleRequest(requestModel: RequestModel) {
+  async handleRequest(requestModel: RequestModel<void, { id: string }>) {
     if (!requestModel || !requestModel.params || !requestModel.params.id) {
       throw new RequestValidationError('Missing params');
     }
