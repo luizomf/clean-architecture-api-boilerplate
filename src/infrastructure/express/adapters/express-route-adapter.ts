@@ -9,6 +9,7 @@ export const expressRouteAdapter = <T>(controller: Controller<T>) => {
         query: request.query,
         params: request.params,
         body: request.body,
+        headers: request.headers,
       }),
     )
       .then((controllerResponse) => {
