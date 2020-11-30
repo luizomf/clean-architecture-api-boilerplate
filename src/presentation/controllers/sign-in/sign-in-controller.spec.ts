@@ -1,17 +1,29 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { SignIn } from '~/application/use-cases/sign-in/sign-in';
+import { GenericSuccessPresenter } from '~/presentation/presenters/responses/generic/generic-success-presenter';
 import { SignInController } from './sign-in-controller';
 
 jest.mock('~/application/use-cases/sign-in/sign-in');
+jest.mock(
+  '~/presentation/presenters/responses/generic/generic-success-presenter',
+);
+
 const SignInMock = SignIn as jest.Mock<SignIn>;
+const PresenterMock = GenericSuccessPresenter as jest.Mock<
+  GenericSuccessPresenter<string>
+>;
 
 const sutFactory = () => {
   const signInMock = new SignInMock() as jest.Mocked<SignIn>;
-  const sut = new SignInController(signInMock);
+  const presenter = new PresenterMock() as jest.Mocked<
+    GenericSuccessPresenter<string>
+  >;
+  const sut = new SignInController(signInMock, presenter);
 
   return {
     sut,
     signInMock,
+    presenter,
   };
 };
 
@@ -82,5 +94,13 @@ describe('SignInController', () => {
     }
     expect(error.name).toBe('Error');
     expect(error.message).toBe('Expected Message');
+  });
+
+  it('should call presenter once', async () => {
+    const { sut, presenter, signInMock } = sutFactory();
+    signInMock.verify.mockResolvedValueOnce('abc');
+    await sut.handleRequest({ body: { email: '123', password: '123' } });
+    expect(presenter.response).toHaveBeenCalledTimes(1);
+    expect(presenter.response).toHaveBeenCalledWith('abc');
   });
 });
