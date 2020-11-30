@@ -8,6 +8,7 @@ import { app } from '../server';
 import { expressMiddlewareAdapter } from '../adapters/express-middleware-adapter';
 import { expressRouteAdapter } from '../adapters/express-route-adapter';
 import { setupAsyncErrors } from './setup-async-errors';
+import { Middleware } from '~/application/ports/middlewares/middleware';
 
 const sut = setupAsyncErrors;
 
@@ -82,8 +83,10 @@ describe('Setup Async Errors', () => {
 
   it('should catch errors on middlewares', async () => {
     const controllerMock = controllerMockFactory();
-    const middlewareMock = async () => {
-      throw new Error();
+    const middlewareMock: Middleware = {
+      async execute() {
+        throw new Error();
+      },
     };
     app.get(
       '/__test-a-middleware-error',

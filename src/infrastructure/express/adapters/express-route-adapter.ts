@@ -16,7 +16,7 @@ export const expressRouteAdapter = <T>(controller: Controller<T>) => {
         response
           .status(controllerResponse.statusCode)
           .json(controllerResponse.body);
-        next();
+        return next();
       })
       .catch((error: DefaultApplicationError) => {
         return next(error);

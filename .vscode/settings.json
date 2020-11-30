@@ -8,6 +8,9 @@
   "code-runner.runInTerminal": true,
   "python.pythonPath": "venv/bin/python",
   "cSpell.ignoreWords": [
+    "global",
+    "middlewares",
+    "setup",
     "usecase"
   ],
   "window.zoomLevel": 0,
