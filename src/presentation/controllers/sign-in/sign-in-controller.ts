@@ -5,17 +5,19 @@ import { Presenter } from '~/application/ports/presenters/presenter';
 import { RequestModel } from '~/application/ports/requests/request-model';
 import { ResponseModel } from '~/application/ports/responses/response-model';
 import { SignInUseCase } from '~/application/ports/use-cases/sign-in/sign-in-use-case';
-import { SignInModel } from '~/domain/sign-in/models/sign-in-model';
+import { SignInRequestModel } from '~/domain/sign-in/models/sign-in-request-model';
+import { SignInResponseModel } from '~/domain/sign-in/models/sign-in-response-model';
 
-export class SignInController implements Controller<string | never> {
+export class SignInController
+  implements Controller<SignInResponseModel | never> {
   constructor(
     private readonly signInUseCase: SignInUseCase,
-    private readonly presenter: Presenter<string>,
+    private readonly presenter: Presenter<SignInResponseModel>,
   ) {}
 
   async handleRequest(
-    signInModel: RequestModel<SignInModel>,
-  ): Promise<ResponseModel<string>> | never {
+    signInModel: RequestModel<SignInRequestModel>,
+  ): Promise<ResponseModel<SignInResponseModel>> | never {
     if (!signInModel || !signInModel.body) {
       throw new RequestValidationError('Invalid request');
     }

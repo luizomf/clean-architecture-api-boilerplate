@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { SignIn } from '~/application/use-cases/sign-in/sign-in';
+import { SignInResponseModel } from '~/domain/sign-in/models/sign-in-response-model';
 import { GenericSuccessPresenter } from '~/presentation/presenters/responses/generic/generic-success-presenter';
 import { SignInController } from './sign-in-controller';
 
@@ -10,13 +11,13 @@ jest.mock(
 
 const SignInMock = SignIn as jest.Mock<SignIn>;
 const PresenterMock = GenericSuccessPresenter as jest.Mock<
-  GenericSuccessPresenter<string>
+  GenericSuccessPresenter<SignInResponseModel>
 >;
 
 const sutFactory = () => {
   const signInMock = new SignInMock() as jest.Mocked<SignIn>;
   const presenter = new PresenterMock() as jest.Mocked<
-    GenericSuccessPresenter<string>
+    GenericSuccessPresenter<SignInResponseModel>
   >;
   const sut = new SignInController(signInMock, presenter);
 
@@ -98,9 +99,13 @@ describe('SignInController', () => {
 
   it('should call presenter once', async () => {
     const { sut, presenter, signInMock } = sutFactory();
-    signInMock.verify.mockResolvedValueOnce('abc');
+    signInMock.verify.mockResolvedValueOnce({
+      token: 'abc',
+    });
     await sut.handleRequest({ body: { email: '123', password: '123' } });
     expect(presenter.response).toHaveBeenCalledTimes(1);
-    expect(presenter.response).toHaveBeenCalledWith('abc');
+    expect(presenter.response).toHaveBeenCalledWith({
+      token: 'abc',
+    });
   });
 });

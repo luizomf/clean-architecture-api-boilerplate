@@ -6,7 +6,8 @@ import { JwtToken } from '~/application/ports/security/jwt-token';
 import { PasswordHashing } from '~/application/ports/security/password-hashing';
 import { SignInUseCase } from '~/application/ports/use-cases/sign-in/sign-in-use-case';
 import { ValidationComposite } from '~/application/ports/validation/validation-composite';
-import { SignInModel } from '~/domain/sign-in/models/sign-in-model';
+import { SignInRequestModel } from '~/domain/sign-in/models/sign-in-request-model';
+import { SignInResponseModel } from '~/domain/sign-in/models/sign-in-response-model';
 import { User } from '~/domain/user/entities/user';
 
 export class SignIn implements SignInUseCase {
@@ -14,24 +15,28 @@ export class SignIn implements SignInUseCase {
     private readonly findUserByEmailRepository: FindUserByEmailRepository,
     private readonly passwordHashing: PasswordHashing,
     private readonly jwtToken: JwtToken,
-    private readonly validation?: ValidationComposite<SignInModel>,
+    private readonly validation?: ValidationComposite<SignInRequestModel>,
   ) {}
 
-  async verify(signInModel: SignInModel): Promise<string | never> {
+  async verify(
+    signInModel: SignInRequestModel,
+  ): Promise<SignInResponseModel> | never {
     await this.runValidation(signInModel);
     const user = await this.findUserByEmail(signInModel);
     await this.checkPassword(user, signInModel);
-    return this.jwtToken.sign(user.id);
+    return {
+      token: this.jwtToken.sign(user.id),
+    };
   }
 
-  private async runValidation(signInModel: SignInModel) {
+  private async runValidation(signInModel: SignInRequestModel) {
     if (this.validation) {
       await this.validation.validate(signInModel);
     }
   }
 
   private async findUserByEmail(
-    signInModel: SignInModel,
+    signInModel: SignInRequestModel,
   ): Promise<User | never> {
     const user = await this.findUserByEmailRepository.findByEmail(
       signInModel.email,
@@ -46,7 +51,7 @@ export class SignIn implements SignInUseCase {
 
   private async checkPassword(
     user: User,
-    signInModel: SignInModel,
+    signInModel: SignInRequestModel,
   ): Promise<void | never> {
     if (!user.password_hash) {
       throw new InternalServerError('User has no password');

@@ -14,7 +14,7 @@
     "usecase"
   ],
   "window.zoomLevel": 0,
-  "editor.fontSize": 26,
-  "terminal.integrated.fontSize": 26,
+  "editor.fontSize": 18,
+  "terminal.integrated.fontSize": 18,
   "editor.glyphMargin": false
 }

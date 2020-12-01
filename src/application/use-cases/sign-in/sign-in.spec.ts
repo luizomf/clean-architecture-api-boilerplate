@@ -230,6 +230,6 @@ describe('SignIn', () => {
       email: 'email@email.com',
       password: 'any_pass',
     });
-    expect(token).toBe('a_jwt_token');
+    expect(token).toEqual({ token: 'a_jwt_token' });
   });
 });
