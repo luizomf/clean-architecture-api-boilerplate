@@ -4,7 +4,7 @@ import { UserRequestWithPasswordString } from '~/domain/user/models/user-request
 import { UserRequestPartialFields } from '~/domain/user/models/user-request-partial-fields';
 
 export class UserPasswordsMustMatchValidation extends ValidationComposite<UserRequestWithPasswordString> {
-  async validate(request?: UserRequestPartialFields): Promise<void | never> {
+  async validate(request?: UserRequestPartialFields): Promise<void> | never {
     if (!request) {
       return;
     }

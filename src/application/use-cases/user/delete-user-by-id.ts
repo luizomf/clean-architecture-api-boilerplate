@@ -11,7 +11,7 @@ export class DeleteUserById implements DeleteUserByIdUseCase {
     private readonly validation: ValidationComposite,
   ) {}
 
-  async deleteById(id: string): Promise<number | never> {
+  async deleteById(id: string): Promise<number> | never {
     await this.validation.validate(id);
     const user = await this.findUserByIdRepository.findById(id);
 

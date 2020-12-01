@@ -3,7 +3,7 @@ import { FindAllUsersRequestModel } from '~/application/ports/use-cases/user/fin
 import { ValidationComposite } from '~/application/ports/validation/validation-composite';
 
 export class FindAllUsersValidation extends ValidationComposite<FindAllUsersRequestModel> {
-  async validate(request?: FindAllUsersRequestModel): Promise<void | never> {
+  async validate(request?: FindAllUsersRequestModel): Promise<void> | never {
     if (!request) {
       return;
     }

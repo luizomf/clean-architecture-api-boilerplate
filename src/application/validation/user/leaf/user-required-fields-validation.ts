@@ -5,7 +5,7 @@ import { UserRequestWithPasswordString } from '~/domain/user/models/user-request
 export class UserRequiredFieldsValidation extends ValidationComposite<UserRequestWithPasswordString> {
   async validate(
     request: UserRequestWithPasswordString,
-  ): Promise<void | never> {
+  ): Promise<void> | never {
     const error = new RequestValidationError('Invalid request');
     const { first_name, last_name, email, password, confirmPassword } = request;
 

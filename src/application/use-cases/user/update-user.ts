@@ -21,7 +21,7 @@ export class UpdateUser implements UpdateUserUseCase {
   async update(
     id: string,
     request: UserRequestPartialFields,
-  ): Promise<number | never> {
+  ): Promise<number> | never {
     await this.validation.validate(request);
     await this.checkUserExists(id);
 

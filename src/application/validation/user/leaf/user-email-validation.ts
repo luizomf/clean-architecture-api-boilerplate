@@ -9,7 +9,7 @@ export class UserEmailValidation extends ValidationComposite<UserRequestWithPass
     super();
   }
 
-  async validate(request?: UserRequestPartialFields): Promise<void | never> {
+  async validate(request?: UserRequestPartialFields): Promise<void> | never {
     if (!request) {
       return;
     }

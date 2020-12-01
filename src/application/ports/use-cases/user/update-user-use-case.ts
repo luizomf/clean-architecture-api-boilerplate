@@ -4,5 +4,5 @@ export interface UpdateUserUseCase {
   update(
     id: string,
     updateUserRequestModel: UserRequestPartialFields,
-  ): Promise<number | never>;
+  ): Promise<number> | never;
 }

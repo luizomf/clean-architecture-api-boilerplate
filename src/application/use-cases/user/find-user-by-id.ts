@@ -10,7 +10,7 @@ export class FindUserById implements FindUserByIdUseCase {
     private readonly validation: ValidationComposite,
   ) {}
 
-  async findById(id: string): Promise<User | never> {
+  async findById(id: string): Promise<User> | never {
     await this.validation.validate(id);
     const user = await this.repository.findById(id);
 

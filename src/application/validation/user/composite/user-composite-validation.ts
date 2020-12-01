@@ -5,7 +5,7 @@ import { UserRequestWithPasswordString } from '~/domain/user/models/user-request
 export class UserCompositeValidation extends ValidationComposite<UserRequestWithPasswordString> {
   async validate(
     request: UserRequestWithPasswordString,
-  ): Promise<void | never> {
+  ): Promise<void> | never {
     if (this.validations.length === 0) {
       throw new InternalServerError('Composite has no validations');
     }

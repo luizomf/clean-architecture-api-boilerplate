@@ -3,7 +3,7 @@ import { ValidationComposite } from '~/application/ports/validation/validation-c
 import { UserRequestPartialFields } from '~/domain/user/models/user-request-partial-fields';
 
 export class UserPartialRequiredFieldsValidation extends ValidationComposite<UserRequestPartialFields> {
-  async validate(request: UserRequestPartialFields): Promise<void | never> {
+  async validate(request: UserRequestPartialFields): Promise<void> | never {
     const error = new RequestValidationError('Invalid request');
 
     const { first_name, last_name, email, password, confirmPassword } = request;
