@@ -79,8 +79,12 @@ const passwordHashingMockFactory = () => {
 
 const jwtTokenMockFactory = () => {
   class JwtTokenMock implements JwtToken {
-    sign(_userId: string): string {
+    signAccessToken(_userId: string): string {
       return 'a_jwt_token';
+    }
+
+    signRefreshToken(_userId: string): string {
+      return 'a_refresh_token';
     }
 
     verify(_jwtToken: string): string {
@@ -230,6 +234,9 @@ describe('SignIn', () => {
       email: 'email@email.com',
       password: 'any_pass',
     });
-    expect(token).toEqual({ token: 'a_jwt_token' });
+    expect(token).toEqual({
+      token: 'a_jwt_token',
+      refreshToken: 'a_refresh_token',
+    });
   });
 });

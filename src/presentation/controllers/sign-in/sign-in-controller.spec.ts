@@ -101,11 +101,13 @@ describe('SignInController', () => {
     const { sut, presenter, signInMock } = sutFactory();
     signInMock.verify.mockResolvedValueOnce({
       token: 'abc',
+      refreshToken: 'bca',
     });
     await sut.handleRequest({ body: { email: '123', password: '123' } });
     expect(presenter.response).toHaveBeenCalledTimes(1);
     expect(presenter.response).toHaveBeenCalledWith({
       token: 'abc',
+      refreshToken: 'bca',
     });
   });
 });

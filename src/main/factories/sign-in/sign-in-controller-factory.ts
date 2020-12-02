@@ -8,9 +8,10 @@ import { SignInController } from '~/presentation/controllers/sign-in/sign-in-con
 import { GenericSuccessPresenter } from '~/presentation/presenters/responses/generic/generic-success-presenter';
 
 const secret = process.env.JWT_SECRET as string;
+const refreshSecret = process.env.JWT_SECRET_REFRESH as string;
 
 export const signInControllerFactory = () => {
-  const jwtToken = new JwtTokenAdapter(secret);
+  const jwtToken = new JwtTokenAdapter(secret, refreshSecret);
   const passwordHashing = new BCryptAdapter();
   const signInValidation = new SignInValidation();
   const presenter = new GenericSuccessPresenter<SignInResponseModel>();

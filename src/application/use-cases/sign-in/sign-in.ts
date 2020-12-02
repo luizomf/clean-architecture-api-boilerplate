@@ -25,7 +25,8 @@ export class SignIn implements SignInUseCase {
     const user = await this.findUserByEmail(signInModel);
     await this.checkPassword(user, signInModel);
     return {
-      token: this.jwtToken.sign(user.id),
+      token: this.jwtToken.signAccessToken(user.id),
+      refreshToken: this.jwtToken.signRefreshToken(user.id),
     };
   }
 

@@ -1,4 +1,5 @@
 export interface JwtToken {
-  sign(userId: string): string;
+  signAccessToken(userId: string): string;
+  signRefreshToken(userId: string): string;
   verify(jwtToken: string): string;
 }
