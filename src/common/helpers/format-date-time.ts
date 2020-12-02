@@ -1,6 +1,11 @@
+import { DateTimeError } from '~/application/errors/date-time-error';
 import { zeroPadLeft } from './zero-pad-left';
 
 export const formatDateTime = (date: Date): string => {
+  if (!date || !date.getTime()) {
+    throw new DateTimeError('Invalid date');
+  }
+
   const day = zeroPadLeft(2, date.getDate());
   const month = zeroPadLeft(2, date.getMonth() + 1);
   const year = date.getFullYear();
