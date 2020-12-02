@@ -26,7 +26,6 @@ describe('User Routes', () => {
       .send({ email: 'email@email.com', password: '123' })
       .expect(200)
       .then((response) => {
-        console.log(response);
         expect(response.body).toBeTruthy();
       });
   });
