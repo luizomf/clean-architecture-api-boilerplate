@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FindAllUsersRepository } from '~/application/ports/repositories/user/find-all-users-repository';
-import { FindAllUsersRequestModel } from '~/application/ports/use-cases/user/find-all-users-use-case';
+import { FindAllUsersRequestModel } from '~/domain/use-cases/user/find-all-users-use-case';
 import { ValidationComposite } from '~/application/ports/validation/validation-composite';
-import { User } from '~/domain/user/entities/user';
+import { User } from '~/domain/models/user/user';
 import { FindAllUsers } from './find-all-users';
 
 const sutFactory = () => {

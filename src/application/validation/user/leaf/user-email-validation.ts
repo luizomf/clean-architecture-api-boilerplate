@@ -1,8 +1,8 @@
 import { EmailValidationError } from '~/application/errors/email-validation-error';
 import { EmailValidator } from '~/application/ports/validation/email-validator';
 import { ValidationComposite } from '~/application/ports/validation/validation-composite';
-import { UserRequestWithPasswordString } from '~/domain/user/models/user-request-required-fields';
-import { UserRequestPartialFields } from '~/domain/user/models/user-request-partial-fields';
+import { UserRequestWithPasswordString } from '~/domain/models/user/user-request-required-fields';
+import { UserRequestPartialFields } from '~/domain/models/user/user-request-partial-fields';
 
 export class UserEmailValidation extends ValidationComposite<UserRequestWithPasswordString> {
   constructor(private readonly emailValidator: EmailValidator) {

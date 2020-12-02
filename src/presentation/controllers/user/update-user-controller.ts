@@ -2,12 +2,12 @@
 import { Controller } from '~/application/ports/controllers/controller';
 import { Presenter } from '~/application/ports/presenters/presenter';
 import { ResponseModel } from '~/application/ports/responses/response-model';
-import { UpdateUserUseCase } from '~/application/ports/use-cases/user/update-user-use-case';
+import { UpdateUserUseCase } from '~/domain/use-cases/user/update-user-use-case';
 import { RequestModel } from '~/application/ports/requests/request-model';
 import {
   UserRequestPartialFields,
   UpdateUserRequestModelParams,
-} from '~/domain/user/models/user-request-partial-fields';
+} from '~/domain/models/user/user-request-partial-fields';
 import { RequestValidationError } from '~/application/errors/request-validation-error';
 
 export class UpdateUserController implements Controller<void | never> {

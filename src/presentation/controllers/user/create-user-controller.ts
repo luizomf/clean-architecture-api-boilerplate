@@ -1,9 +1,9 @@
 import { Controller } from '~/application/ports/controllers/controller';
 import { Presenter } from '~/application/ports/presenters/presenter';
 import { RequestModel } from '~/application/ports/requests/request-model';
-import { UserRequestWithPasswordString } from '~/domain/user/models/user-request-required-fields';
-import { CreateUserUseCase } from '~/application/ports/use-cases/user/create-user-use-case';
-import { User } from '~/domain/user/entities/user';
+import { UserRequestWithPasswordString } from '~/domain/models/user/user-request-required-fields';
+import { CreateUserUseCase } from '~/domain/use-cases/user/create-user-use-case';
+import { User } from '~/domain/models/user/user';
 import { RequestValidationError } from '~/application/errors/request-validation-error';
 
 export class CreateUserController implements Controller<User | never> {

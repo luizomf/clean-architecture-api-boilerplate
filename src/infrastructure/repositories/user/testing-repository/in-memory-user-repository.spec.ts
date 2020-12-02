@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { UserRequestWithPasswordHash } from '~/domain/user/models/user-request-required-fields';
+import { UserRequestWithPasswordHash } from '~/domain/models/user/user-request-required-fields';
 import { InMemoryUserRepository } from './in-memory-user-repository';
 
 const sut = new InMemoryUserRepository();

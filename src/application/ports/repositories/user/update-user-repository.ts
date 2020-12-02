@@ -1,4 +1,4 @@
-import { UserRequestPartialFields } from '~/domain/user/models/user-request-partial-fields';
+import { UserRequestPartialFields } from '~/domain/models/user/user-request-partial-fields';
 
 export interface UpdateUserRepository {
   update(

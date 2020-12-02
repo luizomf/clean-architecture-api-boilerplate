@@ -5,7 +5,7 @@ import {
   findUserByEmailRepository,
 } from '~/infrastructure/repositories/user/user-default-repository';
 import { GenericCreatedPresenter } from '~/presentation/presenters/responses/generic/generic-created-presenter';
-import { User } from '~/domain/user/entities/user';
+import { User } from '~/domain/models/user/user';
 import { BCryptAdapter } from '~/common/adapters/security/bcrypt-adapter';
 import { CreateUserValidation } from '~/application/validation/user/composite/create-user-validation';
 

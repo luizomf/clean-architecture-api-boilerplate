@@ -3,7 +3,7 @@ import { Controller } from '~/application/ports/controllers/controller';
 import { Presenter } from '~/application/ports/presenters/presenter';
 import { RequestModel } from '~/application/ports/requests/request-model';
 import { ResponseModel } from '~/application/ports/responses/response-model';
-import { DeleteUserByIdUseCase } from '~/application/ports/use-cases/user/delete-user-by-id-use-case';
+import { DeleteUserByIdUseCase } from '~/domain/use-cases/user/delete-user-by-id-use-case';
 
 export class DeleteUserByIdController implements Controller<void | never> {
   constructor(

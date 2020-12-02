@@ -1,7 +1,7 @@
 import { RequestValidationError } from '~/application/errors/request-validation-error';
 import { ValidationComposite } from '~/application/ports/validation/validation-composite';
-import { UserRequestWithPasswordString } from '~/domain/user/models/user-request-required-fields';
-import { UserRequestPartialFields } from '~/domain/user/models/user-request-partial-fields';
+import { UserRequestWithPasswordString } from '~/domain/models/user/user-request-required-fields';
+import { UserRequestPartialFields } from '~/domain/models/user/user-request-partial-fields';
 
 export class UserPasswordsMustMatchValidation extends ValidationComposite<UserRequestWithPasswordString> {
   async validate(request?: UserRequestPartialFields): Promise<void> | never {

@@ -4,11 +4,11 @@ import { UnauthorizedError } from '~/application/errors/unauthorized-error';
 import { FindUserByEmailRepository } from '~/application/ports/repositories/user/find-user-by-email-repository';
 import { JwtToken } from '~/application/ports/security/jwt-token';
 import { PasswordHashing } from '~/application/ports/security/password-hashing';
-import { SignInUseCase } from '~/application/ports/use-cases/sign-in/sign-in-use-case';
+import { SignInUseCase } from '~/domain/use-cases/sign-in/sign-in-use-case';
 import { ValidationComposite } from '~/application/ports/validation/validation-composite';
-import { SignInRequestModel } from '~/domain/sign-in/models/sign-in-request-model';
-import { SignInResponseModel } from '~/domain/sign-in/models/sign-in-response-model';
-import { User } from '~/domain/user/entities/user';
+import { SignInRequestModel } from '~/domain/models/sign-in/sign-in-request-model';
+import { SignInResponseModel } from '~/domain/models/sign-in/sign-in-response-model';
+import { User } from '~/domain/models/user/user';
 
 export class SignIn implements SignInUseCase {
   constructor(

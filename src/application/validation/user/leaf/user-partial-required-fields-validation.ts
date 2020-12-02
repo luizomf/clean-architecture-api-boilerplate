@@ -1,6 +1,6 @@
 import { RequestValidationError } from '~/application/errors/request-validation-error';
 import { ValidationComposite } from '~/application/ports/validation/validation-composite';
-import { UserRequestPartialFields } from '~/domain/user/models/user-request-partial-fields';
+import { UserRequestPartialFields } from '~/domain/models/user/user-request-partial-fields';
 
 export class UserPartialRequiredFieldsValidation extends ValidationComposite<UserRequestPartialFields> {
   async validate(request: UserRequestPartialFields): Promise<void> | never {

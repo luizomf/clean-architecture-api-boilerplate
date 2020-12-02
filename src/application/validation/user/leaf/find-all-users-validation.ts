@@ -1,5 +1,5 @@
 import { RequestValidationError } from '~/application/errors/request-validation-error';
-import { FindAllUsersRequestModel } from '~/application/ports/use-cases/user/find-all-users-use-case';
+import { FindAllUsersRequestModel } from '~/domain/use-cases/user/find-all-users-use-case';
 import { ValidationComposite } from '~/application/ports/validation/validation-composite';
 
 export class FindAllUsersValidation extends ValidationComposite<FindAllUsersRequestModel> {

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { SignIn } from '~/application/use-cases/sign-in/sign-in';
-import { SignInResponseModel } from '~/domain/sign-in/models/sign-in-response-model';
+import { SignInResponseModel } from '~/domain/models/sign-in/sign-in-response-model';
 import { GenericSuccessPresenter } from '~/presentation/presenters/responses/generic/generic-success-presenter';
 import { SignInController } from './sign-in-controller';
 

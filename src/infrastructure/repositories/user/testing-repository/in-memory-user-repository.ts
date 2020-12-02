@@ -4,9 +4,9 @@ import { FindAllUsersRepository } from '~/application/ports/repositories/user/fi
 import { FindUserByEmailRepository } from '~/application/ports/repositories/user/find-user-by-email-repository';
 import { FindUserByIdRepository } from '~/application/ports/repositories/user/find-user-by-id-repository';
 import { UpdateUserRepository } from '~/application/ports/repositories/user/update-user-repository';
-import { UserRequestWithPasswordHash } from '~/domain/user/models/user-request-required-fields';
-import { UserRequestPartialFields } from '~/domain/user/models/user-request-partial-fields';
-import { User } from '~/domain/user/entities/user';
+import { UserRequestWithPasswordHash } from '~/domain/models/user/user-request-required-fields';
+import { UserRequestPartialFields } from '~/domain/models/user/user-request-partial-fields';
+import { User } from '~/domain/models/user/user';
 
 export type DBUserMap = Map<string, User>;
 

@@ -2,7 +2,7 @@ import { SignIn } from '~/application/use-cases/sign-in/sign-in';
 import { SignInValidation } from '~/application/validation/sign-in/composite/sign-in-validation';
 import { BCryptAdapter } from '~/common/adapters/security/bcrypt-adapter';
 import { JwtTokenAdapter } from '~/common/adapters/security/jwt-token-adapter';
-import { SignInResponseModel } from '~/domain/sign-in/models/sign-in-response-model';
+import { SignInResponseModel } from '~/domain/models/sign-in/sign-in-response-model';
 import { findUserByEmailRepository } from '~/infrastructure/repositories/user/user-default-repository';
 import { SignInController } from '~/presentation/controllers/sign-in/sign-in-controller';
 import { GenericSuccessPresenter } from '~/presentation/presenters/responses/generic/generic-success-presenter';

@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Presenter } from '~/application/ports/presenters/presenter';
 import { ResponseModel } from '~/application/ports/responses/response-model';
-import { UpdateUserUseCase } from '~/application/ports/use-cases/user/update-user-use-case';
-import { UserRequestWithPasswordString } from '~/domain/user/models/user-request-required-fields';
+import { UpdateUserUseCase } from '~/domain/use-cases/user/update-user-use-case';
+import { UserRequestWithPasswordString } from '~/domain/models/user/user-request-required-fields';
 import { UpdateUserController } from './update-user-controller';
 
 const sutFactory = () => {

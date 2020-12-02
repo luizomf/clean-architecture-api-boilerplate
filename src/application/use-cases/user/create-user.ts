@@ -2,9 +2,9 @@ import { UserExistsError } from '~/application/errors/user-exists-error';
 import { CreateUserRepository } from '~/application/ports/repositories/user/create-user-repository';
 import { FindUserByEmailRepository } from '~/application/ports/repositories/user/find-user-by-email-repository';
 import { PasswordHashing } from '~/application/ports/security/password-hashing';
-import { UserRequestWithPasswordString } from '~/domain/user/models/user-request-required-fields';
-import { CreateUserUseCase } from '~/application/ports/use-cases/user/create-user-use-case';
-import { User } from '~/domain/user/entities/user';
+import { UserRequestWithPasswordString } from '~/domain/models/user/user-request-required-fields';
+import { CreateUserUseCase } from '~/domain/use-cases/user/create-user-use-case';
+import { User } from '~/domain/models/user/user';
 import { ValidationComposite } from '~/application/ports/validation/validation-composite';
 
 export class CreateUser implements CreateUserUseCase {

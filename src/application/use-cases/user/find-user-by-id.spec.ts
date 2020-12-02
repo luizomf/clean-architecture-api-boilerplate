@@ -1,7 +1,7 @@
 import { NotFoundError } from '~/application/errors/not-found-error';
 import { FindUserByIdRepository } from '~/application/ports/repositories/user/find-user-by-id-repository';
 import { ValidationComposite } from '~/application/ports/validation/validation-composite';
-import { User } from '~/domain/user/entities/user';
+import { User } from '~/domain/models/user/user';
 import { FindUserById } from './find-user-by-id';
 
 const sutFactory = () => {

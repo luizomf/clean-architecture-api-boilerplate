@@ -1,8 +1,8 @@
 import { Controller } from '~/application/ports/controllers/controller';
 import { Presenter } from '~/application/ports/presenters/presenter';
-import { User } from '~/domain/user/entities/user';
+import { User } from '~/domain/models/user/user';
 import { RequestModel } from '~/application/ports/requests/request-model';
-import { FindAllUsersUseCase } from '~/application/ports/use-cases/user/find-all-users-use-case';
+import { FindAllUsersUseCase } from '~/domain/use-cases/user/find-all-users-use-case';
 
 type FindAllUsersRequestModel = RequestModel<
   void,

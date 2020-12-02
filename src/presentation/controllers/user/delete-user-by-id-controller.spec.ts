@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Presenter } from '~/application/ports/presenters/presenter';
 import { ResponseModel } from '~/application/ports/responses/response-model';
-import { DeleteUserByIdUseCase } from '~/application/ports/use-cases/user/delete-user-by-id-use-case';
+import { DeleteUserByIdUseCase } from '~/domain/use-cases/user/delete-user-by-id-use-case';
 import { DeleteUserByIdController } from './delete-user-by-id-controller';
 
 const sutFactory = () => {

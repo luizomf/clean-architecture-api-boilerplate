@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Presenter } from '~/application/ports/presenters/presenter';
-import { User } from '~/domain/user/entities/user';
-import { FindUserByIdUseCase } from '~/application/ports/use-cases/user/find-user-by-id-use-case';
+import { User } from '~/domain/models/user/user';
+import { FindUserByIdUseCase } from '~/domain/use-cases/user/find-user-by-id-use-case';
 import { FindUserByIdController } from './find-by-id-controller';
 
 const sutFactory = () => {

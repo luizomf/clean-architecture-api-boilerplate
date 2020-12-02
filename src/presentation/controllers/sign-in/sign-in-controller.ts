@@ -4,9 +4,9 @@ import { Controller } from '~/application/ports/controllers/controller';
 import { Presenter } from '~/application/ports/presenters/presenter';
 import { RequestModel } from '~/application/ports/requests/request-model';
 import { ResponseModel } from '~/application/ports/responses/response-model';
-import { SignInUseCase } from '~/application/ports/use-cases/sign-in/sign-in-use-case';
-import { SignInRequestModel } from '~/domain/sign-in/models/sign-in-request-model';
-import { SignInResponseModel } from '~/domain/sign-in/models/sign-in-response-model';
+import { SignInUseCase } from '~/domain/use-cases/sign-in/sign-in-use-case';
+import { SignInRequestModel } from '~/domain/models/sign-in/sign-in-request-model';
+import { SignInResponseModel } from '~/domain/models/sign-in/sign-in-response-model';
 
 export class SignInController
   implements Controller<SignInResponseModel | never> {

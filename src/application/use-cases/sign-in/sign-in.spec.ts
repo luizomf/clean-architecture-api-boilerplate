@@ -3,7 +3,7 @@ import { FindUserByEmailRepository } from '~/application/ports/repositories/user
 import { JwtToken } from '~/application/ports/security/jwt-token';
 import { PasswordHashing } from '~/application/ports/security/password-hashing';
 import { ValidationComposite } from '~/application/ports/validation/validation-composite';
-import { User } from '~/domain/user/entities/user';
+import { User } from '~/domain/models/user/user';
 import { SignIn } from './sign-in';
 
 const sutFactory = () => {

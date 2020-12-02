@@ -5,8 +5,8 @@ import { PasswordHashing } from '~/application/ports/security/password-hashing';
 import {
   UserRequestWithPasswordHash,
   UserRequestWithPasswordString,
-} from '~/domain/user/models/user-request-required-fields';
-import { User } from '~/domain/user/entities/user';
+} from '~/domain/models/user/user-request-required-fields';
+import { User } from '~/domain/models/user/user';
 import { CreateUser } from './create-user';
 import { ValidationComposite } from '~/application/ports/validation/validation-composite';
 

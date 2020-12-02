@@ -1,6 +1,6 @@
 import { ValidationComposite } from '~/application/ports/validation/validation-composite';
 import { EmailValidatorAdapter } from '~/common/adapters/validators/email-validator-adapter';
-import { SignInRequestModel } from '~/domain/sign-in/models/sign-in-request-model';
+import { SignInRequestModel } from '~/domain/models/sign-in/sign-in-request-model';
 import { UserEmailValidation } from '../../user/leaf/user-email-validation';
 import { UserPartialRequiredFieldsValidation } from '../../user/leaf/user-partial-required-fields-validation';
 

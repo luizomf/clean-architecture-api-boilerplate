@@ -2,9 +2,9 @@ import { FindAllUsersRepository } from '~/application/ports/repositories/user/fi
 import {
   FindAllUsersRequestModel,
   FindAllUsersUseCase,
-} from '~/application/ports/use-cases/user/find-all-users-use-case';
+} from '~/domain/use-cases/user/find-all-users-use-case';
 import { ValidationComposite } from '~/application/ports/validation/validation-composite';
-import { User } from '~/domain/user/entities/user';
+import { User } from '~/domain/models/user/user';
 
 export class FindAllUsers implements FindAllUsersUseCase {
   constructor(

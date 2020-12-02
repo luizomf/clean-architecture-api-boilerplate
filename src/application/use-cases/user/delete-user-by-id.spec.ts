@@ -1,7 +1,7 @@
 import { DeleteUserByIdRepository } from '~/application/ports/repositories/user/delete-user-by-id-repository';
 import { FindUserByIdRepository } from '~/application/ports/repositories/user/find-user-by-id-repository';
 import { ValidationComposite } from '~/application/ports/validation/validation-composite';
-import { User } from '~/domain/user/entities/user';
+import { User } from '~/domain/models/user/user';
 import { DeleteUserById } from './delete-user-by-id';
 
 const sutFactory = () => {

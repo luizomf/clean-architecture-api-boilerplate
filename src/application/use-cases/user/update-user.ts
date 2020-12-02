@@ -5,8 +5,8 @@ import { FindUserByEmailRepository } from '~/application/ports/repositories/user
 import { FindUserByIdRepository } from '~/application/ports/repositories/user/find-user-by-id-repository';
 import { UpdateUserRepository } from '~/application/ports/repositories/user/update-user-repository';
 import { PasswordHashing } from '~/application/ports/security/password-hashing';
-import { UserRequestPartialFields } from '~/domain/user/models/user-request-partial-fields';
-import { UpdateUserUseCase } from '~/application/ports/use-cases/user/update-user-use-case';
+import { UserRequestPartialFields } from '~/domain/models/user/user-request-partial-fields';
+import { UpdateUserUseCase } from '~/domain/use-cases/user/update-user-use-case';
 import { ValidationComposite } from '~/application/ports/validation/validation-composite';
 
 export class UpdateUser implements UpdateUserUseCase {

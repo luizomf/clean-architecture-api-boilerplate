@@ -1,8 +1,8 @@
-import { User } from '~/domain/user/entities/user';
+import { User } from '~/domain/models/user/user';
 import { RequestModel } from '~/application/ports/requests/request-model';
 import { Presenter } from '~/application/ports/presenters/presenter';
 import { Controller } from '~/application/ports/controllers/controller';
-import { FindUserByIdUseCase } from '~/application/ports/use-cases/user/find-user-by-id-use-case';
+import { FindUserByIdUseCase } from '~/domain/use-cases/user/find-user-by-id-use-case';
 import { RequestValidationError } from '~/application/errors/request-validation-error';
 
 export class FindUserByIdController implements Controller<User | never> {

@@ -1,6 +1,6 @@
 import { RequestValidationError } from '~/application/errors/request-validation-error';
 import { ValidationComposite } from '~/application/ports/validation/validation-composite';
-import { UserRequestWithPasswordString } from '~/domain/user/models/user-request-required-fields';
+import { UserRequestWithPasswordString } from '~/domain/models/user/user-request-required-fields';
 
 export class UserRequiredFieldsValidation extends ValidationComposite<UserRequestWithPasswordString> {
   async validate(
