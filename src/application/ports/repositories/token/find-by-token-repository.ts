@@ -1,5 +1,5 @@
-import { TokenModel } from '~/domain/models/token/token-model';
+import { Token } from '~/domain/models/token/token';
 
 export interface FindByTokenRepository {
-  find(token: string): Promise<TokenModel | null>;
+  findByToken(token: string): Promise<Token | null>;
 }
