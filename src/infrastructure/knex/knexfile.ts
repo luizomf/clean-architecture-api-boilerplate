@@ -9,6 +9,7 @@ module.exports = {
     client: 'sqlite3',
     connection: ':memory:',
     useNullAsDefault: true,
+    debug: false,
   },
   development: {
     client: 'sqlite3',
@@ -16,6 +17,7 @@ module.exports = {
       filename: resolve(__dirname, './dev.sqlite3'),
     },
     useNullAsDefault: true,
+    debug: false,
   },
   production: {
     client: process.env.DATABASE_CLIENT || 'postgresql',
@@ -37,5 +39,6 @@ module.exports = {
     seeds: {
       directory: resolve(__dirname, 'seeds'),
     },
+    debug: false,
   },
 };

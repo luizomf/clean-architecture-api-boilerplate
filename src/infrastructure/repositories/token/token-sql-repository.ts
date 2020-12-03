@@ -78,15 +78,30 @@ export class TokenSqlRepository
     }
 
     try {
-      await this.deleteByUserId(tokenModel.user_id);
-      const token = await db<Token>(this.table)
-        .insert(tokenModel)
-        .returning('id');
+      const token = await db.transaction(async (trx) => {
+        await trx<Token>('tokens')
+          .delete()
+          .where({ user_id: tokenModel.user_id });
+        const token = await trx<Token>(this.table)
+          .insert(tokenModel)
+          .returning('id');
+        return token;
+      });
 
       return {
         ...tokenModel,
         id: token[0].toString(),
       };
+
+      // await this.deleteByUserId(tokenModel.user_id);
+      // const token = await db<Token>(this.table)
+      //   .insert(tokenModel)
+      //   .returning('id');
+
+      // return {
+      //   ...tokenModel,
+      //   id: token[0].toString(),
+      // };
     } catch (error) {
       const repositoryError = new RepositoryError('Could not create token');
       repositoryError.stack = error.stack;
