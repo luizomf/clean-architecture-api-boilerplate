@@ -11,6 +11,12 @@ import { SignInResponseModel } from '~/domain/models/sign-in/sign-in-response-mo
 import { User } from '~/domain/models/user/user';
 import { CreateTokenRepository } from '~/application/ports/repositories/token/create-token-repository';
 import { formatDateTime } from '~/common/helpers/date/format-date-time';
+import { SignedToken } from '~/domain/models/token/signed-token';
+
+type SaveFreshTokenParams = {
+  refreshTokenData: SignedToken;
+  user: User;
+};
 
 export class SignIn implements SignInUseCase {
   constructor(
@@ -31,16 +37,23 @@ export class SignIn implements SignInUseCase {
     const accessTokenData = this.jwtToken.signAccessToken(user.id);
     const refreshTokenData = this.jwtToken.signRefreshToken(user.id);
 
-    await this.createTokenRepository.create({
-      token: refreshTokenData.token,
-      user_id: user.id,
-      expires_in: formatDateTime(refreshTokenData.expirationDate),
-    });
+    await this.saveRefreshToken({ refreshTokenData, user });
 
     return {
       token: accessTokenData.token,
       refreshToken: refreshTokenData.token,
     };
+  }
+
+  private async saveRefreshToken({
+    refreshTokenData,
+    user,
+  }: SaveFreshTokenParams) {
+    await this.createTokenRepository.create({
+      token: refreshTokenData.token,
+      user_id: user.id,
+      expires_in: formatDateTime(refreshTokenData.expirationDate),
+    });
   }
 
   private async runValidation(signInModel: SignInRequestModel) {

@@ -3,12 +3,11 @@ import { JwtToken } from '~/application/ports/security/jwt-token';
 import { createFutureDate } from '~/common/helpers/date/create-future-date';
 
 export class JwtTokenAdapter implements JwtToken {
-  private accessTokenExpirationInSeconds = 3600; // one hour
-  private refreshTokenExpirationInSeconds = 3600; // 8 days
-
   constructor(
     private readonly secret: string,
     private readonly refreshSecret: string,
+    private readonly accessTokenExpirationInSeconds = 600, // 10 minutes default
+    private readonly refreshTokenExpirationInSeconds = 691200, // 8 days default
   ) {}
 
   signAccessToken(userId: string) {

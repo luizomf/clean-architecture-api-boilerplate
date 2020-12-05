@@ -11,18 +11,33 @@ import { GenericSuccessPresenter } from '~/presentation/presenters/responses/gen
 const secret = process.env.JWT_SECRET as string;
 const refreshSecret = process.env.JWT_SECRET_REFRESH as string;
 
+const secretExpiration = parseInt(
+  process.env.JWT_SECRET_EXPIRATION_SECS as string,
+);
+const refreshSecretExpiration = parseInt(
+  process.env.JWT_SECRET_REFRESH_EXPIRATION_SECS as string,
+);
+
 export const signInControllerFactory = () => {
-  const jwtToken = new JwtTokenAdapter(secret, refreshSecret);
+  const jwtToken = new JwtTokenAdapter(
+    secret,
+    refreshSecret,
+    secretExpiration,
+    refreshSecretExpiration,
+  );
   const passwordHashing = new BCryptAdapter();
   const signInValidation = new SignInValidation();
-  const presenter = new GenericSuccessPresenter<SignInResponseModel>();
+  const createTokenRepositorySingleton = createTokenRepository;
+
   const signInUseCase = new SignIn(
     findUserByEmailRepository,
     passwordHashing,
     jwtToken,
-    createTokenRepository,
+    createTokenRepositorySingleton,
     signInValidation,
   );
+
+  const presenter = new GenericSuccessPresenter<SignInResponseModel>();
   const signInController = new SignInController(signInUseCase, presenter);
 
   return {
@@ -31,5 +46,7 @@ export const signInControllerFactory = () => {
     jwtToken,
     passwordHashing,
     signInValidation,
+    createTokenRepositorySingleton,
+    presenter,
   };
 };

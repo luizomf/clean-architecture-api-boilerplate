@@ -1,7 +1,7 @@
-type TokenReturnValue = { token: string; expirationDate: Date };
+import { SignedToken } from '~/domain/models/token/signed-token';
 
 export interface JwtToken {
-  signAccessToken(userId: string): TokenReturnValue;
-  signRefreshToken(userId: string): TokenReturnValue;
+  signAccessToken(userId: string): SignedToken;
+  signRefreshToken(userId: string): SignedToken;
   verify(jwtToken: string): string;
 }
