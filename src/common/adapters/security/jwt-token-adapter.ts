@@ -4,6 +4,7 @@ import { createFutureDate } from '~/common/helpers/date/create-future-date';
 
 export class JwtTokenAdapter implements JwtToken {
   constructor(
+    // These values can be configured in .env file
     private readonly secret: string,
     private readonly refreshSecret: string,
     private readonly accessTokenExpirationInSeconds = 600, // 10 minutes default
@@ -15,9 +16,8 @@ export class JwtTokenAdapter implements JwtToken {
       new Date(),
       this.accessTokenExpirationInSeconds,
     );
-
     const token = jwt.sign({ id: userId }, this.secret, {
-      expiresIn: Math.ceil(expirationDate.getTime() / 1000),
+      expiresIn: this.accessTokenExpirationInSeconds,
     });
 
     return { token, expirationDate };
@@ -28,9 +28,8 @@ export class JwtTokenAdapter implements JwtToken {
       new Date(),
       this.refreshTokenExpirationInSeconds,
     );
-
     const token = jwt.sign({ id: userId }, this.refreshSecret, {
-      expiresIn: Math.ceil(expirationDate.getTime() / 1000),
+      expiresIn: this.refreshTokenExpirationInSeconds,
     });
 
     return { token, expirationDate };

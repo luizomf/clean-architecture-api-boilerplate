@@ -1,3 +1,5 @@
+// These values can be configured in .env file
+
 import dotenv from 'dotenv';
 import { resolve } from 'path';
 

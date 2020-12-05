@@ -10,6 +10,7 @@ setupGlobalMiddlewares(app);
 setupRoutes(app);
 setupAsyncErrors(app); // It has to be placed after all routes and middlewares
 
+// Port can be configured in .env file
 const port = process.env.PORT || 4321;
 if (process.env.NODE_ENV !== 'test') {
   app.listen(port, () => {
