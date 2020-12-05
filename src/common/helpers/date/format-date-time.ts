@@ -1,5 +1,5 @@
 import { DateTimeError } from '~/application/errors/date-time-error';
-import { zeroPadLeft } from './zero-pad-left';
+import { zeroPadLeft } from '../numbers/zero-pad-left';
 
 export const formatDateTime = (date: Date): string => {
   if (!date || !date.getTime()) {

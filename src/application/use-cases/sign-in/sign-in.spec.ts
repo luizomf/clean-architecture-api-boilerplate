@@ -1,20 +1,29 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FindUserByEmailRepository } from '~/application/ports/repositories/user/find-user-by-email-repository';
-import { JwtToken } from '~/application/ports/security/jwt-token';
 import { PasswordHashing } from '~/application/ports/security/password-hashing';
 import { ValidationComposite } from '~/application/ports/validation/validation-composite';
+import { JwtTokenAdapter } from '~/common/adapters/security/jwt-token-adapter';
 import { User } from '~/domain/models/user/user';
+import { TokenSqlRepository } from '~/infrastructure/repositories/token/sql/token-sql-repository';
 import { SignIn } from './sign-in';
+
+jest.mock('~/infrastructure/repositories/token/sql/token-sql-repository');
+jest.mock('~/common/adapters/security/jwt-token-adapter');
+
+const TokenSqlRepositoryMock = TokenSqlRepository as jest.Mock<TokenSqlRepository>;
+const JwtTokenAdapterMock = JwtTokenAdapter as jest.Mock<JwtTokenAdapter>;
 
 const sutFactory = () => {
   const repositoryMock = repositoryMockFactory();
   const passwordHashingMock = passwordHashingMockFactory();
   const jwtTokenMock = jwtTokenMockFactory();
+  const tokenSqlRepository = new TokenSqlRepositoryMock();
   const validationMock = validationMockFactory();
   const sut = new SignIn(
     repositoryMock,
     passwordHashingMock,
     jwtTokenMock,
+    tokenSqlRepository,
     validationMock,
   );
 
@@ -24,6 +33,7 @@ const sutFactory = () => {
     passwordHashingMock,
     jwtTokenMock,
     validationMock,
+    tokenSqlRepository,
   };
 };
 
@@ -31,15 +41,21 @@ const sutFactoryNoValidations = () => {
   const repositoryMock = repositoryMockFactory();
   const passwordHashingMock = passwordHashingMockFactory();
   const jwtTokenMock = jwtTokenMockFactory();
+  const tokenSqlRepository = new TokenSqlRepositoryMock();
   const validationMock = validationMockFactory();
-  const sut = new SignIn(repositoryMock, passwordHashingMock, jwtTokenMock);
-
+  const sut = new SignIn(
+    repositoryMock,
+    passwordHashingMock,
+    jwtTokenMock,
+    tokenSqlRepository,
+  );
   return {
     sut,
     repositoryMock,
     passwordHashingMock,
     jwtTokenMock,
     validationMock,
+    tokenSqlRepository,
   };
 };
 
@@ -51,6 +67,28 @@ const userMockFactory = (): User => {
     email: 'email1@email.com',
     password_hash: 'any_hash1',
   };
+};
+
+const futureDateFactory = () => {
+  return new Date(new Date().getTime() + 3600 * 1000);
+};
+
+const tokenMockFactory = (token: string) => {
+  return {
+    token,
+    expirationDate: futureDateFactory(),
+  };
+};
+
+const jwtTokenMockFactory = () => {
+  const jwtTokenMock = new JwtTokenAdapterMock() as jest.Mocked<JwtTokenAdapter>;
+
+  jwtTokenMock.signAccessToken.mockReturnValue(tokenMockFactory('any_token'));
+  jwtTokenMock.signRefreshToken.mockReturnValue(
+    tokenMockFactory('any_refresh_token'),
+  );
+
+  return jwtTokenMock;
 };
 
 const repositoryMockFactory = () => {
@@ -75,24 +113,6 @@ const passwordHashingMockFactory = () => {
   }
 
   return new PasswordHashingMock();
-};
-
-const jwtTokenMockFactory = () => {
-  class JwtTokenMock implements JwtToken {
-    signAccessToken(_userId: string): string {
-      return 'a_jwt_token';
-    }
-
-    signRefreshToken(_userId: string): string {
-      return 'a_refresh_token';
-    }
-
-    verify(_jwtToken: string): string {
-      return 'a_value';
-    }
-  }
-
-  return new JwtTokenMock();
 };
 
 const validationMockFactory = () => {
@@ -227,6 +247,31 @@ describe('SignIn', () => {
     expect(error.message).toBe('Invalid credentials');
   });
 
+  it('should call jwtTokenMock with correct values', async () => {
+    const { sut, tokenSqlRepository, jwtTokenMock } = sutFactory();
+    const anyDate = new Date('2020-01-01T00:00:00-0300');
+
+    jwtTokenMock.signAccessToken.mockReturnValue({
+      token: 'any',
+      expirationDate: anyDate,
+    });
+
+    jwtTokenMock.signRefreshToken.mockReturnValue({
+      token: 'any',
+      expirationDate: anyDate,
+    });
+
+    const data = { email: 'email@email.com', password: 'any_pass' };
+
+    await sut.verify(data);
+
+    expect(tokenSqlRepository.create).toHaveBeenCalledWith({
+      token: 'any',
+      expires_in: '2020-01-01 00:00:00',
+      user_id: '1',
+    });
+  });
+
   it('should sign a JWT Token for the user', async () => {
     const { sut, passwordHashingMock } = sutFactory();
     jest.spyOn(passwordHashingMock, 'compare').mockResolvedValue(true);
@@ -235,8 +280,8 @@ describe('SignIn', () => {
       password: 'any_pass',
     });
     expect(token).toEqual({
-      token: 'a_jwt_token',
-      refreshToken: 'a_refresh_token',
+      token: 'any_token',
+      refreshToken: 'any_refresh_token',
     });
   });
 });

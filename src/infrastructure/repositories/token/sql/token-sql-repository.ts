@@ -4,7 +4,7 @@ import { DeleteTokenByUserIdRepository } from '~/application/ports/repositories/
 import { FindByTokenRepository } from '~/application/ports/repositories/token/find-by-token-repository';
 import { FindTokenByIdRepository } from '~/application/ports/repositories/token/find-token-by-id-repository';
 import { FindTokenByUserIdRepository } from '~/application/ports/repositories/token/find-token-by-user-id-repository';
-import { formatDateTime } from '~/common/helpers/format-date-time';
+import { formatDateTime } from '~/common/helpers/date/format-date-time';
 import { Token } from '~/domain/models/token/token';
 import { TokenRequestModel } from '~/domain/models/token/token-request-model';
 import { db } from '~/infrastructure/knex/connection';

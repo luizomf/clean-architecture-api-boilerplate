@@ -23,7 +23,7 @@ describe('JwtTokenAdapter', () => {
     const { sut } = sutFactory();
     const inData = 'a_testing_string';
     const encrypted = sut.signAccessToken(inData);
-    const decrypted = sut.verify(encrypted);
+    const decrypted = sut.verify(encrypted.token);
     expect(decrypted).toEqual(inData);
   });
 
@@ -37,7 +37,7 @@ describe('JwtTokenAdapter', () => {
     const { sut } = sutFactory();
     const inData = 'a_refresh_string';
     const encrypted = sut.signRefreshToken(inData);
-    const decrypted = sut.verify(encrypted, false);
+    const decrypted = sut.verify(encrypted.token, false);
     expect(decrypted).toEqual(inData);
   });
 });

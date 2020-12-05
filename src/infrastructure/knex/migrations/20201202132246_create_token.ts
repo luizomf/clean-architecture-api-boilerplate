@@ -6,7 +6,7 @@ export async function up(knex: Knex): Promise<void> {
     t.string('token', 255).notNullable();
     t.integer('user_id').unsigned().notNullable();
     t.timestamp('expires_in').notNullable();
-    t.timestamps(false, true);
+    t.timestamps(true, true);
     t.foreign('user_id')
       .references('users.id')
       .onDelete('CASCADE')

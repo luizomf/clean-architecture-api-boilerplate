@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { formatDateTime } from '~/common/helpers/format-date-time';
+import { formatDateTime } from '~/common/helpers/date/format-date-time';
 import { Token } from '~/domain/models/token/token';
 import { User } from '~/domain/models/user/user';
 import { db } from '~/infrastructure/knex/connection';

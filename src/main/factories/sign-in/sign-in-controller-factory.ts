@@ -3,6 +3,7 @@ import { SignInValidation } from '~/application/validation/sign-in/composite/sig
 import { BCryptAdapter } from '~/common/adapters/security/bcrypt-adapter';
 import { JwtTokenAdapter } from '~/common/adapters/security/jwt-token-adapter';
 import { SignInResponseModel } from '~/domain/models/sign-in/sign-in-response-model';
+import { createTokenRepository } from '~/infrastructure/repositories/token/token-default-repository';
 import { findUserByEmailRepository } from '~/infrastructure/repositories/user/user-default-repository';
 import { SignInController } from '~/presentation/controllers/sign-in/sign-in-controller';
 import { GenericSuccessPresenter } from '~/presentation/presenters/responses/generic/generic-success-presenter';
@@ -19,6 +20,7 @@ export const signInControllerFactory = () => {
     findUserByEmailRepository,
     passwordHashing,
     jwtToken,
+    createTokenRepository,
     signInValidation,
   );
   const signInController = new SignInController(signInUseCase, presenter);

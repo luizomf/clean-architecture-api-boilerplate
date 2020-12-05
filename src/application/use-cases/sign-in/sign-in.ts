@@ -9,12 +9,15 @@ import { ValidationComposite } from '~/application/ports/validation/validation-c
 import { SignInRequestModel } from '~/domain/models/sign-in/sign-in-request-model';
 import { SignInResponseModel } from '~/domain/models/sign-in/sign-in-response-model';
 import { User } from '~/domain/models/user/user';
+import { CreateTokenRepository } from '~/application/ports/repositories/token/create-token-repository';
+import { formatDateTime } from '~/common/helpers/date/format-date-time';
 
 export class SignIn implements SignInUseCase {
   constructor(
     private readonly findUserByEmailRepository: FindUserByEmailRepository,
     private readonly passwordHashing: PasswordHashing,
     private readonly jwtToken: JwtToken,
+    private readonly createTokenRepository: CreateTokenRepository,
     private readonly validation?: ValidationComposite<SignInRequestModel>,
   ) {}
 
@@ -25,9 +28,18 @@ export class SignIn implements SignInUseCase {
     const user = await this.findUserByEmail(signInModel);
     await this.checkPassword(user, signInModel);
 
+    const accessTokenData = this.jwtToken.signAccessToken(user.id);
+    const refreshTokenData = this.jwtToken.signRefreshToken(user.id);
+
+    await this.createTokenRepository.create({
+      token: refreshTokenData.token,
+      user_id: user.id,
+      expires_in: formatDateTime(refreshTokenData.expirationDate),
+    });
+
     return {
-      token: this.jwtToken.signAccessToken(user.id),
-      refreshToken: this.jwtToken.signRefreshToken(user.id),
+      token: accessTokenData.token,
+      refreshToken: refreshTokenData.token,
     };
   }
 
