@@ -19,7 +19,7 @@ const sutFactory = () => {
 
 const findAllUsersRepositoryMockFactory = () => {
   class FindAllUsersRepositoryMock implements FindAllUsersRepository {
-    async find(_any: any): Promise<User[]> {
+    async find(..._any: any): Promise<User[]> {
       return [
         {
           id: '1',

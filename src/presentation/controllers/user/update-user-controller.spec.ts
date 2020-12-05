@@ -32,7 +32,7 @@ const useCaseMockFactory = () => {
 
 const presenterMockFactory = () => {
   class PresenterMock implements Presenter<void> {
-    async response(_body: any): Promise<ResponseModel<void>> | never {
+    async response(_body?: any): Promise<ResponseModel<void>> | never {
       return {
         statusCode: 204,
         body: undefined,

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { NotFoundError } from '~/application/errors/not-found-error';
 import { FindUserByIdRepository } from '~/application/ports/repositories/user/find-user-by-id-repository';
 import { ValidationComposite } from '~/application/ports/validation/validation-composite';
@@ -17,7 +18,7 @@ const sutFactory = () => {
 
 const findUserRepositoryMockFactory = () => {
   class FindUserByIdRepositoryMock implements FindUserByIdRepository {
-    async findById(): Promise<User | null> {
+    async findById(..._any: any): Promise<User | null> {
       return userMockFactory()[0];
     }
   }
