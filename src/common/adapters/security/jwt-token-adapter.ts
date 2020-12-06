@@ -41,3 +41,20 @@ export class JwtTokenAdapter implements JwtToken {
     return userData.id;
   }
 }
+
+const secret = process.env.JWT_SECRET as string;
+const refreshSecret = process.env.JWT_SECRET_REFRESH as string;
+
+const secretExpiration = parseInt(
+  process.env.JWT_SECRET_EXPIRATION_SECS as string,
+);
+const refreshSecretExpiration = parseInt(
+  process.env.JWT_SECRET_REFRESH_EXPIRATION_SECS as string,
+);
+
+export const jwtTokenAdapterSingleton = new JwtTokenAdapter(
+  secret,
+  refreshSecret,
+  secretExpiration,
+  refreshSecretExpiration,
+);
