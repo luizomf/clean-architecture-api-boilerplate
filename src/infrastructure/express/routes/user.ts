@@ -20,12 +20,30 @@ const { findAllUsersController } = findAllUsersControllerFactory();
 // Middlewares
 const { middlewareIsAuthenticated } = middlewareIsAuthenticatedFactory();
 
+// Routes with authorization
 userRoutes.get(
   '/:id',
   expressMiddlewareAdapter(middlewareIsAuthenticated),
   expressRouteAdapter(findUserByIdController),
 );
-userRoutes.get('/', expressRouteAdapter(findAllUsersController));
+
+userRoutes.get(
+  '/',
+  expressMiddlewareAdapter(middlewareIsAuthenticated),
+  expressRouteAdapter(findAllUsersController),
+);
+
+userRoutes.delete(
+  '/:id',
+  expressMiddlewareAdapter(middlewareIsAuthenticated),
+  expressRouteAdapter(deleteUserByIdController),
+);
+
+userRoutes.put(
+  '/:id',
+  expressMiddlewareAdapter(middlewareIsAuthenticated),
+  expressRouteAdapter(updateUserController),
+);
+
+// Public routes
 userRoutes.post('/', expressRouteAdapter(createUserController));
-userRoutes.delete('/:id', expressRouteAdapter(deleteUserByIdController));
-userRoutes.put('/:id', expressRouteAdapter(updateUserController));
