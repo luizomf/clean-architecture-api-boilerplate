@@ -140,3 +140,11 @@ src - root directory
 ## The "User" entity
 
 You may notice that I've created an entity called "User". This is just as an example for creating new entities. If you really want to use this entity, you should remove routes like "delete" (delete method), "update" (put method) or even "finds" (get methods). I'm creating all CRUD operations open, so anyone will be able to access this routes. To do that, just remove or comment routes in `src/infrastructure/express/routes/user.ts` so that no one can use those. You might change those routes as you need as well.
+
+## Todo
+
+- [x] Create CRUD operations for "user"
+- [x] Create sign-in system with token and refresh token
+- [ ] Add authorization token to user routes (except "create")
+- [ ] Create a refresh token route to allow regenerate tokens via refresh token
+- [ ] Create "roles" to allow or disallow create, read, delete and update for any route

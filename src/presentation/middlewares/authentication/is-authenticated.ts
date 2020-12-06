@@ -15,7 +15,8 @@ export class MiddlewareIsAuthenticated implements Middleware {
     const [, token] = authorization.split(/\s+/);
 
     try {
-      this.jwtTokenAdapter.verify(token);
+      const userId = this.jwtTokenAdapter.verify(token);
+      request.headers.userId = userId;
     } catch (error) {
       const unauthorizedError = new UnauthorizedError(error.message);
       unauthorizedError.stack = error.stack;
