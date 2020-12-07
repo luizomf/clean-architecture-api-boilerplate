@@ -10,7 +10,7 @@ import { UserRequestPartialFields } from '~/domain/models/user/user-request-part
 import { User } from '~/domain/models/user/user';
 import { db } from '~/infrastructure/knex/connection';
 import { FindOneUserWithRoles } from '~/application/ports/repositories/user/find-user-with-roles-repository';
-import { mapSingleUserFields } from '../helpers/map-single-user-fields';
+import { mapUserFields } from '../helpers/map-user-fields';
 
 export class UserSqlRepository
   implements
@@ -95,6 +95,6 @@ export class UserSqlRepository
       .leftJoin('roles as r', 'r.id', 'ur.role_id')
       .where('u.id', '=', id);
     if (!user || !user.length) return null;
-    return mapSingleUserFields(user)[0];
+    return mapUserFields(user)[0];
   }
 }

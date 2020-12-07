@@ -1,9 +1,9 @@
 import { User } from '~/domain/models/user/user';
 import { UserWithRoles } from '../models/user-with-roles';
-import { mapSingleUserFields } from './map-single-user-fields';
+import { mapUserFields } from './map-user-fields';
 
 const sutFactory = () => {
-  const sut = mapSingleUserFields;
+  const sut = mapUserFields;
 
   return {
     sut,

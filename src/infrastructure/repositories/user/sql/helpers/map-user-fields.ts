@@ -1,7 +1,7 @@
 import { User } from '~/domain/models/user/user';
 import { UserWithRoles } from '../models/user-with-roles';
 
-export const mapSingleUserFields = (users: UserWithRoles[]): User[] => {
+export const mapUserFields = (users: UserWithRoles[]): User[] => {
   const newUsersMap = new Map<string, User>();
 
   for (const user of users) {
