@@ -34,13 +34,13 @@ module.exports = {
       min: 2,
       max: 10,
     },
-    migrations: {
-      tableName: 'knex_migrations',
-      directory: resolve(__dirname, 'migrations'),
-    },
-    seeds: {
-      directory: resolve(__dirname, 'seeds'),
-    },
     debug: false,
+  },
+  migrations: {
+    tableName: 'knex_migrations',
+    directory: resolve(__dirname, 'migrations'),
+  },
+  seeds: {
+    directory: resolve(__dirname, 'seeds'),
   },
 };
