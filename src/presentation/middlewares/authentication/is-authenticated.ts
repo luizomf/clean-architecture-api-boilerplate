@@ -3,7 +3,7 @@ import { Middleware } from '~/application/ports/middlewares/middleware';
 import { MiddlewareRequestModel } from '~/application/ports/requests/middleware-request-model';
 import { JwtTokenAdapter } from '~/common/adapters/security/jwt-token-adapter';
 
-export class MiddlewareIsAuthenticated implements Middleware {
+export class IsAuthenticatedMiddleware implements Middleware {
   constructor(private readonly jwtTokenAdapter: JwtTokenAdapter) {}
 
   async execute(request: MiddlewareRequestModel): Promise<void> | never {

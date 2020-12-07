@@ -4,7 +4,7 @@ import { deleteUserByIdControllerFactory } from '~/main/factories/controllers/us
 import { findAllUsersControllerFactory } from '~/main/factories/controllers/user/find-all-users-controller-factory';
 import { findUserByIdControllerFactory } from '~/main/factories/controllers/user/find-user-by-id-controller-factory';
 import { updateUserControllerFactory } from '~/main/factories/controllers/user/update-user-controller-factory';
-import { middlewareIsAuthenticatedFactory } from '~/main/factories/middlewares/authentication/is-authenticated';
+import { isAuthenticatedMiddlewareFactory } from '~/main/factories/middlewares/authentication/is-authenticated';
 import { expressMiddlewareAdapter } from '../adapters/express-middleware-adapter';
 import { expressRouteAdapter } from '../adapters/express-route-adapter';
 
@@ -18,30 +18,30 @@ const { updateUserController } = updateUserControllerFactory();
 const { findAllUsersController } = findAllUsersControllerFactory();
 
 // Middlewares
-const { middlewareIsAuthenticated } = middlewareIsAuthenticatedFactory();
+const { isAuthenticatedMiddleware } = isAuthenticatedMiddlewareFactory();
 
 // Routes with authorization
 userRoutes.get(
   '/:id',
-  expressMiddlewareAdapter(middlewareIsAuthenticated),
+  expressMiddlewareAdapter(isAuthenticatedMiddleware),
   expressRouteAdapter(findUserByIdController),
 );
 
 userRoutes.get(
   '/',
-  expressMiddlewareAdapter(middlewareIsAuthenticated),
+  expressMiddlewareAdapter(isAuthenticatedMiddleware),
   expressRouteAdapter(findAllUsersController),
 );
 
 userRoutes.delete(
   '/:id',
-  expressMiddlewareAdapter(middlewareIsAuthenticated),
+  expressMiddlewareAdapter(isAuthenticatedMiddleware),
   expressRouteAdapter(deleteUserByIdController),
 );
 
 userRoutes.put(
   '/:id',
-  expressMiddlewareAdapter(middlewareIsAuthenticated),
+  expressMiddlewareAdapter(isAuthenticatedMiddleware),
   expressRouteAdapter(updateUserController),
 );
 

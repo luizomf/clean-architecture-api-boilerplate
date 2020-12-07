@@ -1,11 +1,11 @@
 import { jwtTokenAdapterSingleton } from '~/common/adapters/security/jwt-token-adapter';
-import { MiddlewareIsAuthenticated } from '~/presentation/middlewares/authentication/is-authenticated';
+import { IsAuthenticatedMiddleware } from '~/presentation/middlewares/authentication/is-authenticated';
 
-export const middlewareIsAuthenticatedFactory = () => {
+export const isAuthenticatedMiddlewareFactory = () => {
   const jwtAdapter = jwtTokenAdapterSingleton;
-  const middlewareIsAuthenticated = new MiddlewareIsAuthenticated(jwtAdapter);
+  const isAuthenticatedMiddleware = new IsAuthenticatedMiddleware(jwtAdapter);
 
   return {
-    middlewareIsAuthenticated,
+    isAuthenticatedMiddleware,
   };
 };
