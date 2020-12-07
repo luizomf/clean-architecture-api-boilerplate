@@ -1,5 +1,5 @@
-import { RequestModel } from '~/application/ports/requests/request-model';
+import { MiddlewareRequestModel } from '../requests/middleware-request-model';
 
 export interface Middleware {
-  execute(requestModel: RequestModel): Promise<void> | never;
+  execute(requestModel: MiddlewareRequestModel): Promise<void> | never;
 }

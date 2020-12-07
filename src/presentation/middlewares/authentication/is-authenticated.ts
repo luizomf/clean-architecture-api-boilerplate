@@ -1,12 +1,12 @@
 import { UnauthorizedError } from '~/application/errors/unauthorized-error';
 import { Middleware } from '~/application/ports/middlewares/middleware';
-import { RequestModel } from '~/application/ports/requests/request-model';
+import { MiddlewareRequestModel } from '~/application/ports/requests/middleware-request-model';
 import { JwtTokenAdapter } from '~/common/adapters/security/jwt-token-adapter';
 
 export class MiddlewareIsAuthenticated implements Middleware {
   constructor(private readonly jwtTokenAdapter: JwtTokenAdapter) {}
 
-  async execute(request: RequestModel): Promise<void> | never {
+  async execute(request: MiddlewareRequestModel): Promise<void> | never {
     if (!request || !request.headers || !request.headers.authorization) {
       throw new UnauthorizedError('Invalid request');
     }

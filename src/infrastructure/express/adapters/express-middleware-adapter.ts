@@ -10,6 +10,7 @@ export const expressMiddlewareAdapter = (middleware: Middleware) => {
         params: request.params,
         body: request.body,
         headers: request.headers,
+        method: request.method,
       }),
     )
       .then(() => {
