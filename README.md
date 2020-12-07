@@ -148,6 +148,6 @@ Currently I'm changing these rotes.
 - [x] Create CRUD operations for "user"
 - [x] Create sign-in system with token and refresh token
 - [x] Add authorization token to user routes (except "create")
-- [ ] Create a refresh token route to allow regenerate tokens via refresh token
 - [ ] Create "roles" to allow or disallow access to any route
 - [ ] Change user routes to allow "Admin" role and owner to access route
+- [ ] Create a refresh token route to allow regenerate tokens via refresh token
