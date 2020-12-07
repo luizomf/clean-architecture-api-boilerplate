@@ -5,7 +5,7 @@ import { FindAllUsersRepository } from '~/application/ports/repositories/user/fi
 import { FindUserByEmailRepository } from '~/application/ports/repositories/user/find-user-by-email-repository';
 import { FindUserByIdRepository } from '~/application/ports/repositories/user/find-user-by-id-repository';
 import { UpdateUserRepository } from '~/application/ports/repositories/user/update-user-repository';
-import { UserSqlRepository } from './sql/user-sql-repository';
+import { UserSqlRepository } from './sql/repositories/user-sql-repository';
 
 // This is just for changing repositories easily while developing
 const userSqlRepository = new UserSqlRepository();

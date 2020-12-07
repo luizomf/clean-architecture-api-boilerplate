@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { Role } from '~/domain/models/role/role';
 import { User } from '~/domain/models/user/user';
 import { db } from '~/infrastructure/knex/connection';
 import { UserSqlRepository } from './user-sql-repository';
@@ -28,7 +29,30 @@ describe('UserSqlRepository', () => {
         password_hash: 'any_hash',
       },
     ]);
+
+    await db<Role>('roles').insert([
+      {
+        name: 'any_role_1',
+        description: 'any_desc_1',
+      },
+      {
+        name: 'any_role_2',
+        description: 'any_desc_2',
+      },
+      {
+        name: 'any_role_3',
+        description: 'any_desc_3',
+      },
+    ]);
+
+    await db('user_roles').insert([
+      { user_id: '1', role_id: '1' },
+      { user_id: '1', role_id: '2' },
+      { user_id: '2', role_id: '1' },
+    ]);
   });
+
+  beforeEach(async () => {});
 
   afterAll(async () => {
     await db.destroy();
@@ -152,5 +176,20 @@ describe('UserSqlRepository', () => {
     const { sut } = sutFactory();
     const users = await sut.find('desc', 100, 0);
     expect(users.length).toBeGreaterThan(0);
+  });
+
+  it('should find a user with roles', async () => {
+    const { sut } = sutFactory();
+    const users = (await sut.findOneWithRoles('1')) as Required<User>;
+    expect(users.roles).toEqual([
+      { id: '1', name: 'any_role_1' },
+      { id: '2', name: 'any_role_2' },
+    ]);
+  });
+
+  it('should return null if user with roles is not found', async () => {
+    const { sut } = sutFactory();
+    const users = (await sut.findOneWithRoles('abc')) as Required<User>;
+    expect(users).toBeNull();
   });
 });

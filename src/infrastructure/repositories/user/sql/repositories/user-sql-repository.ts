@@ -9,6 +9,8 @@ import { UserRequestWithPasswordHash } from '~/domain/models/user/user-request-r
 import { UserRequestPartialFields } from '~/domain/models/user/user-request-partial-fields';
 import { User } from '~/domain/models/user/user';
 import { db } from '~/infrastructure/knex/connection';
+import { FindOneUserWithRoles } from '~/application/ports/repositories/user/find-user-with-roles-repository';
+import { mapSingleUserFields } from '../helpers/map-single-user-fields';
 
 export class UserSqlRepository
   implements
@@ -17,7 +19,8 @@ export class UserSqlRepository
     FindUserByEmailRepository,
     DeleteUserByIdRepository,
     UpdateUserRepository,
-    FindAllUsersRepository {
+    FindAllUsersRepository,
+    FindOneUserWithRoles {
   private readonly table = 'users';
 
   async findById(id: string): Promise<User | null> {
@@ -83,5 +86,15 @@ export class UserSqlRepository
       .limit(limit)
       .offset(offset);
     return users;
+  }
+
+  async findOneWithRoles(id: string): Promise<User | null> {
+    const user = await db(`${this.table} as u`)
+      .select('u.*', 'r.id as role_id', 'r.name as role_name')
+      .leftJoin('user_roles as ur', 'u.id', 'ur.user_id')
+      .leftJoin('roles as r', 'r.id', 'ur.role_id')
+      .where('u.id', '=', id);
+    if (!user || !user.length) return null;
+    return mapSingleUserFields(user)[0];
   }
 }

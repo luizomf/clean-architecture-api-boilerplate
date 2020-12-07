@@ -11,11 +11,5 @@ module.exports = {
     '<rootDir>/node_modules/',
     '<rootDir>/src/infrastructure/knex',
   ],
-  collectCoverageFrom: [
-    'src/**/*.ts',
-    '!src/**/migrations/*.ts',
-    '!src/**/knex/*.ts',
-    '!src/**/console-application/*.ts',
-    '!src/**/middlewares/example.ts',
-  ],
+  collectCoverageFrom: ['src/**/*.ts', '!src/**/knex/**/*.*'],
 };
