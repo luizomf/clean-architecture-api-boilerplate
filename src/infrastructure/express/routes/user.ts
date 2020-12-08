@@ -5,6 +5,7 @@ import { findAllUsersControllerFactory } from '~/main/factories/controllers/user
 import { findUserByIdControllerFactory } from '~/main/factories/controllers/user/find-user-by-id-controller-factory';
 import { updateUserControllerFactory } from '~/main/factories/controllers/user/update-user-controller-factory';
 import { isAuthenticatedMiddlewareFactory } from '~/main/factories/middlewares/authentication/is-authenticated';
+import { loggedUserIdTargetUserMiddlewareFactory } from '~/main/factories/middlewares/authentication/logged-user-is-target-user-middleware-factory';
 import { expressMiddlewareAdapter } from '../adapters/express-middleware-adapter';
 import { expressRouteAdapter } from '../adapters/express-route-adapter';
 
@@ -19,11 +20,15 @@ const { findAllUsersController } = findAllUsersControllerFactory();
 
 // Middlewares
 const { isAuthenticatedMiddleware } = isAuthenticatedMiddlewareFactory();
+const {
+  loggedUserIsTargetUserMiddleware,
+} = loggedUserIdTargetUserMiddlewareFactory();
 
 // Routes with authorization
 userRoutes.get(
   '/:id',
   expressMiddlewareAdapter(isAuthenticatedMiddleware),
+  expressMiddlewareAdapter(loggedUserIsTargetUserMiddleware),
   expressRouteAdapter(findUserByIdController),
 );
 

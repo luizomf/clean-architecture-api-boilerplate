@@ -131,28 +131,25 @@ describe('User Routes', () => {
       .then((res) => expect(res.body.error).toBe('EmailValidationError'));
   });
 
-  it('should return 404 if user not found', async () => {
-    await request(app).post('/users').send({
-      first_name: 'first_name',
-      last_name: 'last_name',
-      email: 'temp_user1@email.com',
-      password: 'temp_pass1',
-      confirmPassword: 'temp_pass1',
-    });
-
-    const tokens = await request(app).post('/sign-in').send({
-      email: 'temp_user1@email.com',
-      password: 'temp_pass1',
-    });
-
-    const { token } = tokens.body;
-    const response = await request(app)
-      .get('/users/abc')
-      .set('authorization', `Bearer ${token}`);
-
-    expect(response.status).toBe(404);
-    expect(response.body.error).toBe('NotFoundError');
-  });
+  // it('should return 404 if user not found', async () => {
+  //   await request(app).post('/users').send({
+  //     first_name: 'first_name',
+  //     last_name: 'last_name',
+  //     email: 'temp_user1@email.com',
+  //     password: 'temp_pass1',
+  //     confirmPassword: 'temp_pass1',
+  //   });
+  //   const tokens = await request(app).post('/sign-in').send({
+  //     email: 'temp_user1@email.com',
+  //     password: 'temp_pass1',
+  //   });
+  //   const { token } = tokens.body;
+  //   const response = await request(app)
+  //     .get('/users/abc')
+  //     .set('authorization', `Bearer ${token}`);
+  //   expect(response.status).toBe(404);
+  //   expect(response.body.error).toBe('NotFoundError');
+  // });
 
   it('should return 401 if accessing private route without authorization token', async () => {
     const response = await request(app).get('/users/abc');
@@ -180,14 +177,11 @@ describe('User Routes', () => {
       })
       .then(async (response) => {
         const { id } = response.body;
-
         const tokens = await request(app).post('/sign-in').send({
           email: 'email2@email.com',
           password: 'password2',
         });
-
         expect(response.status).toBe(201);
-
         await request(app)
           .delete(`/users/${id}`)
           .set('authorization', 'Bearer ' + tokens.body.token)
@@ -212,7 +206,6 @@ describe('User Routes', () => {
       password: 'temp_pass2',
       confirmPassword: 'temp_pass2',
     });
-
     const tokens = await request(app).post('/sign-in').send({
       email: 'temp_user2@email.com',
       password: 'temp_pass2',
@@ -235,6 +228,7 @@ describe('User Routes', () => {
       password: 'temp_pass3',
       confirmPassword: 'temp_pass3',
     });
+
     const { id } = createResponse.body;
 
     const tokens = await request(app).post('/sign-in').send({
@@ -250,6 +244,7 @@ describe('User Routes', () => {
         last_name: 'new_last_name',
         email: 'new_email123123@email.com',
       });
+
     expect(updateResponse.status).toBe(204);
 
     const findResponse = await request(app)

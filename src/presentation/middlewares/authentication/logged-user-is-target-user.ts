@@ -1,0 +1,36 @@
+import { UnauthorizedError } from '~/application/errors/unauthorized-error';
+import { Middleware } from '~/application/ports/middlewares/middleware';
+import { FindOneUserWithRoles } from '~/application/ports/repositories/user/find-user-with-roles-repository';
+import { MiddlewareRequestModel } from '~/application/ports/requests/middleware-request-model';
+
+export class LoggedUserIsTargetUserMiddleware implements Middleware {
+  constructor(private readonly findOneUserWithRoles: FindOneUserWithRoles) {}
+
+  async execute(request: MiddlewareRequestModel): Promise<void> | never {
+    if (!request || !request.headers || !request.headers.userId) {
+      throw new UnauthorizedError('userId not found for logged user');
+    }
+
+    if (!request.params || !request.params.id) {
+      throw new UnauthorizedError('userId not found in params');
+    }
+
+    const loggedUserId = `${request.headers.userId}`;
+    const targetUserId = `${request.params.id}`;
+
+    const foundUser = await this.findOneUserWithRoles.findOneWithRoles(
+      loggedUserId,
+    );
+
+    if (foundUser && foundUser.roles) {
+      const isAdmin = foundUser.roles.find((role) => role.name === 'admin');
+      if (isAdmin) return;
+    }
+
+    if (loggedUserId !== targetUserId) {
+      throw new UnauthorizedError(
+        'You are not allowed to manipulate target user',
+      );
+    }
+  }
+}

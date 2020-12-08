@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { User } from '~/domain/models/user/user';
 import { UserWithRoles } from '../models/user-with-roles';
 import { mapUserFields } from './map-user-fields';
@@ -41,7 +42,16 @@ describe('mapUserFields', () => {
         role_name: 'any_role2',
         role_description: 'any_description1',
       },
-    ];
+      {
+        id: '3',
+        first_name: 'first',
+        last_name: 'last',
+        email: 'email@email.com',
+        role_id: null,
+        role_name: null,
+        role_description: 'any_description1',
+      },
+    ] as any;
 
     const userMap = sut(userWithRoles) as Required<User[]>;
 
