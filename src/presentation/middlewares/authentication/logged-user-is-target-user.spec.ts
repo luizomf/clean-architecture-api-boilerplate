@@ -29,7 +29,7 @@ describe('LoggedUserIsTargetUserMiddleware', () => {
     }
 
     expect(error.name).toBe('UnauthorizedError');
-    expect(error.message).toBe('userId not found for logged user');
+    expect(error.message).toBe('Not allowed');
   });
 
   it('should throw if request params is invalid', async () => {
@@ -43,7 +43,7 @@ describe('LoggedUserIsTargetUserMiddleware', () => {
     }
 
     expect(error.name).toBe('UnauthorizedError');
-    expect(error.message).toBe('userId not found in params');
+    expect(error.message).toBe('Not allowed');
   });
 
   it('should throw if params.id is not logged user id and logged user is not admin', async () => {

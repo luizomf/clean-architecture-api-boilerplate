@@ -35,18 +35,21 @@ userRoutes.get(
 userRoutes.get(
   '/',
   expressMiddlewareAdapter(isAuthenticatedMiddleware),
+  expressMiddlewareAdapter(loggedUserIsTargetUserMiddleware),
   expressRouteAdapter(findAllUsersController),
 );
 
 userRoutes.delete(
   '/:id',
   expressMiddlewareAdapter(isAuthenticatedMiddleware),
+  expressMiddlewareAdapter(loggedUserIsTargetUserMiddleware),
   expressRouteAdapter(deleteUserByIdController),
 );
 
 userRoutes.put(
   '/:id',
   expressMiddlewareAdapter(isAuthenticatedMiddleware),
+  expressMiddlewareAdapter(loggedUserIsTargetUserMiddleware),
   expressRouteAdapter(updateUserController),
 );
 

@@ -8,15 +8,10 @@ export class LoggedUserIsTargetUserMiddleware implements Middleware {
 
   async execute(request: MiddlewareRequestModel): Promise<void> | never {
     if (!request || !request.headers || !request.headers.userId) {
-      throw new UnauthorizedError('userId not found for logged user');
-    }
-
-    if (!request.params || !request.params.id) {
-      throw new UnauthorizedError('userId not found in params');
+      throw new UnauthorizedError('Not allowed');
     }
 
     const loggedUserId = `${request.headers.userId}`;
-    const targetUserId = `${request.params.id}`;
 
     const foundUser = await this.findOneUserWithRoles.findOneWithRoles(
       loggedUserId,
@@ -26,6 +21,12 @@ export class LoggedUserIsTargetUserMiddleware implements Middleware {
       const isAdmin = foundUser.roles.find((role) => role.name === 'admin');
       if (isAdmin) return;
     }
+
+    if (!request.params || !request.params.id) {
+      throw new UnauthorizedError('Not allowed');
+    }
+
+    const targetUserId = `${request.params.id}`;
 
     if (loggedUserId !== targetUserId) {
       throw new UnauthorizedError(
