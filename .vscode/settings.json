@@ -16,5 +16,7 @@
   "window.zoomLevel": 0,
   "editor.fontSize": 18,
   "terminal.integrated.fontSize": 18,
-  "editor.glyphMargin": false
+  "editor.glyphMargin": false,
+  "python.formatting.autopep8Args": ["--indent-size=2"],
+  "python.linting.flake8Args": ["--ignore=E111"]
 }
