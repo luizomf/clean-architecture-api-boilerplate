@@ -1,11 +1,13 @@
 /* istanbul ignore file */
 import express from 'express';
+import { setupApp } from './setup/setup-app';
 import { setupAsyncErrors } from './setup/setup-async-errors';
 import { setupGlobalMiddlewares } from './setup/setup-global-middlewares';
 import { setupRoutes } from './setup/setup-routes';
 
 export const app = express();
 
+setupApp(app);
 setupGlobalMiddlewares(app);
 setupRoutes(app);
 setupAsyncErrors(app); // It has to be placed after all routes and middlewares
