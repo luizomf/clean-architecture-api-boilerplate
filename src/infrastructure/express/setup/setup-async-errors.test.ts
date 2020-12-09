@@ -84,7 +84,7 @@ describe('Setup Async Errors', () => {
   it('should catch errors on middlewares', async () => {
     const controllerMock = controllerMockFactory();
     const middlewareMock: Middleware = {
-      async execute() {
+      async handleRequest() {
         throw new Error();
       },
     };

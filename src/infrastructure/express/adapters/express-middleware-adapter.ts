@@ -5,7 +5,7 @@ import { Middleware } from '~/application/ports/middlewares/middleware';
 export const expressMiddlewareAdapter = (middleware: Middleware) => {
   return async (request: Request, response: Response, next: NextFunction) => {
     return Promise.resolve(
-      middleware.execute({
+      middleware.handleRequest({
         query: request.query,
         params: request.params,
         body: request.body,

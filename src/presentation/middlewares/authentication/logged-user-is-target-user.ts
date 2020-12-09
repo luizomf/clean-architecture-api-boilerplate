@@ -6,7 +6,7 @@ import { MiddlewareRequestModel } from '~/application/ports/requests/middleware-
 export class LoggedUserIsTargetUserMiddleware implements Middleware {
   constructor(private readonly findOneUserWithRoles: FindOneUserWithRoles) {}
 
-  async execute(request: MiddlewareRequestModel): Promise<void> | never {
+  async handleRequest(request: MiddlewareRequestModel): Promise<void> | never {
     if (!request || !request.headers || !request.headers.userId) {
       throw new UnauthorizedError('Not allowed');
     }

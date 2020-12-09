@@ -23,7 +23,7 @@ describe('LoggedUserIsTargetUserMiddleware', () => {
     let error;
 
     try {
-      await sut.execute({});
+      await sut.handleRequest({});
     } catch (e) {
       error = e;
     }
@@ -37,7 +37,7 @@ describe('LoggedUserIsTargetUserMiddleware', () => {
     let error;
 
     try {
-      await sut.execute({ headers: { userId: 'any' } });
+      await sut.handleRequest({ headers: { userId: 'any' } });
     } catch (e) {
       error = e;
     }
@@ -51,7 +51,7 @@ describe('LoggedUserIsTargetUserMiddleware', () => {
     let error;
 
     try {
-      await sut.execute({
+      await sut.handleRequest({
         headers: { userId: 'any' },
         params: { id: 'different' },
       });
@@ -68,7 +68,7 @@ describe('LoggedUserIsTargetUserMiddleware', () => {
     findWithRolesRepositoryMock.findOneWithRoles.mockResolvedValueOnce({
       roles: [{ id: '1', name: 'admin' }],
     } as any);
-    const noValue = await sut.execute({
+    const noValue = await sut.handleRequest({
       headers: { userId: 'any' },
       params: { id: 'different' },
     });
@@ -85,7 +85,7 @@ describe('LoggedUserIsTargetUserMiddleware', () => {
     let error;
 
     try {
-      await sut.execute({
+      await sut.handleRequest({
         headers: { userId: 'any' },
         params: { id: 'different' },
       });
@@ -99,7 +99,7 @@ describe('LoggedUserIsTargetUserMiddleware', () => {
 
   it('should allow if params.id is the same as logged user id', async () => {
     const { sut } = sutFactory();
-    const noValue = await sut.execute({
+    const noValue = await sut.handleRequest({
       headers: { userId: 'equal' },
       params: { id: 'equal' },
     });

@@ -1,5 +1,5 @@
 import { CreateTokenRepository } from '~/application/ports/repositories/token/create-token-repository';
-import { FindByTokenRepository } from '~/application/ports/repositories/token/find-by-token-repository';
+import { FindTokenByTokenRepository } from '~/application/ports/repositories/token/find-token-by-token-repository';
 import { JwtToken } from '~/application/ports/security/jwt-token';
 import { RefreshToken } from './refresh-token';
 
@@ -14,7 +14,7 @@ createTokenRepositoryMock.create.mockResolvedValue({
   user_id: '1',
 });
 
-const findByTokenRepositoryMock: jest.Mocked<FindByTokenRepository> = {
+const findByTokenRepositoryMock: jest.Mocked<FindTokenByTokenRepository> = {
   findByToken: jest.fn(),
 };
 

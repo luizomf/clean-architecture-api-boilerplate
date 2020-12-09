@@ -1,7 +1,7 @@
 import { RepositoryError } from '~/application/errors/repository-error';
 import { CreateTokenRepository } from '~/application/ports/repositories/token/create-token-repository';
 import { DeleteTokenByUserIdRepository } from '~/application/ports/repositories/token/delete-token-by-user-id-repository';
-import { FindByTokenRepository } from '~/application/ports/repositories/token/find-by-token-repository';
+import { FindTokenByTokenRepository } from '~/application/ports/repositories/token/find-token-by-token-repository';
 import { FindTokenByIdRepository } from '~/application/ports/repositories/token/find-token-by-id-repository';
 import { FindTokenByUserIdRepository } from '~/application/ports/repositories/token/find-token-by-user-id-repository';
 import { formatDateTime } from '~/common/helpers/date/format-date-time';
@@ -11,7 +11,7 @@ import { db } from '~/infrastructure/knex/connection';
 
 export class TokenSqlRepository
   implements
-    FindByTokenRepository,
+    FindTokenByTokenRepository,
     FindTokenByIdRepository,
     FindTokenByUserIdRepository,
     CreateTokenRepository,

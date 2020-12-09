@@ -6,7 +6,7 @@ import { JwtTokenAdapter } from '~/common/adapters/security/jwt-token-adapter';
 export class IsAuthenticatedMiddleware implements Middleware {
   constructor(private readonly jwtTokenAdapter: JwtTokenAdapter) {}
 
-  async execute(request: MiddlewareRequestModel): Promise<void> | never {
+  async handleRequest(request: MiddlewareRequestModel): Promise<void> | never {
     if (!request || !request.headers || !request.headers.authorization) {
       throw new UnauthorizedError('Invalid request');
     }

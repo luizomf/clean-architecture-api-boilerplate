@@ -21,7 +21,7 @@ describe('IsAuthenticatedMiddleware', () => {
     let error;
 
     try {
-      await sut.execute('' as any);
+      await sut.handleRequest('' as any);
     } catch (e) {
       error = e;
     }
@@ -39,7 +39,7 @@ describe('IsAuthenticatedMiddleware', () => {
     let error;
 
     try {
-      await sut.execute({ headers: { authorization: 'abc' } });
+      await sut.handleRequest({ headers: { authorization: 'abc' } });
     } catch (e) {
       error = e;
     }
@@ -53,7 +53,9 @@ describe('IsAuthenticatedMiddleware', () => {
     jwtTokenMock.verify.mockImplementationOnce(() => {
       return 'any_token';
     });
-    const noValue = await sut.execute({ headers: { authorization: 'any' } });
+    const noValue = await sut.handleRequest({
+      headers: { authorization: 'any' },
+    });
     expect(noValue).toBeUndefined();
   });
 });
