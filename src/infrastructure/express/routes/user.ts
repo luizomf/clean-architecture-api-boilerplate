@@ -4,7 +4,7 @@ import { deleteUserByIdControllerFactory } from '~/main/factories/controllers/us
 import { findAllUsersControllerFactory } from '~/main/factories/controllers/user/find-all-users-controller-factory';
 import { findUserByIdControllerFactory } from '~/main/factories/controllers/user/find-user-by-id-controller-factory';
 import { updateUserControllerFactory } from '~/main/factories/controllers/user/update-user-controller-factory';
-import { isAuthenticatedMiddlewareFactory } from '~/main/factories/middlewares/authentication/is-authenticated';
+import { isAuthenticatedMiddlewareFactory } from '~/main/factories/middlewares/authentication/is-authenticated-middleware-factory';
 import { loggedUserIdTargetUserMiddlewareFactory } from '~/main/factories/middlewares/authentication/logged-user-is-target-user-middleware-factory';
 import { expressMiddlewareAdapter } from '../adapters/express-middleware-adapter';
 import { expressRouteAdapter } from '../adapters/express-route-adapter';
