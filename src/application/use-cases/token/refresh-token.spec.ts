@@ -78,7 +78,7 @@ describe('RefreshToken', () => {
     const { sut } = sutFactory();
     await sut.refresh('a_token');
     expect(jwtTokenAdapterMock.verify).toHaveBeenCalledTimes(1);
-    expect(jwtTokenAdapterMock.verify).toHaveBeenCalledWith('a_token');
+    expect(jwtTokenAdapterMock.verify).toHaveBeenCalledWith('a_token', false);
   });
 
   it('should throw if jwtToken throws', async () => {

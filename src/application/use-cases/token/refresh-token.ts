@@ -20,7 +20,7 @@ export class RefreshToken implements RefreshTokenUseCase {
     }
 
     try {
-      const userId = this.jwtAdapter.verify(refreshToken);
+      const userId = this.jwtAdapter.verify(refreshToken, false);
       const foundToken = await this.findByTokenRepository.findByToken(
         refreshToken,
       );
