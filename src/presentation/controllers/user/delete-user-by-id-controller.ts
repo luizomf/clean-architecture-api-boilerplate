@@ -3,6 +3,7 @@ import { Controller } from '~/application/ports/controllers/controller';
 import { Presenter } from '~/application/ports/presenters/presenter';
 import { RequestModel } from '~/application/ports/requests/request-model';
 import { ResponseModel } from '~/application/ports/responses/response-model';
+import { genericSanitizerSingleton } from '~/common/adapters/sanitizers/generic-sanitizer-adapter';
 import { DeleteUserByIdUseCase } from '~/domain/use-cases/user/delete-user-by-id-use-case';
 
 export class DeleteUserByIdController implements Controller<void | never> {
@@ -18,7 +19,11 @@ export class DeleteUserByIdController implements Controller<void | never> {
       throw new RequestValidationError('Missing params');
     }
 
-    await this.deleteUserByIdUseCase.deleteById(requestModel.params.id);
+    const sanitizedId = genericSanitizerSingleton.sanitize(
+      requestModel.params.id,
+    );
+
+    await this.deleteUserByIdUseCase.deleteById(sanitizedId);
     return await this.presenter.response();
   }
 }

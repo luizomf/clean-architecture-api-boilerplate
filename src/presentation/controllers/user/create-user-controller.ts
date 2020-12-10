@@ -5,6 +5,7 @@ import { UserRequestWithPasswordString } from '~/domain/models/user/user-request
 import { CreateUserUseCase } from '~/domain/use-cases/user/create-user-use-case';
 import { User } from '~/domain/models/user/user';
 import { RequestValidationError } from '~/application/errors/request-validation-error';
+import { genericSanitizerSingleton } from '~/common/adapters/sanitizers/generic-sanitizer-adapter';
 
 export class CreateUserController implements Controller<User | never> {
   constructor(
@@ -19,9 +20,27 @@ export class CreateUserController implements Controller<User | never> {
       throw new RequestValidationError('Missing body');
     }
 
-    const user = await this.createUser.create(
-      requestModel.body as UserRequestWithPasswordString,
-    );
+    const {
+      email,
+      first_name,
+      last_name,
+      password,
+      confirmPassword,
+    } = requestModel.body;
+
+    const sanitizedBody: UserRequestWithPasswordString = {
+      email: this.sanitize(email),
+      first_name: this.sanitize(first_name),
+      last_name: this.sanitize(last_name),
+      password: this.sanitize(password),
+      confirmPassword: this.sanitize(confirmPassword),
+    };
+
+    const user = await this.createUser.create(sanitizedBody);
     return await this.presenter.response(user);
+  }
+
+  private sanitize(value: string): string {
+    return genericSanitizerSingleton.sanitize(value);
   }
 }

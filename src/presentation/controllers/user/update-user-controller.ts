@@ -9,6 +9,8 @@ import {
   UpdateUserRequestModelParams,
 } from '~/domain/models/user/user-request-partial-fields';
 import { RequestValidationError } from '~/application/errors/request-validation-error';
+import { genericSanitizerSingleton } from '~/common/adapters/sanitizers/generic-sanitizer-adapter';
+import { removeObjectEmptyKeys } from '~/common/helpers/objects/remove-object-empty-keys';
 
 export class UpdateUserController implements Controller<void | never> {
   constructor(
@@ -34,7 +36,27 @@ export class UpdateUserController implements Controller<void | never> {
     const { id } = requestModel.params;
     const { body } = requestModel;
 
-    await this.updateUserUseCase.update(id, body);
+    const sanitizedBody = {
+      email: this.sanitize(body.email),
+      first_name: this.sanitize(body.first_name),
+      last_name: this.sanitize(body.last_name),
+      password: this.sanitize(body.password),
+      confirmPassword: this.sanitize(body.confirmPassword),
+    };
+
+    await this.updateUserUseCase.update(
+      id,
+      removeObjectEmptyKeys(sanitizedBody),
+    );
     return await this.presenter.response();
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private sanitize(value: any): string | undefined {
+    if (!value) {
+      return;
+    }
+
+    return genericSanitizerSingleton.sanitize(value);
   }
 }

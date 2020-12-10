@@ -8,6 +8,7 @@ import { SignInUseCase } from '~/domain/use-cases/sign-in/sign-in-use-case';
 import { SignInRequestModel } from '~/domain/models/sign-in/sign-in-request-model';
 import { SignInResponseModel } from '~/domain/models/sign-in/sign-in-response-model';
 import { isString } from '~/common/helpers/strings/is_string';
+import { genericSanitizerSingleton } from '~/common/adapters/sanitizers/generic-sanitizer-adapter';
 
 export class SignInController
   implements Controller<SignInResponseModel | never> {
@@ -31,7 +32,12 @@ export class SignInController
       throw new UnauthorizedError('Missing e-mail or password');
     }
 
-    const jwtToken = await this.signInUseCase.verify(signInModel.body);
+    const sanitizedValues = {
+      email: genericSanitizerSingleton.sanitize(email),
+      password: genericSanitizerSingleton.sanitize(password),
+    };
+
+    const jwtToken = await this.signInUseCase.verify(sanitizedValues);
 
     return await this.presenter.response(jwtToken);
   }
