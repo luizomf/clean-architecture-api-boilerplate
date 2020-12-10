@@ -11,6 +11,13 @@ import {
 import { RequestValidationError } from '~/application/errors/request-validation-error';
 import { genericStringSanitizerSingleton } from '~/common/adapters/sanitizers/generic/generic-string-sanitizer-adapter';
 import { removeObjectEmptyKeys } from '~/common/helpers/objects/remove-object-empty-keys';
+import { objectKeyExists } from '~/common/helpers/objects/object-key-exists';
+
+type RequestType = RequestModel<
+  UserRequestPartialFields,
+  UpdateUserRequestModelParams
+>;
+type ResponseType = Promise<ResponseModel<void | never>>;
 
 export class UpdateUserController implements Controller<void | never> {
   constructor(
@@ -18,17 +25,11 @@ export class UpdateUserController implements Controller<void | never> {
     private readonly presenter: Presenter<void>,
   ) {}
 
-  async handleRequest(
-    requestModel: RequestModel<
-      UserRequestPartialFields,
-      UpdateUserRequestModelParams
-    >,
-  ): Promise<ResponseModel<void | never>> {
+  async handleRequest(requestModel: RequestType): ResponseType {
     if (
-      !requestModel ||
-      !requestModel.body ||
-      !requestModel.params ||
-      !requestModel.params.id
+      !objectKeyExists(requestModel, 'body') ||
+      !objectKeyExists(requestModel, 'params') ||
+      !objectKeyExists(requestModel.params, 'id')
     ) {
       throw new RequestValidationError('Invalid request');
     }

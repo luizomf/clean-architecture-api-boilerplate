@@ -6,6 +6,9 @@ import { CreateUserUseCase } from '~/domain/use-cases/user/create-user-use-case'
 import { User } from '~/domain/models/user/user';
 import { RequestValidationError } from '~/application/errors/request-validation-error';
 import { genericStringSanitizerSingleton } from '~/common/adapters/sanitizers/generic/generic-string-sanitizer-adapter';
+import { objectKeyExists } from '~/common/helpers/objects/object-key-exists';
+
+type RequestOptionalBody = RequestModel<UserRequestWithPasswordString>;
 
 export class CreateUserController implements Controller<User | never> {
   constructor(
@@ -13,10 +16,8 @@ export class CreateUserController implements Controller<User | never> {
     private readonly presenter: Presenter<User>,
   ) {}
 
-  async handleRequest(
-    requestModel: RequestModel<UserRequestWithPasswordString>,
-  ) {
-    if (!requestModel || !requestModel.body) {
+  async handleRequest(requestModel: RequestOptionalBody) {
+    if (!objectKeyExists(requestModel, 'body')) {
       throw new RequestValidationError('Missing body');
     }
 
