@@ -7,6 +7,7 @@ import { ResponseModel } from '~/application/ports/responses/response-model';
 import { SignInUseCase } from '~/domain/use-cases/sign-in/sign-in-use-case';
 import { SignInRequestModel } from '~/domain/models/sign-in/sign-in-request-model';
 import { SignInResponseModel } from '~/domain/models/sign-in/sign-in-response-model';
+import { isString } from '~/common/helpers/strings/is_string';
 
 export class SignInController
   implements Controller<SignInResponseModel | never> {
@@ -22,7 +23,11 @@ export class SignInController
       throw new RequestValidationError('Invalid request');
     }
 
-    if (!signInModel.body.email || !signInModel.body.password) {
+    const { email, password } = signInModel.body;
+    const emailOrPasswordIsEmpty = !email || !password;
+    const valuesAreNotStrings = !isString(email) || !isString(password);
+
+    if (emailOrPasswordIsEmpty || valuesAreNotStrings) {
       throw new UnauthorizedError('Missing e-mail or password');
     }
 

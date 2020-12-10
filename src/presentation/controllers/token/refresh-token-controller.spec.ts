@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Presenter } from '~/application/ports/presenters/presenter';
 import { SignInResponseModel } from '~/domain/models/sign-in/sign-in-response-model';
 import { RefreshTokenUseCase } from '~/domain/use-cases/token/refresh-token-use-case';
@@ -73,6 +74,19 @@ describe('RefreshTokenController', () => {
     }
 
     expect(error.name).toBe('Error');
+  });
+
+  it('should throw if token is not a string', async () => {
+    const { sut } = sutFactory();
+    let error;
+
+    try {
+      await sut.handleRequest({ body: { token: 123 } } as any);
+    } catch (e) {
+      error = e;
+    }
+
+    expect(error.name).toBe('RequestValidationError');
   });
 
   it('should call presenter with correct values', async () => {

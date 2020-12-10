@@ -3,6 +3,7 @@ import { Controller } from '~/application/ports/controllers/controller';
 import { Presenter } from '~/application/ports/presenters/presenter';
 import { RequestModel } from '~/application/ports/requests/request-model';
 import { ResponseModel } from '~/application/ports/responses/response-model';
+import { isString } from '~/common/helpers/strings/is_string';
 import { SignInResponseModel } from '~/domain/models/sign-in/sign-in-response-model';
 import { RefreshTokenUseCase } from '~/domain/use-cases/token/refresh-token-use-case';
 
@@ -22,6 +23,11 @@ export class RefreshTokenController implements ControllerType {
     }
 
     const { token } = requestModel.body;
+
+    if (!isString(token)) {
+      throw new RequestValidationError('Invalid token');
+    }
+
     const response = await this.refreshTokenUseCase.refresh(token);
 
     return await this.presenter.response(response);
