@@ -3,7 +3,7 @@ import sanitizeHtml from 'sanitize-html';
 import { SanitizerError } from '~/application/errors/sanitizer-error';
 import { Sanitizer } from '~/application/ports/sanitizers/sanitizer';
 
-export class GenericSanitizerAdapter implements Sanitizer<any, string> {
+export class GenericStringSanitizerAdapter implements Sanitizer<any, string> {
   sanitize(value: any) {
     if (typeof value === 'undefined') {
       return '';
@@ -17,4 +17,4 @@ export class GenericSanitizerAdapter implements Sanitizer<any, string> {
   }
 }
 
-export const genericSanitizerSingleton = new GenericSanitizerAdapter();
+export const genericStringSanitizerSingleton = new GenericStringSanitizerAdapter();

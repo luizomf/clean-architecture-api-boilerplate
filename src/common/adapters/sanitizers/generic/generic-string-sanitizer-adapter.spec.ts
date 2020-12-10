@@ -1,14 +1,14 @@
-import { GenericSanitizerAdapter } from './generic-sanitizer-adapter';
+import { GenericStringSanitizerAdapter } from './generic-string-sanitizer-adapter';
 
 const sutFactory = () => {
-  const sut = new GenericSanitizerAdapter();
+  const sut = new GenericStringSanitizerAdapter();
 
   return {
     sut,
   };
 };
 
-describe('GenericSanitizerAdapter', () => {
+describe('GenericStringSanitizerAdapter', () => {
   it('should remove unwanted tags', async () => {
     const { sut } = sutFactory();
     expect(sut.sanitize('<script></script>')).toBe('');

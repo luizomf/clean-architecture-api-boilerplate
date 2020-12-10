@@ -5,7 +5,7 @@ import { UserRequestWithPasswordString } from '~/domain/models/user/user-request
 import { CreateUserUseCase } from '~/domain/use-cases/user/create-user-use-case';
 import { User } from '~/domain/models/user/user';
 import { RequestValidationError } from '~/application/errors/request-validation-error';
-import { genericSanitizerSingleton } from '~/common/adapters/sanitizers/generic-sanitizer-adapter';
+import { genericStringSanitizerSingleton } from '~/common/adapters/sanitizers/generic/generic-string-sanitizer-adapter';
 
 export class CreateUserController implements Controller<User | never> {
   constructor(
@@ -41,6 +41,6 @@ export class CreateUserController implements Controller<User | never> {
   }
 
   private sanitize(value: string): string {
-    return genericSanitizerSingleton.sanitize(value);
+    return genericStringSanitizerSingleton.sanitize(value);
   }
 }

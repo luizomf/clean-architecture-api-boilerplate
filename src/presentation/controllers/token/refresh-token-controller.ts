@@ -3,7 +3,7 @@ import { Controller } from '~/application/ports/controllers/controller';
 import { Presenter } from '~/application/ports/presenters/presenter';
 import { RequestModel } from '~/application/ports/requests/request-model';
 import { ResponseModel } from '~/application/ports/responses/response-model';
-import { genericSanitizerSingleton } from '~/common/adapters/sanitizers/generic-sanitizer-adapter';
+import { genericStringSanitizerSingleton } from '~/common/adapters/sanitizers/generic/generic-string-sanitizer-adapter';
 import { isString } from '~/common/helpers/strings/is_string';
 import { SignInResponseModel } from '~/domain/models/sign-in/sign-in-response-model';
 import { RefreshTokenUseCase } from '~/domain/use-cases/token/refresh-token-use-case';
@@ -29,7 +29,7 @@ export class RefreshTokenController implements ControllerType {
       throw new RequestValidationError('Invalid token');
     }
 
-    const sanitizedToken = genericSanitizerSingleton.sanitize(token);
+    const sanitizedToken = genericStringSanitizerSingleton.sanitize(token);
     const response = await this.refreshTokenUseCase.refresh(sanitizedToken);
 
     return await this.presenter.response(response);

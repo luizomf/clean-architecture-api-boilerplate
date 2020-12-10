@@ -9,7 +9,7 @@ import {
   UpdateUserRequestModelParams,
 } from '~/domain/models/user/user-request-partial-fields';
 import { RequestValidationError } from '~/application/errors/request-validation-error';
-import { genericSanitizerSingleton } from '~/common/adapters/sanitizers/generic-sanitizer-adapter';
+import { genericStringSanitizerSingleton } from '~/common/adapters/sanitizers/generic/generic-string-sanitizer-adapter';
 import { removeObjectEmptyKeys } from '~/common/helpers/objects/remove-object-empty-keys';
 
 export class UpdateUserController implements Controller<void | never> {
@@ -57,6 +57,6 @@ export class UpdateUserController implements Controller<void | never> {
       return;
     }
 
-    return genericSanitizerSingleton.sanitize(value);
+    return genericStringSanitizerSingleton.sanitize(value);
   }
 }
