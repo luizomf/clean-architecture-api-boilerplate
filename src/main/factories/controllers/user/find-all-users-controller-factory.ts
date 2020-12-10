@@ -3,7 +3,7 @@ import { FindAllUsersValidation } from '~/application/validation/user/leaf/find-
 import { User } from '~/domain/models/user/user';
 import { findAllUsersRepository } from '~/infrastructure/repositories/user/user-default-repository';
 import { FindAllUsersController } from '~/presentation/controllers/user/find-all-users-controller';
-import { GenericSuccessPresenter } from '~/presentation/presenters/responses/generic/generic-success-presenter';
+import { GenericSuccessResponse } from '~/presentation/responses/generic-success-response';
 
 export const findAllUsersControllerFactory = () => {
   const findAllUsersValidation = new FindAllUsersValidation();
@@ -11,7 +11,7 @@ export const findAllUsersControllerFactory = () => {
     findAllUsersRepository,
     findAllUsersValidation,
   );
-  const genericSuccessPresenter = new GenericSuccessPresenter<User[]>();
+  const genericSuccessPresenter = new GenericSuccessResponse<User[]>();
   const findAllUsersController = new FindAllUsersController(
     findAllUsersUseCase,
     genericSuccessPresenter,

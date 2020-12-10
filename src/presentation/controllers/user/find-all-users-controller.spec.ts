@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Presenter } from '~/application/ports/presenters/presenter';
+import { ResponseHandler } from '~/application/ports/responses/response-handler';
 import { User } from '~/domain/models/user/user';
 import { FindAllUsersUseCase } from '~/domain/use-cases/user/find-all-users-use-case';
 import { FindAllUsersController } from './find-all-users-controller';
@@ -67,7 +67,7 @@ const useCaseMockFactory = () => {
 };
 
 const presenterMockFactory = () => {
-  class PresenterMock implements Presenter<User[]> {
+  class PresenterMock implements ResponseHandler<User[]> {
     async response(_body: any) {
       return {
         statusCode: 200,

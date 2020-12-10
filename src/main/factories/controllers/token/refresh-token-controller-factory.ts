@@ -6,7 +6,7 @@ import {
   findByTokenRepository,
 } from '~/infrastructure/repositories/token/token-default-repository';
 import { RefreshTokenController } from '~/presentation/controllers/token/refresh-token-controller';
-import { GenericCreatedPresenter } from '~/presentation/presenters/responses/generic/generic-created-presenter';
+import { GenericCreatedResponse } from '~/presentation/responses/generic-created-response';
 
 export const refreshUserControllerFactory = () => {
   const jwtAdapter = jwtTokenAdapterSingleton;
@@ -15,7 +15,7 @@ export const refreshUserControllerFactory = () => {
     findByTokenRepository,
     jwtAdapter,
   );
-  const createdPresenter = new GenericCreatedPresenter<SignInResponseModel>();
+  const createdPresenter = new GenericCreatedResponse<SignInResponseModel>();
   const refreshTokenController = new RefreshTokenController(
     refreshTokenUseCase,
     createdPresenter,

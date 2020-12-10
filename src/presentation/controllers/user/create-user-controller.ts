@@ -1,5 +1,5 @@
 import { Controller } from '~/application/ports/controllers/controller';
-import { Presenter } from '~/application/ports/presenters/presenter';
+import { ResponseHandler } from '~/application/ports/responses/response-handler';
 import { RequestModel } from '~/application/ports/requests/request-model';
 import { UserRequestWithPasswordString } from '~/domain/models/user/user-request-required-fields';
 import { CreateUserUseCase } from '~/domain/use-cases/user/create-user-use-case';
@@ -13,7 +13,7 @@ type RequestOptionalBody = RequestModel<UserRequestWithPasswordString>;
 export class CreateUserController implements Controller<User | never> {
   constructor(
     private readonly createUser: CreateUserUseCase,
-    private readonly presenter: Presenter<User>,
+    private readonly presenter: ResponseHandler<User>,
   ) {}
 
   async handleRequest(requestModel: RequestOptionalBody) {

@@ -1,6 +1,6 @@
 import { RequestValidationError } from '~/application/errors/request-validation-error';
 import { Controller } from '~/application/ports/controllers/controller';
-import { Presenter } from '~/application/ports/presenters/presenter';
+import { ResponseHandler } from '~/application/ports/responses/response-handler';
 import { RequestModel } from '~/application/ports/requests/request-model';
 import { ResponseModel } from '~/application/ports/responses/response-model';
 import { genericStringSanitizerSingleton } from '~/common/adapters/sanitizers/generic/generic-string-sanitizer-adapter';
@@ -9,7 +9,7 @@ import { DeleteUserByIdUseCase } from '~/domain/use-cases/user/delete-user-by-id
 export class DeleteUserByIdController implements Controller<void | never> {
   constructor(
     private readonly deleteUserByIdUseCase: DeleteUserByIdUseCase,
-    private readonly presenter: Presenter<void>,
+    private readonly presenter: ResponseHandler<void>,
   ) {}
 
   async handleRequest(

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { Controller } from '~/application/ports/controllers/controller';
-import { Presenter } from '~/application/ports/presenters/presenter';
+import { ResponseHandler } from '~/application/ports/responses/response-handler';
 import { ResponseModel } from '~/application/ports/responses/response-model';
 import { UpdateUserUseCase } from '~/domain/use-cases/user/update-user-use-case';
 import { RequestModel } from '~/application/ports/requests/request-model';
@@ -22,7 +22,7 @@ type ResponseType = Promise<ResponseModel<void | never>>;
 export class UpdateUserController implements Controller<void | never> {
   constructor(
     private readonly updateUserUseCase: UpdateUserUseCase,
-    private readonly presenter: Presenter<void>,
+    private readonly presenter: ResponseHandler<void>,
   ) {}
 
   async handleRequest(requestModel: RequestType): ResponseType {

@@ -1,5 +1,5 @@
 import { Controller } from '~/application/ports/controllers/controller';
-import { Presenter } from '~/application/ports/presenters/presenter';
+import { ResponseHandler } from '~/application/ports/responses/response-handler';
 import { User } from '~/domain/models/user/user';
 import { RequestModel } from '~/application/ports/requests/request-model';
 import { FindAllUsersUseCase } from '~/domain/use-cases/user/find-all-users-use-case';
@@ -17,7 +17,7 @@ type FindAllUsersRequestModel = RequestModel<
 export class FindAllUsersController implements Controller<User[] | never> {
   constructor(
     private readonly findAllUsersUseCase: FindAllUsersUseCase,
-    private readonly findAllUsersPresenter: Presenter<User[]>,
+    private readonly findAllUsersPresenter: ResponseHandler<User[]>,
   ) {}
 
   async handleRequest(requestModel?: FindAllUsersRequestModel) {

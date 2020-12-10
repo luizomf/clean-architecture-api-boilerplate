@@ -1,8 +1,8 @@
-import { GenericCreatedPresenter } from './generic-created-presenter';
+import { GenericCreatedResponse } from './generic-created-response';
 
 describe('Created Presenter', () => {
   it('should have properties statusCode 201 and body', () => {
-    const sut = new GenericCreatedPresenter();
+    const sut = new GenericCreatedResponse();
 
     const bodyValue = { anyKey: 'anyValue' };
     const expectedReturn = {

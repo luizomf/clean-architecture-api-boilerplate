@@ -6,7 +6,7 @@ import { SignInResponseModel } from '~/domain/models/sign-in/sign-in-response-mo
 import { createTokenRepository } from '~/infrastructure/repositories/token/token-default-repository';
 import { findUserByEmailRepository } from '~/infrastructure/repositories/user/user-default-repository';
 import { SignInController } from '~/presentation/controllers/sign-in/sign-in-controller';
-import { GenericSuccessPresenter } from '~/presentation/presenters/responses/generic/generic-success-presenter';
+import { GenericSuccessResponse } from '~/presentation/responses/generic-success-response';
 
 export const signInControllerFactory = () => {
   const jwtToken = jwtTokenAdapterSingleton;
@@ -22,7 +22,7 @@ export const signInControllerFactory = () => {
     signInValidation,
   );
 
-  const presenter = new GenericSuccessPresenter<SignInResponseModel>();
+  const presenter = new GenericSuccessResponse<SignInResponseModel>();
   const signInController = new SignInController(signInUseCase, presenter);
 
   return {

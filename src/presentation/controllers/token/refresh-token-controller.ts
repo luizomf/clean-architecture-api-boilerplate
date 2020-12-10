@@ -1,6 +1,6 @@
 import { RequestValidationError } from '~/application/errors/request-validation-error';
 import { Controller } from '~/application/ports/controllers/controller';
-import { Presenter } from '~/application/ports/presenters/presenter';
+import { ResponseHandler } from '~/application/ports/responses/response-handler';
 import { RequestModel } from '~/application/ports/requests/request-model';
 import { ResponseModel } from '~/application/ports/responses/response-model';
 import { genericStringSanitizerSingleton } from '~/common/adapters/sanitizers/generic/generic-string-sanitizer-adapter';
@@ -15,7 +15,7 @@ type RequestType = RequestModel<{ token: string }>;
 export class RefreshTokenController implements ControllerType {
   constructor(
     private readonly refreshTokenUseCase: RefreshTokenUseCase,
-    private readonly presenter: Presenter<SignInResponseModel>,
+    private readonly presenter: ResponseHandler<SignInResponseModel>,
   ) {}
 
   async handleRequest(requestModel: RequestType): ResponseType {

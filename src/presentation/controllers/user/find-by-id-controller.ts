@@ -1,6 +1,6 @@
 import { User } from '~/domain/models/user/user';
 import { RequestModel } from '~/application/ports/requests/request-model';
-import { Presenter } from '~/application/ports/presenters/presenter';
+import { ResponseHandler } from '~/application/ports/responses/response-handler';
 import { Controller } from '~/application/ports/controllers/controller';
 import { FindUserByIdUseCase } from '~/domain/use-cases/user/find-user-by-id-use-case';
 import { RequestValidationError } from '~/application/errors/request-validation-error';
@@ -8,7 +8,7 @@ import { RequestValidationError } from '~/application/errors/request-validation-
 export class FindUserByIdController implements Controller<User | never> {
   constructor(
     private readonly findUserByIdUseCase: FindUserByIdUseCase,
-    private readonly presenter: Presenter<User>,
+    private readonly presenter: ResponseHandler<User>,
   ) {}
 
   async handleRequest(requestModel: RequestModel<void, { id: string }>) {

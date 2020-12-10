@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Presenter } from '~/application/ports/presenters/presenter';
+import { ResponseHandler } from '~/application/ports/responses/response-handler';
 import { SignInResponseModel } from '~/domain/models/sign-in/sign-in-response-model';
 import { RefreshTokenUseCase } from '~/domain/use-cases/token/refresh-token-use-case';
 import { RefreshTokenController } from './refresh-token-controller';
@@ -33,7 +33,7 @@ const refreshTokenUseCaseMockFactory = () => {
 };
 
 const presenterMockFactory = () => {
-  const presenterMock: jest.Mocked<Presenter<SignInResponseModel>> = {
+  const presenterMock: jest.Mocked<ResponseHandler<SignInResponseModel>> = {
     response: jest.fn(),
   };
 

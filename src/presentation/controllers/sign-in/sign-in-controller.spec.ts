@@ -1,23 +1,21 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { SignIn } from '~/application/use-cases/sign-in/sign-in';
 import { SignInResponseModel } from '~/domain/models/sign-in/sign-in-response-model';
-import { GenericSuccessPresenter } from '~/presentation/presenters/responses/generic/generic-success-presenter';
+import { GenericSuccessResponse } from '~/presentation/responses/generic-success-response';
 import { SignInController } from './sign-in-controller';
 
 jest.mock('~/application/use-cases/sign-in/sign-in');
-jest.mock(
-  '~/presentation/presenters/responses/generic/generic-success-presenter',
-);
+jest.mock('~/presentation/responses/generic-success-response');
 
 const SignInMock = SignIn as jest.Mock<SignIn>;
-const PresenterMock = GenericSuccessPresenter as jest.Mock<
-  GenericSuccessPresenter<SignInResponseModel>
+const PresenterMock = GenericSuccessResponse as jest.Mock<
+  GenericSuccessResponse<SignInResponseModel>
 >;
 
 const sutFactory = () => {
   const signInMock = new SignInMock() as jest.Mocked<SignIn>;
   const presenter = new PresenterMock() as jest.Mocked<
-    GenericSuccessPresenter<SignInResponseModel>
+    GenericSuccessResponse<SignInResponseModel>
   >;
   const sut = new SignInController(signInMock, presenter);
 

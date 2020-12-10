@@ -4,7 +4,7 @@ import {
   createUserRepository,
   findUserByEmailRepository,
 } from '~/infrastructure/repositories/user/user-default-repository';
-import { GenericCreatedPresenter } from '~/presentation/presenters/responses/generic/generic-created-presenter';
+import { GenericCreatedResponse } from '~/presentation/responses/generic-created-response';
 import { User } from '~/domain/models/user/user';
 import { BCryptAdapter } from '~/common/adapters/security/bcrypt-adapter';
 import { CreateUserValidation } from '~/application/validation/user/composite/create-user-validation';
@@ -18,7 +18,7 @@ export const createUserControllerFactory = () => {
     bcryptAdapter,
     createUserValidation,
   );
-  const createdUserPresenter = new GenericCreatedPresenter<User>();
+  const createdUserPresenter = new GenericCreatedResponse<User>();
   const createUserController = new CreateUserController(
     createUserUseCase,
     createdUserPresenter,

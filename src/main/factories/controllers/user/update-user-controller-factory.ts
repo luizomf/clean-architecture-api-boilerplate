@@ -5,13 +5,13 @@ import {
   findUserByIdRepository,
   updateUserRepository,
 } from '~/infrastructure/repositories/user/user-default-repository';
-import { GenericUpdatedPresenter } from '~/presentation/presenters/responses/generic/generic-updated-presenter';
+import { GenericUpdatedResponse } from '~/presentation/responses/generic-updated-response';
 import { BCryptAdapter } from '~/common/adapters/security/bcrypt-adapter';
 import { UpdateUserValidation } from '~/application/validation/user/composite/update-user-validation';
 
 export const updateUserControllerFactory = () => {
   const passwordHashing = new BCryptAdapter();
-  const updateUserPresenter = new GenericUpdatedPresenter();
+  const updateUserPresenter = new GenericUpdatedResponse();
   const updateUserValidation = new UpdateUserValidation();
   const updateUserUseCase = new UpdateUser(
     updateUserRepository,

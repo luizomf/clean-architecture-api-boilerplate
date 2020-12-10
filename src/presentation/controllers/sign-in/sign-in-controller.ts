@@ -1,7 +1,7 @@
 import { RequestValidationError } from '~/application/errors/request-validation-error';
 import { UnauthorizedError } from '~/application/errors/unauthorized-error';
 import { Controller } from '~/application/ports/controllers/controller';
-import { Presenter } from '~/application/ports/presenters/presenter';
+import { ResponseHandler } from '~/application/ports/responses/response-handler';
 import { RequestModel } from '~/application/ports/requests/request-model';
 import { ResponseModel } from '~/application/ports/responses/response-model';
 import { SignInUseCase } from '~/domain/use-cases/sign-in/sign-in-use-case';
@@ -14,7 +14,7 @@ export class SignInController
   implements Controller<SignInResponseModel | never> {
   constructor(
     private readonly signInUseCase: SignInUseCase,
-    private readonly presenter: Presenter<SignInResponseModel>,
+    private readonly presenter: ResponseHandler<SignInResponseModel>,
   ) {}
 
   async handleRequest(
