@@ -2,7 +2,6 @@ import { UnauthorizedError } from '~/application/errors/unauthorized-error';
 import { Middleware } from '~/application/ports/middlewares/middleware';
 import { FindOneUserWithRoles } from '~/application/ports/repositories/user/find-user-with-roles-repository';
 import { MiddlewareRequestModel } from '~/application/ports/requests/middleware-request-model';
-import { genericStringSanitizerSingleton } from '~/common/adapters/sanitizers/generic/generic-string-sanitizer-adapter';
 
 export class LoggedUserIsTargetUserMiddleware implements Middleware {
   constructor(private readonly findOneUserWithRoles: FindOneUserWithRoles) {}
@@ -15,7 +14,7 @@ export class LoggedUserIsTargetUserMiddleware implements Middleware {
     const loggedUserId = `${request.headers.userId}`;
 
     const foundUser = await this.findOneUserWithRoles.findOneWithRoles(
-      genericStringSanitizerSingleton.sanitize(loggedUserId),
+      loggedUserId,
     );
 
     if (foundUser && foundUser.roles) {
