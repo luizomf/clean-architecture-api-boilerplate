@@ -14,9 +14,9 @@
     "usecase"
   ],
   "window.zoomLevel": 0,
-  "editor.fontSize": 18,
-  "terminal.integrated.fontSize": 18,
+  "editor.fontSize": 23,
+  "terminal.integrated.fontSize": 23,
   "editor.glyphMargin": false,
   "python.formatting.autopep8Args": ["--indent-size=2"],
-  "python.linting.flake8Args": ["--ignore=E111"]
+  "python.linting.flake8Args": ["--ignore=E111,E114"]
 }

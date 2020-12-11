@@ -131,25 +131,25 @@ describe('User Routes', () => {
       .then((res) => expect(res.body.error).toBe('EmailValidationError'));
   });
 
-  // it('should return 404 if user not found', async () => {
-  //   await request(app).post('/users').send({
-  //     first_name: 'first_name',
-  //     last_name: 'last_name',
-  //     email: 'temp_user1@email.com',
-  //     password: 'temp_pass1',
-  //     confirmPassword: 'temp_pass1',
-  //   });
-  //   const tokens = await request(app).post('/sign-in').send({
-  //     email: 'temp_user1@email.com',
-  //     password: 'temp_pass1',
-  //   });
-  //   const { token } = tokens.body;
-  //   const response = await request(app)
-  //     .get('/users/abc')
-  //     .set('authorization', `Bearer ${token}`);
-  //   expect(response.status).toBe(404);
-  //   expect(response.body.error).toBe('NotFoundError');
-  // });
+  it('should return 401 if accessing a user different from logged user', async () => {
+    await request(app).post('/users').send({
+      first_name: 'first_name',
+      last_name: 'last_name',
+      email: 'temp_user1@email.com',
+      password: 'temp_pass1',
+      confirmPassword: 'temp_pass1',
+    });
+    const tokens = await request(app).post('/sign-in').send({
+      email: 'temp_user1@email.com',
+      password: 'temp_pass1',
+    });
+    const { token } = tokens.body;
+    const response = await request(app)
+      .get('/users/abc')
+      .set('authorization', `Bearer ${token}`);
+    expect(response.status).toBe(401);
+    expect(response.body.error).toBe('UnauthorizedError');
+  });
 
   it('should return 401 if accessing private route without authorization token', async () => {
     const response = await request(app).get('/users/abc');
@@ -165,7 +165,7 @@ describe('User Routes', () => {
     expect(response.body.error).toBe('UnauthorizedError');
   });
 
-  it('should delete a user if exists', async () => {
+  it('should delete a user if exists and is the same as logged user', async () => {
     await request(app)
       .post('/users')
       .send({
@@ -198,29 +198,7 @@ describe('User Routes', () => {
       });
   });
 
-  // it('should throw if deleting a user that does not exist', async () => {
-  //   await request(app).post('/users').send({
-  //     first_name: 'first_name',
-  //     last_name: 'last_name',
-  //     email: 'temp_user2@email.com',
-  //     password: 'temp_pass2',
-  //     confirmPassword: 'temp_pass2',
-  //   });
-  //   const tokens = await request(app).post('/sign-in').send({
-  //     email: 'temp_user2@email.com',
-  //     password: 'temp_pass2',
-  //   });
-
-  //   await request(app)
-  //     .delete('/users/abc')
-  //     .set('authorization', 'Bearer ' + tokens.body.token)
-  //     .expect(404)
-  //     .then((response) => {
-  //       expect(response.body.error).toBe('NotFoundError');
-  //     });
-  // });
-
-  it('should update a user if exists', async () => {
+  it('should update a user if exists and is the same as logged user', async () => {
     const createResponse = await request(app).post('/users').send({
       first_name: 'first',
       last_name: 'last',
