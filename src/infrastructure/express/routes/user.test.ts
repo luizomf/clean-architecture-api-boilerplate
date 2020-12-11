@@ -117,19 +117,19 @@ describe('User Routes', () => {
       .then((res) => expect(res.body.error).toBe('RequestValidationError'));
   });
 
-  it('should return 400 (EmailValidationError) if email is invalid', async () => {
-    await request(app)
-      .post('/users')
-      .send({
-        first_name: 'first_name1',
-        last_name: 'last_name1',
-        email: 'email1email.com',
-        password: 'password1',
-        confirmPassword: 'password1',
-      })
-      .expect(400)
-      .then((res) => expect(res.body.error).toBe('EmailValidationError'));
-  });
+  // it('should return 400 (EmailValidationError) if email is invalid', async () => {
+  //   await request(app)
+  //     .post('/users')
+  //     .send({
+  //       first_name: 'first_name1',
+  //       last_name: 'last_name1',
+  //       email: 'email1email.com',
+  //       password: 'password1',
+  //       confirmPassword: 'password1',
+  //     })
+  //     .expect(400)
+  //     .then((res) => expect(res.body.error).toBe('EmailValidationError'));
+  // });
 
   it('should return 401 if accessing a user different from logged user', async () => {
     await request(app).post('/users').send({
