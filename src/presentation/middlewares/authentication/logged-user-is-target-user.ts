@@ -17,7 +17,11 @@ export class LoggedUserIsTargetUserMiddleware implements Middleware {
       loggedUserId,
     );
 
-    if (foundUser && foundUser.roles) {
+    if (!foundUser) {
+      throw new UnauthorizedError('Not allowed');
+    }
+
+    if (foundUser.roles) {
       const isAdmin = foundUser.roles.find((role) => role.name === 'admin');
       if (isAdmin) return;
     }
@@ -26,7 +30,7 @@ export class LoggedUserIsTargetUserMiddleware implements Middleware {
       throw new UnauthorizedError('Not allowed');
     }
 
-    const targetUserId = `${request.params.id}`;
+    const targetUserId = `${foundUser.id}`;
 
     if (loggedUserId !== targetUserId) {
       throw new UnauthorizedError(

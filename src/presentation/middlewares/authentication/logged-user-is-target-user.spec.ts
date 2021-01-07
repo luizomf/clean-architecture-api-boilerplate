@@ -9,6 +9,9 @@ const UserSqlRepositoryMock = UserSqlRepository as jest.Mock<UserSqlRepository>;
 
 const sutFactory = () => {
   const findWithRolesRepositoryMock = new UserSqlRepositoryMock() as jest.Mocked<UserSqlRepository>;
+  findWithRolesRepositoryMock.findOneWithRoles.mockResolvedValue({
+    id: 'any_id',
+  } as any);
   const sut = new LoggedUserIsTargetUserMiddleware(findWithRolesRepositoryMock);
 
   return {
@@ -60,7 +63,6 @@ describe('LoggedUserIsTargetUserMiddleware', () => {
     }
 
     expect(error.name).toBe('UnauthorizedError');
-    expect(error.message).toBe('You are not allowed to manipulate target user');
   });
 
   it('should allow admin users', async () => {
@@ -100,8 +102,8 @@ describe('LoggedUserIsTargetUserMiddleware', () => {
   it('should allow if params.id is the same as logged user id', async () => {
     const { sut } = sutFactory();
     const noValue = await sut.handleRequest({
-      headers: { userId: 'equal' },
-      params: { id: 'equal' },
+      headers: { userId: 'any_id' },
+      params: { id: 'any_id' },
     });
     expect(noValue).toBeUndefined();
   });
